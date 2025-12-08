@@ -1,0 +1,3 @@
+
+
+\copy ( SELECT bm.dtr_name,list.* FROM reports.view_temp_def_mtr_list_nov24 list  left join warehouse.mis_bill_master AS bm ON list.consumer_no= bm.consumer_no WHERE  bm.bill_month = 'OCT-2025' AND bm.consumer_status = 'ACTIVE' AND bm.deleted = false AND bm.tariff_category <> 'LV5'and list.tariff_category='LV1' and list.premise_type='RURAL'and list.remarks='Meter Replaced' ) TO 'D:\pg_export\meterreplaced_withdtt18112025.csv'  WITH (FORMAT CSV, HEADER TRUE, ENCODING 'UTF8');

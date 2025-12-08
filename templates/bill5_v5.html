@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WZ Electricity Bill</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    /* ---------- Global Reset & Base ---------- */
+    html, body{
+        height:100%;
+    }
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
+    }
+
+
+    /* A4 canvas container */
+    .container{
+        width:210mm;          /* Exact A4 width */
+        margin:0 auto;
+    }
+
+    /* Each logical page = one A4 sheet */
+    .page{
+        background:#fff;
+        border-radius:10px;
+        border:1px solid #9da8c3;           /* visible page border on screen */
+        box-shadow:0 6px 12px rgba(207, 80, 80, 0.18);
+        margin:0 auto 16px;
+        padding:6mm 6mm;                   /* inner page margin inside A4 */
+        position:relative;
+        overflow:hidden;
+        width:210mm;                        /* A4 width */
+        min-height:297mm;                   /* at least A4 height on screen */
+    }
+    .page::before{
+        content:"";
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:4px;
+        background:linear-gradient(90deg,#f39c12,#00a4ff);
+    }
+
+    /* ---------- Header ---------- */
+    .header-top{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:6px 0 4px;
+        border-bottom:3px solid #d0d7e3;
+        margin-bottom:6px;
+    }
+    .header-left{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:12px;
+        flex-wrap:nowrap;
+        width:100%;
+    }
+    .logo-circle{
+        width:52px;
+        height:52px;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 0 4px rgba(0,0,0,0.16);
+        background:#ffffff;
+    }
+    .logo-circle img{
+        width:44px;
+        height:44px;
+        object-fit:contain;
+    }
+    .company-info{
+        text-align:center;
+        line-height:1.3;
+    }
+    .company-title{
+        font-size:13px;
+        font-weight:700;
+        text-transform:uppercase;
+        letter-spacing:0.4px;
+        color:#7a4305;
+    }
+    .company-subtitle{
+        font-size:12px;
+        color:#444;
+        font-weight:bold;
+    }
+    .tagline{
+        font-size:11px;
+        margin-top:2px;
+        color:#555;
+    }
+    .tagline a{
+        color:#1f6fd4;
+        text-decoration:none;
+    }
+    .tagline a:hover{
+        text-decoration:underline;
+    }
+
+    /* ---------- Generic Helpers ---------- */
+    table{
+        width:100%;
+        border-collapse:collapse;
+    }
+    th,td{
+        border:1px solid #b7bbc2;
+        padding:5px 4px;
+        font-size:11px;
+        text-align:left;
+    }
+    th{
+        background:linear-gradient(180deg,#f2e3c7,#dfcdad);
+        color:#02183b;
+        font-weight:600;
+    }
+    td{
+        background:#fff;
+        color:#0a0a0a;
+    }
+    .no-border td,.no-border th{border:none;}
+    .section-title{
+        font-size:12px;
+        font-weight:700;
+        text-align:left;
+        margin:10px 0 6px;
+        border-radius:4px;
+        padding:3px 6px;
+        background:linear-gradient(90deg,#eef2ff,#ffffff);
+        border-left:3px solid #3f51b5;
+        color:#222a5a;
+        margin-bottom: -5px;
+    }
+    .small{
+        font-size:10px;
+    }
+    .right{text-align:right;}
+    .center{text-align:center;}
+
+    .kv-label{
+        background:#f6efe1;
+        font-weight:600;
+    }
+    .kv-value{
+        background:#ffffff;
+    }
+
+    .page-header {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:10px;
+        gap:8px;
+        flex-wrap:wrap;
+    }
+    .page-header-bill-no {
+        font-size:12px;
+        font-weight:bolder;
+        text-transform:uppercase;
+    }
+    .page-header-month {
+        font-size:12px;
+        font-weight:600;
+    }
+
+    .footer-small{
+        margin-top:6px;
+        font-size:9px;
+        text-align:right;
+        color:#666;
+    }
+
+    .table-scroll{
+        width:100%;
+        overflow-x:auto;
+            margin-top: 1px;
+    }
+
+    /* ---------- Consumer & Connection Info Grids (4-column) ---------- */
+    .consumer-grid{
+        width:100%;
+        display:grid;
+        grid-template-columns: repeat(4, 1fr);   /* 4 columns on A4 / large */
+        gap:12px 18px;
+        font-size:12px;
+        margin-top:8px;
+    }
+    .ci2-label{
+        font-size:10px;
+        text-transform:uppercase;
+        color:#555;
+        letter-spacing:0.4px;
+    }
+    .ci2-value{
+        font-weight:600;
+        margin-top:2px;
+    }
+    .consumer-full-row{
+        grid-column:1 / -1; /* take whole row */
+    }
+
+    .connection-grid{
+        width:100%;
+        display:grid;
+        grid-template-columns: repeat(4, 1fr);   /* 4 columns on A4 / large */
+        gap:12px 18px;
+        font-size:12px;
+        margin-top:8px;
+    }
+    .ci-label{
+        font-size:10px;
+        text-transform:uppercase;
+        color:#555;
+        letter-spacing:0.4px;
+    }
+    .ci-value{
+        font-weight:600;
+        margin-top:2px;
+    }
+
+    /* ---------- BILL SUMMARY (4-column layout) ---------- */
+    .bill-summary-card{
+        width:100%;
+        background:linear-gradient(180deg,#f7f9ff,#ffffff);
+        border:1px solid #d1d6e6;
+        border-radius:8px;
+        padding:9px 12px 10px;
+        margin-top:6px;
+        font-size:12px;
+    }
+    .bill-summary-top{
+        display:grid;
+        grid-template-columns:repeat(5, minmax(0,1fr));
+        gap:10px;
+    }
+    
+    .bs-label{
+        font-size:10px;
+        text-transform:uppercase;
+        letter-spacing:.4px;
+        color:#555;
+        font-weight:600;
+    }
+    .bs-value{
+        font-size:14px;
+        font-weight:700;
+        margin-top:2px;
+    }
+    .bill-summary-bottom{
+        margin-top:8px;
+    }
+    .bill-extra-grid{
+        display:grid;
+        grid-template-columns:repeat(4, minmax(0,1fr));
+        gap:8px 16px;
+        font-size:11px;
+    }
+    .be-label{
+        font-size:10px;
+        text-transform:uppercase;
+        color:#555;
+    }
+    .be-value{
+        font-weight:600;
+        margin-top:1px;
+    }
+
+    /* ---------- BILL SUMMARY BANNERS ROW (QR–AD–QR) ---------- */
+    .bill-summary-banners{
+        margin-top:10px;
+        display:flex;
+        justify-content:space-between;
+        align-items:stretch;
+        gap:10px;
+        width:100%;
+        border: none;
+    }
+
+    /* Left + right small cards (QRs) */
+    .bs-left,
+    .bs-right{
+        flex:0 0 100%;        /* about 1/4 of the row each */
+        max-width:100%;
+        background:#fafbff;
+        /* border:0.5px solid #d3d9e6; */
+        border-radius:6px;
+        padding:4px;
+        text-align:center;
+    }
+
+    /* Middle big card (Advertisement) */
+    .bs-middle{
+        flex:0 0 100%;        /* center wider block */
+        max-width:100%;
+        background:#fafbff;
+        border:1px solid #d3d9e6;
+        border-radius:6px;
+        padding:8px;
+        text-align:center;
+    }
+
+    /* Make images auto fit inside */
+    .bs-left img,
+    .bs-right img,
+    .bs-middle img{
+        max-width:100%;
+        height:auto;
+    }
+
+    /* Amount text under left QR */
+    .bs-amount{
+        font-size:18px;
+        font-weight:700;
+        margin-top:6px;
+    }
+
+    /* ---------- DETAILED BILL BREAKUP ---------- */
+    .bill-breakup-layout{
+        margin-top:8px;
+    }
+    .bill-details-card{
+        /* border:0.2px solid #d3d3d3; */
+        /* border-radius:6px; */
+        background:#ffffff;
+        overflow:hidden;
+        font-size:12px;
+    }
+    .bill-details-columns{
+        display:flex;
+        flex-wrap:wrap;
+    }
+    .bill-col{
+        flex:1 1 50%;
+        padding:4px 5px 5px;       
+    }
+    .bill-col + .bill-col{
+        border-left:1px solid #e2e2e2;
+    }
+    .bill-col-title{
+        font-weight:700;
+        margin-bottom:4px;
+        font-size:12px;
+    }
+    .bill-details-table{
+        width:100%;
+        /* border-collapse:collapse; */
+        margin-top: 0px;
+    }
+    .bill-details-table td{
+        /* padding:4px 6px; */
+        border-bottom:1px dotted #c7c7c7;
+        font-size:11px;
+    }
+    .bill-details-table td:first-child{
+        width:70%;       /* description */
+    }
+    .bill-details-table td:last-child{
+        width:30%;       /* amount */
+        text-align:right;
+    }
+    .bd-section td{
+        background:#f5f5f5;
+        font-weight:700;
+        border-bottom:1px solid #d3d3d3;
+    }
+    .bd-subtotal td{
+        background:#deedf5;
+        font-weight:700;
+    }
+    .bd-grand-total td{
+        background:#ffe9b2;
+        font-weight:800;
+        border-top:2px solid #f0b43a;
+    }
+
+    /* ---------- CURRENT READING GRID & TABLES ---------- */
+    .reading-grid {
+        width:100%;
+        display:grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap:12px 18px;
+        font-size:12px;
+        margin-top:6px;
+        border:1px solid #d3d9e6;
+        padding:8px 12px;
+        border-radius:6px;
+        background:#f9fbff;
+    }
+    .message-grid{
+        width:100%;
+        grid-template-columns: repeat(1, 1fr);
+        font-size:12px;
+        margin-top:6px;
+        border:1px solid #d3d9e6;
+        padding:4px 8px;
+        border-radius:6px;
+        background:#f9fbff;
+    }
+    .submessage-grid {
+       margin-bottom: 40px;
+        margin-top: 5px;
+    }
+    .reading-full{
+        grid-column:1 / -1;
+    }
+    .rd-label{
+        font-size:10px;
+        text-transform:uppercase;
+        letter-spacing:0.4px;
+        color:#555;
+    }
+    .rd-value{
+        font-weight:600;
+        margin-top:2px;
+    }
+
+    .table-block-title{
+        font-size:12px;
+        font-weight:700;
+        margin:8px 0 4px;
+        text-transform:uppercase;
+        color:#444;
+    }
+    .reading-table{
+        width:100%;
+        border-collapse:collapse;
+        font-size:12px;
+        min-width:600px;
+    }
+    .reading-table th,
+    .reading-table td{
+        padding:6px 8px;
+        border:1px solid #d3d9e6;
+    }
+    .reading-table thead th{
+        background:#f3f7ff;
+        font-weight:700;
+        text-align:right;
+    }
+    .reading-table thead th:first-child,
+    .reading-table tbody td:first-child{
+        text-align:left;
+    }
+    .reading-table tbody tr:nth-child(even){
+        background:#fafbff;
+    }
+    .reading-table .right{
+        text-align:right;
+    }
+    .reading-table .row-highlight{
+        background:#fff7e0;
+        font-weight:600;
+    }
+    .reading-table .row-total{
+        background:#e8f6ff;
+        font-weight:700;
+    }
+
+    /* ---------- Chart container ---------- */
+    .chart-area{
+        padding:6px;
+        background:linear-gradient(180deg,#f7f9fc 0%,#ffffff 40%);
+        border:1px solid #d0d7e3;
+        border-radius:6px;
+       height:220px;
+    }
+    .chart-area canvas{
+        width:100% !important;
+        height:100% !important;
+    }
+
+    .tod-md-area{
+        height:220px;
+    }
+
+    /* ---------- max-width:900px (combined) ---------- */
+    @media (max-width:900px){
+        .consumer-grid{
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .connection-grid{
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .bill-summary-top{
+            grid-template-columns:repeat(5, minmax(0,1fr));
+        }
+        .bill-extra-grid{
+            grid-template-columns:repeat(4, minmax(0,1fr));
+        }
+        .bill-summary-banners{
+            flex-direction:column;
+        }
+        .bs-middle{
+            flex:1 1 100%;
+        }
+        .bill-col{
+            flex:1 1 100%;
+            border-left:none;
+            border-top:0.5px solid #e2e2e2;
+            top: 0;
+        }
+        .bill-col:first-child{
+            border-top:none;
+            top: 0;
+        }
+        .reading-grid{
+            grid-template-columns: repeat(6, 1fr);
+        }
+        .bill-details-columns {
+        flex-direction: column;
+    }
+    }
+
+    /* ---------- max-width:600px (combined) ---------- */
+    @media (max-width:600px){
+        .consumer-grid{
+            grid-template-columns: 1fr;
+        }
+        .connection-grid{
+            grid-template-columns: 1fr;
+        }
+        .bill-summary-top{
+            grid-template-columns:1fr;
+        }
+        .bill-extra-grid{
+            grid-template-columns:1fr;
+        }
+        .reading-grid{
+            grid-template-columns: repeat(6, 1fr);
+        }
+        .message-grid{
+             grid-template-columns: repeat(1, 1fr);
+        }
+        th,td{
+            padding:4px 3px;
+            font-size:10px;
+        }
+        .reading-table{
+            min-width:480px;
+        }
+    }
+
+    /* ---------- Print behaviour & A4 page breaking ---------- */
+    @media print {
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+        body {
+            background:#fff !important;
+            padding:0 !important;
+            margin:0 !important;
+            font-size:10px;
+        }
+        .container{
+            width:210mm;
+            margin:0 auto;
+        }
+        .page {
+            box-shadow:none !important;
+            border-radius:0 !important;
+            border:1px solid #000 !important;
+            width:210mm;
+            /* min-height:calc(297mm - 16mm); */
+            min-height:297mm;  
+            page-break-after:always;
+            break-after:page;
+            overflow:visible !important;
+        }
+        .page:last-child {
+            page-break-after:auto !important;
+            break-after:auto !important;
+        }
+        .page table {
+            page-break-inside:avoid !important;
+            break-inside:avoid !important;
+        }
+        .table-scroll {
+            overflow:visible !important;
+            page-break-inside:avoid !important;
+            break-inside:avoid !important;
+        }
+        .page tr,
+        .page th,
+        .page td {
+            page-break-inside:avoid !important;
+            break-inside:avoid !important;
+        }
+        thead {
+            display:table-header-group;
+        }
+        tfoot {
+            display:table-footer-group;
+        }
+        .section-title {
+            page-break-after:avoid !important;
+            break-after:avoid !important;
+            margin-top:4px;
+        }
+        img {
+            max-width:100% !important;
+        }
+        .chart-area{
+            height:220px;
+        }
+
+        .header-top {
+            margin-top: -15px;
+            border-bottom: 2px solid #777;
+            padding: 2px 0;
+            margin-bottom: 8px;
+        }
+        .company-title { font-size: 12px; }
+        .company-subtitle { font-size: 11px; }
+        .tagline { font-size: 9.5px; }
+        .logo-circle {
+            width: 52px;
+            height: 52px;
+        }
+        .logo-circle img {
+            width: 42px;
+            height: 42px;
+        }
+          .bill-details-columns {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .bill-col {
+        page-break-inside: avoid;
+    }
+
+    .chart-area {
+        height:220px;
+    }
+    }
+</style>
+
+</head>
+<body>
+<div class="container">
+
+    <!-- PAGE 1 -->
+    <div class="page">
+        <!-- HEADER -->
+        <div class="header-top">
+            <div class="header-left">
+                <div class="logo-circle">
+                    <img src="wzlogo.png" alt="" style="width:60px; height:60px;">
+                </div>
+
+                <div class="company-info">
+                    <div class="company-title">
+                        <strong>Madhya Pradesh Paschim Kshetra Vidyut Vitran Company Limited.</strong>
+                    </div>
+                    <div class="company-subtitle">
+                        G.P.H. Compound, Pologround, Indore (M.P.)
+                    </div>
+                    <div class="company-subtitle">(Wholly owned by Govt. of M.P.)</div>
+                    <div class="tagline">
+                        <a href="https://www.mpwz.co.in" target="_blank">Website: https://www.mpwz.co.in</a> |
+                        <a href="tel:1912">Call Centre No. 1912</a>
+                    </div>
+                    <div class="tagline">
+                        GST No: <strong>23AADCM7397N1ZU</strong> |
+                        CIN No: <strong>U40109MP2002SGC015121</strong>
+                    </div>
+                </div>
+
+                <div class="logo-circle">
+                    <img src="mpgov.png" alt="" style="width:60px; height:60px;">
+                </div>
+
+            </div>
+        </div>
+        <div class="page-header">
+            <div class="page-header-bill-no bs-value">
+              Electricity Bill No: OCTX4003053
+            </div>
+            <div class="page-header-month bs-value">
+               Bill Month: OCT-2025
+            </div>
+        </div>
+
+        <!-- CONSUMER INFORMATION -->
+        <div class="section-title">CONSUMER INFORMATION</div>
+        <div class="bill-summary-card">
+            <div class="consumer-grid">
+                <div>
+                    <div class="ci2-label">Consumer No</div>
+                    <div class="ci2-value">N3104003053</div>
+                </div>
+                <div>
+                    <div class="ci2-label">Mobile No</div>
+                    <div class="ci2-value">9898989898</div>
+                </div>
+                <div>
+                    <div class="ci2-label">Email</div>
+                    <div class="ci2-value">dM5S@example.com</div>
+                </div>
+                <div>
+                    <div class="ci2-label">Employee No</div>
+                    <div class="ci2-value">1234567890</div>
+                </div>
+
+                <div class="consumer-full-row">
+                    <div class="ci2-label">Consumer Name</div>
+                    <div class="ci2-value">
+                        Mr. Prakash Kumar S/o Mr. Rakash Kumar Dutta
+                    </div>
+                </div>
+
+                <div class="consumer-full-row">
+                    <div class="ci2-label">Address</div>
+                    <div class="ci2-value">
+                        1st Floor, Plot No. 1, G.P.H. Compound, Pologround, Indore (M.P.)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONNECTION INFORMATION -->
+        <div class="section-title">CONNECTION INFORMATION</div>
+        <div class="bill-summary-card">
+            <div class="connection-grid">
+                <div>
+                    <div class="ci-label">Division Name</div>
+                    <div class="ci-value">Indore East Division</div>
+                </div>
+                <div>
+                    <div class="ci-label">Zone / DC Name</div>
+                    <div class="ci-value">Anand Nagar Zone | 3465201</div>
+                </div>
+                <div>
+                    <div class="ci-label">Group No.</div>
+                    <div class="ci-value">KNW47</div>
+                </div>
+                <div>
+                    <div class="ci-label">RD No.</div>
+                    <div class="ci-value">12</div>
+                </div>
+                <div>
+                    <div class="ci-label">Feeder Code</div>
+                    <div class="ci-value">11 KV Anand Nagar | 3465201125414</div>
+                </div>
+                <div>
+                    <div class="ci-label">DTR Code</div>
+                    <div class="ci-value">100KVA Palasiya Nagar | 3465201125414</div>
+                </div>
+                <div>
+                    <div class="ci-label">Pole No</div>
+                    <div class="ci-value">125441514</div>
+                </div>
+                <div>
+                    <div class="ci-label">Premise Type</div>
+                    <div class="ci-value">Urban</div>
+                </div>
+                <div>
+                    <div class="ci-label">Assistant / Junior  Engineer</div>
+                    <div class="ci-value">Mr. Rahul Singh <br> (1800-233-1912)</div>
+                </div>
+                <div>
+                    <div class="ci-label">Executive Engineer</div>
+                    <div class="ci-value">Mr. Shyam Singh <br> (1800-233-1912)</div>
+                </div>
+                <div>
+                    <div class="ci-label">Purpose</div>
+                    <div class="ci-value">Domestic</div>
+                </div>
+                <div>
+                    <div class="ci-label">Tariff Category</div>
+                    <div class="ci-value">LV1 (LV1.2)</div>
+                </div>
+                <div>
+                    <div class="ci-label">Connection Date</div>
+                    <div class="ci-value">23-06-2017</div>
+                </div>
+                <div>
+                    <div class="ci-label">Phase</div>
+                    <div class="ci-value">Single</div>
+                </div>
+                <div>
+                    <div class="ci-label">Sanctioned Load </div>
+                    <div class="ci-value">1 kW</div>
+                </div>
+                <div>
+                    <div class="ci-label">Contract Demand (kW)</div>
+                    <div class="ci-value">1.0</div>
+                </div>
+                <div>
+                    <div class="ci-label">Net Meter</div>
+                    <div class="ci-value">No</div>
+                </div>
+                <div>
+                    <div class="ci-label">Beneficiary</div>
+                    <div class="ci-value">No</div>
+                </div>
+                <div>
+                    <div class="ci-label">Prepaid</div>
+                    <div class="ci-value">Yes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BILL SUMMARY -->
+        <div class="section-title">BILL SUMMARY</div>
+        <div class="bill-summary-card">
+
+            <!-- TOP: main summary (4 columns) -->
+            <div class="bill-summary-top">
+                <div>
+                    <div class="bs-label">Bill Month</div>
+                    <div class="bs-value">OCT-2025</div>
+                </div>
+                <div>
+                    <div class="bs-label">Due Date</div>
+                    <div class="bs-value">01-11-2025</div>
+                </div>
+                <div>
+                    <div class="bs-label">Consumption</div>
+                    <div class="bs-value">808.98</div>
+                </div>
+                <div>
+                    <div class="bs-label">Pay Till Due Date</div>
+                    <div class="bs-value">2,163.00</div>
+                </div>
+                <div>
+                    <div class="bs-label">Pay After Due Date</div>
+                    <div class="bs-value">2,190.00</div>
+                </div>
+            </div>
+        </div>
+        <div class="bill-summary-card"  style="margin-top: 1px;">
+            <!-- MIDDLE: extra bill info -->
+            <div class="bill-summary-bottom">
+                <div class="bill-extra-grid">
+                    <div>
+                        <div class="be-label">Bill Date</div>
+                        <div class="be-value">01-11-2025</div>
+                    </div>
+                    <div>
+                        <div class="be-label">Bill Type</div>
+                        <div class="be-value">Actual Bill</div>
+                    </div>
+                    <div>
+                        <div class="be-label">Meter Reader</div>
+                        <div class="be-value">Shyam Kumar</div>
+                    </div>
+                    <div>
+                        <div class="be-label">Bill Basis</div>
+                        <div class="be-value">Revised Bill</div>
+                    </div>
+                    <div>
+                        <div class="be-label">Daily Avg of Bill</div>
+                        <div class="be-value">808.98</div>
+                    </div>
+                    <div>
+                        <div class="be-label">Daily Avg Units</div>
+                        <div class="be-value">12</div>
+                    </div>
+                    <div>
+                        <div class="be-label">S.D. Held</div>
+                        <div class="be-value">500.00</div>
+                    </div>
+                    <div>
+                        <div class="be-label">S.D. Pending</div>
+                        <div class="be-value">0.00</div>
+                    </div>
+                </div>
+            </div>
+  
+            <!-- BOTTOM: Scan to Pay / Advertisement / WhatsApp -->
+            <div class="bill-summary-banners">
+                <table style="border: none;">
+                    <tr>
+                        <td>
+
+                <div class="bs-left">
+                    <strong><span style="font-size:11px;">Scan to Pay</span></strong>
+                    <div style="margin-top:4px;">
+                        <img src="qr_codeimage.jpeg" alt="Pay QR" width="80" height="80">
+                    </div>
+                    <div class="bs-amount">2,163.00</div>
+                </div>
+                        </td>
+                        <td>
+
+                <div class="bs-middle">
+                    <strong>Space for Advertisement</strong>
+                    <div style="margin-top:6px;">
+                        <img src="advert_image.jpg" alt="Advertisement" width="150" height="150">
+                    </div>
+                </div>
+
+                        </td>
+                        <td>
+
+                <div class="bs-right">
+                    <strong><span style="font-size:11px;">WhatsApp ChatBot</span></strong>
+                    <div style="margin-top:4px;">
+                        <img src="qr_codeimage.jpeg" alt="WhatsApp QR" width="80" height="80">
+                    </div>
+                    <div style="margin-top:6px; font-size:15px; font-weight:bold;">
+                        Call Centre: 1912
+                    </div>
+                </div>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+                <div class="section-title">Messages / Notes</div>
+        <div class="message-grid">
+                <div class="submessage-grid">Your connection has been registered on 22-10-2025 for OTS 2025 Samadhan Scheme. 6 installment of Rs 500.00 from bill month NOV-2025 to APR-2025 has been scheduled. Kindly pay the installment with current bill to get the scheme benefit</div>
+             
+        </div>
+    <div>      
+        <span class="footer-small" style="float:left;">N3295105241</span>
+        <span class="footer-small" style="margin-left: 300px;">OCT-2025</span>
+        <span class="footer-small" style="float:right;">Page 1 of 4</span>
+    </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+        <div class="section-title">CURRENT READING DETAILS</div>
+        <div class="reading-grid">
+            <div>
+                <div class="rd-label">Meter S.No.</div>
+                <div class="rd-value">MIG6150143053</div>
+            </div>
+            <div>
+                <div class="rd-label">Read Date</div>
+                <div class="rd-value">21-10-2025</div>
+            </div>
+            <div>
+                <div class="rd-label">Read Type</div>
+                <div class="rd-value">NORMAL</div>
+            </div>
+            <div>
+                <div class="rd-label">Read Source</div>
+                <div class="rd-value">Net Meter</div>
+            </div>
+            <div>
+                <div class="rd-label">P.F</div>
+                <div class="rd-value">0.99</div>
+            </div>
+            <div>
+                <div class="rd-label">MD</div>
+                <div class="rd-value">0.09</div>
+            </div>
+            <div>
+                <div class="rd-label">Solar Plant Capacity</div>
+                <div class="rd-value">8 KW</div>
+            </div>
+            <div>
+                <div class="rd-label">Last Month Residual Units</div>
+                <div class="rd-value">399</div>
+            </div>
+            <div>
+                <div class="rd-label">Residual Units</div>
+                <div class="rd-value">0</div>
+            </div>
+            <div>
+                <div class="rd-label">VNM / GNM </div>
+                <div class="rd-value">Child</div>
+            </div>
+        </div>
+        <div class="table-scroll">         
+            <table class="reading-table">
+                <thead>
+                    <tr>
+                        <th class="right">Current Reading</th>
+                        <th class="right">Previous Reading</th>
+                        <th class="right">M.F.</th>
+                        <th class="right">Metered Units</th>
+                        <th class="right">Assessed Units</th>
+                        <th class="right">Total Units</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="right">200.00</td>
+                        <td class="right">200.00</td>
+                        <td class="right">1</td>
+                        <td class="right">130.00</td>
+                        <td class="right">0.00</td>
+                        <td class="right">130.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+             <table class="reading-table">
+                <thead>
+                    <tr>
+                        <th>Particulars</th>
+                        <th class="right">Current Reading</th>
+                        <th class="right">Previous Reading</th>
+                        <th class="right">M.F.</th>
+                        <th class="right">Metered Units</th>
+                        <th class="right">Assessed Units</th>
+                        <th class="right">Final Consumption</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Import</td>
+                        <td class="right">200.00</td>
+                        <td class="right">200.00</td>
+                        <td class="right">1</td>
+                        <td class="right">130.00</td>
+                        <td class="right">0.00</td>
+                        <td class="right">130.00</td>
+                    </tr>
+                    <tr>
+                        <td>Export</td>
+                        <td class="right">520.00</td>
+                        <td class="right">520.00</td>
+                        <td class="right">1</td>
+                        <td class="right">85.00</td>
+                        <td class="right">0.00</td>
+                        <td class="right">85.00</td>
+                    </tr>
+                    <tr class="row-highlight">
+                        <td colspan="4" style="text-align:center;">Residual Units Adjusted</td>
+                        <td class="right" colspan="3">215</td>
+                    </tr>
+                    <tr class="row-total">
+                        <td colspan="4" style="text-align:center;">Net</td>
+                        <td class="right">10</td>
+                        <td class="right"></td>
+                        <td class="right">12</td>
+                    </tr>
+                    <tr>
+                        <td>Solar Generator Meter</td>
+                        <td class="right">520.00</td>
+                        <td class="right">520.00</td>
+                        <td class="right">1</td>
+                        <td class="right">85.00</td>
+                        <td class="right">0.00</td>
+                        <td class="right">85.00</td>
+                    </tr>
+                </tbody>
+            </table>
+       
+        </div>
+
+        <!-- DETAILED BILL BREAKUP -->
+        <div class="section-title">DETAILED BILL BREAKUP</div>
+        <div class="bill-breakup-layout">
+            <div class="bill-details-card">
+                <div class="bill-details-columns">
+                   <table>
+                    <tr>
+                        <td style="vertical-align:top;">
+                 
+                    <div class="bill-col">
+                        <div class="bill-col-title">Billing Charges Information</div>
+                        <table class="bill-details-table">
+                            <tr class="bd-section">
+                                <td colspan="2" style="text-align: left;">Energy</td>
+                            </tr>
+                            <tr>
+                                <td>Energy charges</td>
+                                <td class="right">658.18</td>
+                            </tr>
+                            <tr>
+                                <td>Fuel &amp; Power Purchase Adjustment Surcharge ()</td>
+                                <td class="right">-17.19</td>
+                            </tr>
+                            <tr>
+                                <td>Fixed charges</td>
+                                <td class="right">106.00</td>
+                            </tr>
+                            <tr class="bd-subtotal">
+                                <td ><b>Sub Total</b></td>
+                                <td class="right"><b>1200.00</b></td>
+                            </tr>
+                            <tr>
+                                <td>Electricity Duty </td>
+                                <td class="right">62.00</td>
+                            </tr>
+                            <tr>
+                                <td>CCB Adjustment</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr class="bd-subtotal">
+                                <td><b>Sub Total</b></td>
+                                <td class="right"><b>1200.00</b></td>
+                            </tr>
+
+                            <tr class="bd-section">
+                                <td colspan="2" style="text-align: left;">Rebate / Charges</td>
+                            </tr>
+                            <tr>
+                                <td>Penal Charge</td>
+                                <td class="right">62.00</td>
+                            </tr>
+                            <tr>
+                                <td>PF Surcharge / Incentive</td>
+                                <td class="right">62.00</td>
+                            </tr>
+                            <tr>
+                                <td>ASD Installments</td>
+                                <td class="right">62.00</td>
+                            </tr>
+                            <tr>
+                                <td>TOD Rebate / Surcharge</td>
+                                <td class="right">62.00</td>
+                            </tr>
+                            <tr>
+                                <td>Interest on Security Deposit</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Load Factor Incentive</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Lock Credit</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Employee Rebate</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Prepaid Payment Rebate</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Online Payment Rebate</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Prompt Payment Incentive</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Advance Payment Incentive</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Demand Side Incentive</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Wheeling Charge / Green Energy Charge</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr class="bd-subtotal">
+                                <td><b>Sub Total</b></td>
+                                <td class="right"><b>1200.00</b></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                        </td>
+                        <td style="vertical-align:top;">
+
+                   
+                    <div class="bill-col">
+                        <div class="bill-col-title">Billing Charges Information</div>
+                        <table class="bill-details-table">
+                            <tr>
+                                <td><strong>Subsidy (M.P. Govt.)</strong></td>
+                                <td class="right"><strong>-531.99</strong></td>
+                            </tr>
+                            <tr class="bd-subtotal">
+                                <td><b>Current Month Bill</b></td>
+                                <td class="right"><b>1200.00</b></td>
+                            </tr>
+                            <tr class="bd-section">
+                                <td colspan="2" style="text-align: left;">Arrear</td>
+                            </tr>
+                            <tr>
+                                <td>Principal arrear</td>
+                                <td class="right">1,618.00</td>
+                            </tr>
+                            <tr>
+                                <td>Cumulative surcharge</td>
+                                <td class="right">268.02</td>
+                            </tr>
+                            <tr>
+                                <td>ASD Arrear</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr class="bd-subtotal">
+                                <td><b>Net Bill</b></td>
+                                <td class="right"><b>1200.00</b></td>
+                            </tr>
+
+                            <tr class="bd-section">
+                                <td colspan="2" style="text-align: left;">Payments</td>
+                            </tr>
+                            <tr>
+                                <td>Payment Recieved Against Bill &amp; Vigilance</td>
+                                <td class="right">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Payment Recieved Against Smart Meter RC/DC </td>
+                                <td class="right">0.00</td>
+                            </tr>
+
+                            <tr class="bd-section">
+                                <td colspan="2" style="text-align: left;">Dues</td>
+                            </tr>
+                            <tr>
+                                <td>Vigilance / O&amp;M Due Amount</td>
+                                <td class="right">1,618.00</td>
+                            </tr>
+                            <tr>
+                                <td>Interest on Vigilance / O&amp;M Due (Till Billing Period)</td>
+                                <td class="right">268.02</td>
+                            </tr>
+                            <tr class="bd-grand-total">
+                                <td><b>Total Amount Payable</b></td>
+                                <td class="right"><b>1200.00</b></td>
+                            </tr>
+                        </table>
+
+                        <div class="center" style="margin-top:2px;">
+                            <!-- <div class="chart-area"> -->
+                                <canvas id="componentsChart"></canvas>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+
+                        </td>
+                    </tr>
+                   </table>
+
+                </div>
+            </div>
+        </div>
+       
+    <div>      
+        <span class="footer-small" style="float:left;">N3295105241</span>
+        <span class="footer-small" style="margin-left: 300px;">OCT-2025</span>
+        <span class="footer-small" style="float:right;">Page 1 of 4</span>
+    </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page">
+        <!-- TOD MD & Charges -->
+        <div class="section-title">TOD DETAILS</div>
+        <table class="no-border" style="margin-top:6px;">           
+            <tr>
+                <td style="width:55%;">TOD Recorded Units</td>
+                <td>TOD Consumption &amp; Charges</td>
+            </tr>
+            <tr>
+                <td class="chart-area tod-md-area" style="vertical-align:top;">
+                    <!-- <canvas id="todMdChart"></canvas> -->
+                         <canvas id="todMdChart" style="text-decoration: solid; color: rgb(17, 0, 0);"></canvas>
+                </td>
+                <td style="vertical-align:top;">
+                    <table class="reading-table" style="min-width:0;">
+                        <thead>
+                            <tr>
+                                <th colspan="2">TIMING</th>
+                                <th class="right">Units</th>
+                                <th class="right">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Off Peak</td>
+                                <td>10:00 PM–06:00 AM</td>
+                                <td class="right">437.25</td>
+                                <td class="right">2,842.13</td>
+                            </tr>
+                            <tr>
+                                <td>Peak</td>
+                                <td>06:00 AM –09:00 AM</td>
+                                <td class="right">469.50</td>
+                                <td class="right">3,849.90</td>
+                            </tr>
+                            <tr>
+                                <td>Peak</td>
+                                <td>09:00 AM –17:00 PM</td>
+                                <td class="right">120.12</td>
+                                <td class="right">1,261.26</td>
+                            </tr>
+                            <tr>
+                                <td>Off Peak</td>
+                                <td>17:00 PM –10:00 PM</td>
+                                <td class="right">456.75</td>
+                                <td class="right">4,476.15</td>
+                            </tr>
+                            <tr style="font-weight:bold;">
+                                <td colspan="2">Total</td>
+                                <td class="right">1,650.00</td>
+                                <td class="right">12,429.44</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <!-- TOD Bill Summary Table -->
+        <div class="table-scroll" style="margin-top:6px;">
+            <!-- <div class="table-block-title">TOD Bill Summary</div> -->
+            <table class="reading-table">
+                <thead>
+                    <tr>
+                        <th>TOD</th>
+                        <th>Particulars</th>
+                        <th class="right">Current Read</th>
+                        <th class="right">Previous Read</th>
+                        <th class="right">Meter Consumption</th>
+                        <th class="right">Assessed Units</th>
+                        <th class="right">Final Consumption</th>
+                        <th class="right">Net</th>
+                        <th class="right">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                    <tr>
+                        <td rowspan="2">
+                            <strong>TOD 1</strong><br>
+                            <span class="small">10 PM to 6 AM</span>
+                        </td>
+                        <td>Import</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                    </tr>
+                    <tr>
+                        <td>Export</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                    </tr>
+
+                  
+                    <tr>
+                        <td rowspan="2">
+                            <strong>TOD 2</strong><br>
+                            <span class="small">6 AM to 9 AM</span>
+                        </td>
+                        <td>Import</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                    </tr>
+                    <tr>
+                        <td>Export</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                    </tr>
+
+                  
+                    <tr>
+                        <td rowspan="2">
+                            <strong>TOD 3</strong><br>
+                            <span class="small">9 AM to 5 PM</span>
+                        </td>
+                        <td>Import</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                    </tr>
+                    <tr>
+                        <td>Export</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                    </tr>
+
+                 
+                    <tr>
+                        <td rowspan="2">
+                            <strong>TOD 4</strong><br>
+                            <span class="small">5 PM to 10 PM</span>
+                        </td>
+                        <td>Import</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                    </tr>
+                    <tr>
+                        <td>Export</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                        <td class="right">10.20</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- LAST PAYMENT & HISTORY -->
+        <div class="section-title">LAST TWO PAYMENT</div>
+        <div class="table-scroll">
+            <table class="reading-table" style="margin-top:6px;">
+                <thead>
+                    <tr>
+                        <th>Last Payment Month</th>
+                        <th class="right">Amount Paid (₹)</th>
+                        <th>Payment Ref. No.</th>
+                        <th>Payment Date</th>
+                        <th>Mode</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AUG-2025</td>
+                        <td class="right">2,100.00</td>
+                        <td>DTD020920527242</td>
+                        <td>02-09-2025</td>
+                        <td>Online UPI</td>
+                    </tr>
+                    <tr>
+                        <td>DEC-2024</td>
+                        <td class="right">1,900.00</td>
+                        <td>DTD020920527242</td>
+                        <td>31-12-2024</td>
+                        <td>Cash</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Last Six Months + Consumption Chart -->
+        <div style="margin-top:8px; width:100%;">
+            <table class="no-border">
+                <tr>
+                    <td style="width:50%;vertical-align:top;">
+                        <div class="table-block-title">Last Six Months Consumption</div>
+                        <table class="reading-table" style="min-width:0;">
+                            <thead>
+                                <tr>
+                                    <th>Bill Month</th>
+                                    <th>Bill Date</th>
+                                    <th class="right">Reading</th>
+                                    <th class="right">Units</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>OCT-2024</td><td>25-10-2024</td><td class="right">102</td><td class="right">149</td></tr>
+                                <tr><td>MAY-2025</td><td>21-05-2025</td><td class="right">202</td><td class="right">140</td></tr>
+                                <tr><td>JUN-2025</td><td>20-06-2025</td><td class="right">205</td><td class="right">127</td></tr>
+                                <tr><td>JUL-2025</td><td>21-07-2025</td><td class="right">200</td><td class="right">127</td></tr>
+                                <tr><td>AUG-2025</td><td>20-08-2025</td><td class="right">205</td><td class="right">135</td></tr>
+                                <tr style="font-weight: bolder;"><td>SEP-2025</td><td>22-09-2025</td><td class="right">200</td><td class="right">130</td></tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td style="vertical-align:top;">
+                        <div class="table-block-title">Meter Reading Trends</div>
+                        <div class="chart-area">
+                            <canvas id="consumptionChart"></canvas>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Meter Replacement and Read Detail (first table) -->
+        <div class="section-title">Meter Replacement and Read Detail</div>
+        <div class="table-scroll">
+            <table class="reading-table" style="margin-top:6px;">
+                <thead>
+                    <tr>
+                        <th>Meter Detail</th>
+                        <th class="right">Replacement Date</th>
+                        <th class="right">Prev / Start Read</th>
+                        <th class="right">Final / Current Read</th>
+                        <th class="right">Consumption</th>
+                        <th class="right">Prorated Current Bill</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>XZ12541454</td>
+                        <td class="right">31-12-2024</td>
+                        <td class="right">1,250.00</td>
+                        <td class="right">1,450.00</td>
+                        <td class="right">200.00</td>
+                        <td class="right">2,950.00</td>
+                    </tr>
+                    <tr>
+                        <td>XZ125414896</td>
+                        <td class="right">31-12-2024</td>
+                        <td class="right">0.00</td>
+                        <td class="right">130.00</td>
+                        <td class="right">130.00</td>
+                        <td class="right">2,163.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Second Meter Replacement table -->
+        <div class="table-scroll" style="margin-top:6px;">
+            <table class="reading-table" style="margin-top:6px;">
+                <thead>                    
+                    <tr>
+                        <th rowspan="2">Meter Detail</th>
+                        <th rowspan="2">Replacement Date</th>
+                        <th colspan="3" style="text-align: center; background-color: #eaf0f3;">Import</th>
+                        <th colspan="3" style="text-align: center; background-color: #e4ecea;">Export</th>                    
+                        <th rowspan="2">Net Consumption</th>
+                    </tr>
+                    <tr>
+                        <th class="right">Prev / Start Read</th>
+                        <th class="right">Final / Current Read</th>
+                        <th class="right">Consumption</th>
+                        <th class="right">Prev / Start Read</th>
+                        <th class="right">Final / Current Read</th>
+                        <th class="right">Consumption</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>XC12541454</td>
+                        <td class="right">31-12-2024</td>
+                        <td class="right">1,250.00</td>
+                        <td class="right">1,450.00</td>
+                        <td class="right">200.00</td>
+                        <td class="right">1,250.00</td>
+                        <td class="right">1,450.00</td>
+                        <td class="right">200.00</td>
+                        <td class="right">2,950.00</td>
+                    </tr>
+                    <tr>
+                        <td>XC12541454</td>
+                        <td class="right">31-12-2024</td>
+                        <td class="right">0.00</td>
+                        <td class="right">130.00</td>
+                        <td class="right">130.00</td>
+                        <td class="right">0.00</td>
+                        <td class="right">130.00</td>
+                        <td class="right">130.00</td>
+                        <td class="right">2,163.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+       
+    <div>      
+        <span class="footer-small" style="float:left;">N3295105241</span>
+        <span class="footer-small" style="margin-left: 300px;">OCT-2025</span>
+        <span class="footer-small" style="float:right;">Page 1 of 4</span>
+    </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page">
+        <div class="section-title">Virtual / Group Net Meter Child Connection Export Detail</div>
+
+        <div class="table-scroll">
+            <table class="reading-table" style="margin-top:6px;">
+                <thead>
+                    <tr>
+                        <th>Consumer No</th>
+                        <th>Ratio</th>
+                        <th class="right">Current Read</th>
+                        <th class="right">Previous Read</th>
+                        <th class="right">M. F.</th>
+                        <th class="right">Meter Consumption</th>
+                        <th class="right">Assessment</th>
+                        <th class="right">Final Consumption</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SS</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td>
+                    </tr>
+                    <tr>
+                        <td>SS</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td>
+                    </tr>
+                    <tr>
+                        <td>SS</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td>
+                    </tr>
+                    <tr>
+                        <td>SS</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td>
+                    </tr>
+                    <tr>
+                        <td>SS</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td><td class="right">2.22</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-title">OTHER ACCOUNT DETAILS</div>
+
+        <div class="table-scroll">
+            <table class="reading-table" style="margin-top:6px;">
+                <thead>
+                    <tr>
+                        <th colspan="4" style="text-align:left;">Vigilance / O&M Panchanama Detail</th>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <th class="right">Amount (₹)</th>
+                        <th>Description</th>
+                        <th class="right">Amount (₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vigilance assessment – 15-01-2024 (unauthorised load)</td>
+                        <td class="right">5,250.00</td>
+                        <td>O&M Panchanama – 10-03-2024 (meter inspection)</td>
+                        <td class="right">0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Vigilance surcharge adjustment – 05-05-2024</td>
+                        <td class="right">1,100.00</td>
+                        <td>Reversal of vigilance charge – 20-08-2024</td>
+                        <td class="right">-2,000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="reading-table" style="margin-top:10px;">
+                <thead>
+                    <tr>
+                        <th colspan="4" style="text-align:left;">CCB Adjustment Detail</th>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <th class="right">Amount (₹)</th>
+                        <th>Description</th>
+                        <th class="right">Amount (₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CCB adjustment – rounding difference (JAN-2025)</td>
+                        <td class="right">-15.00</td>
+                        <td>CCB adjustment – subsidy reconciliation (FEB-2025)</td>
+                        <td class="right">-120.50</td>
+                    </tr>
+                    <tr>
+                        <td>CCB adjustment – delayed payment charge waiver</td>
+                        <td class="right">-85.25</td>
+                        <td>CCB adjustment – arrear correction (APR-2025)</td>
+                        <td class="right">230.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+       
+    <div>      
+        <span class="footer-small" style="float:left;">N3295105241</span>
+        <span class="footer-small" style="margin-left: 300px;">OCT-2025</span>
+        <span class="footer-small" style="float:right;">Page 1 of 4</span>
+    </div>
+    </div>
+</div>
+
+<!-- CHART.JS + INITIALIZATION -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+<script>
+Chart.register(ChartDataLabels);
+
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. Consumption Trend (bar)
+    const consumptionCtx = document.getElementById('consumptionChart');
+    if (consumptionCtx) {
+        const months = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+        const units = [149, 140, 127, 127, 135, 130];
+
+        new Chart(consumptionCtx, {
+            type: 'bar',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Units (kWh)',
+                    data: units
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: true },
+                    tooltip: { enabled: true },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'end',
+                        offset: -2,
+                        font: { size: 10 },
+                        formatter: value => value
+                    }
+                },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Units' }
+                    }
+                }
+            }
+        });
+    }
+
+    // 2. TOD RECORDED MD (HORIZONTAL BAR CHART)
+    // const todMdCtx = document.getElementById('todMdChart');
+    // if (todMdCtx) {
+    //     const todLabels = [
+    //         '00:00–06:00 & 22:00–24:00',
+    //         '06:00–09:00 & 12:00–18:00',
+    //         '09:00–12:00',
+    //         '18:00–22:00'
+    //     ];
+    //     const todUnits = [437.25, 469.50, 120.12, 456.75];
+
+    //     new Chart(todMdCtx, {
+    //         type: 'bar',
+    //         data: {
+    //             labels: todLabels,
+    //             datasets: [{
+    //                 data: todUnits
+    //             }]
+    //         },
+    //         options: {
+    //             indexAxis: 'y',
+    //             responsive: true,
+    //             maintainAspectRatio: false,
+    //             plugins: {
+    //                 legend: { display: false },
+    //                 tooltip: {
+    //                     callbacks: {
+    //                         label: function (context) {
+    //                             return context.parsed.x.toFixed(2) + ' Units';
+    //                         }
+    //                     }
+    //                 },
+    //                 datalabels: {
+    //                     anchor: 'end',
+    //                     align: 'end',
+    //                     clamp: true,
+    //                     formatter: function (value) {
+    //                         return value.toFixed(2);
+    //                     },
+    //                     font: {
+    //                         size: 9,
+    //                         weight: 'bold'
+    //                     }
+    //                 }
+    //             },
+    //             scales: {
+    //                 x: {
+    //                     beginAtZero: true,
+    //                     grid: {
+    //                         color: 'rgba(0,0,0,0.15)',
+    //                         borderDash: [4, 3]
+    //                     }
+    //                 },
+    //                 y: {
+    //                     grid: { display: false }
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+    /* ========= 2. TOD RECORDED MD (PIE CHART) ========= */
+    const todMdCtx = document.getElementById('todMdChart');
+    if (todMdCtx) {
+        const zones = ['TOD-1 (10 PM to 6 AM)', 'TOD-2 (6 AM to 9 AM)', 'TOD-3 (9 AM to 5 PM)', 'TOD-4 (5 PM to 10 PM)'];
+        const mdValues = [437.25, 469.50, 120.12, 456.75];
+
+        new Chart(todMdCtx, {
+            type: 'pie',
+            data: {
+                labels: zones,
+                datasets: [{
+                    label: 'TOD Details (kW)',
+                    data: mdValues
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right' },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                return label + ': ' + value.toFixed(2) + ' kW';
+                            }
+                        }
+                    },
+                    datalabels: {
+                        color: '#000',
+                        font: {
+                            size: 8,
+                            weight: 'bold'
+                        },
+                        formatter: function(value) {
+                            return value.toFixed(2) + ' kW';
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // 3. Components Chart (doughnut)
+    const componentsCtx = document.getElementById('componentsChart');
+    if (componentsCtx) {
+        const compLabels = [
+            'Energy charges',
+            'Fixed charges',
+            'Energy Duty',
+            'Subsidy',
+            'Arrears',
+            'CCB Adjustment',
+            'Rebate / Charges'
+        ];
+        const compValues = [1600, 200, 200, 163 , 1886, 0, 186];
+
+        new Chart(componentsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: compLabels,
+                datasets: [{
+                    data: compValues,
+                    backgroundColor: ['#ffb74d','#64b5f6','#81c784','#e57373' ,'#ba68c8','#4db6ac','#ffd54f'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '55%',
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: { boxWidth:20, font:{size:9} }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: context => {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                return label + ':  ' + value.toLocaleString();
+                            }
+                        }
+                    },
+                    datalabels: {
+                        color: '#000',
+                        font: { size: 9, weight:'bold' },
+                        formatter: value => ' ' + value
+                    }
+                }
+            }
+        });
+    }
+
+
+
+});
+</script>
+</body>
+</html>

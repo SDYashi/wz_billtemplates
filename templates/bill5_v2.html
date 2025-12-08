@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WZ Electricity Bill</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+        }
+        body{
+            background:#e5edf7;
+            padding:9px;
+            color:#222;
+        }
+        .container{
+            max-width:210mm;
+            margin:0 auto;
+        }
+        .page{
+            background:#fff;
+            border-radius:6px;
+            box-shadow:0 4px 10px rgba(0, 0, 0, 0.15);
+            margin-bottom:16px;
+            padding:10mm 9mm;
+            position:relative;
+            overflow:hidden;
+        }
+        .page::before{
+            content:"";
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:4px;
+            background:linear-gradient(90deg,#e99905,#00a4ff);
+        }
+
+        /* ---------- HEADER (structure preserved, only styling improved) --------- */
+        .header-top{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:8px;
+            padding-bottom:6px;
+            border-bottom:4px solid #d0d7e3;
+            margin-bottom:4px;
+            text-align: center;
+        }
+        .header-left{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            flex-wrap:wrap;
+        }
+        .logo-circle{
+            width:48px;
+            height:48px;
+            border-radius:50%;
+            border:2px solid #b66a00;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:800;
+            color:#b66a00;
+            font-size:22px;
+            background:radial-gradient(circle at 30% 30%, #fff 0, #fff 45%, #ffe7c2 80%);
+            box-shadow:0 0 4px rgba(0,0,0,0.12);
+        }
+        .company-info{
+            line-height:1.5;
+        }
+        .company-title{
+            font-size:16px;
+            font-weight:700;
+            text-transform:uppercase;
+            color:#915006;
+        }
+        .company-subtitle{
+            font-size:15px;
+            color:#555;
+        }
+        .tagline{
+            margin-top:3px;
+            font-size:14px;
+            color:#666;
+        }
+        .tagline a{
+            color:#1f6fd4;
+            text-decoration:none;
+        }
+        .tagline a:hover{
+            text-decoration:underline;
+        }
+
+        /* Generic table styles */
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+        th,td{
+            border:1px solid #d0d7e3;
+            padding:3px 4px;
+            font-size:9px;
+            text-align:left;
+        }
+        th{
+            background:#dfcdad;
+            font-weight:600;
+            color:#02183b;
+        }
+        .no-border td,.no-border th{border:none;}
+        .section-title{
+            background:#9e6804;
+            color:#fff;
+            font-size:10px;
+            font-weight:700;
+            text-align:left;
+            padding:3px 4px;
+            margin:6px 0 2px;
+            border-radius:3px;
+        }
+        .small{
+            font-size:8px;
+        }
+        .right{text-align:right;}
+        .center{text-align:center;}
+        .nowrap{white-space:nowrap;}
+
+        .discom-name-cell{
+            background:#1f6fd4;
+            color:#fff;
+            text-align:center;
+            font-size:20px;
+            font-weight:700;
+            padding:14px 4px;
+        }
+        .discom-subtitle{
+            font-size:9px;
+            margin-top:2px;
+            opacity:.9;
+        }
+        .consumer-name{
+            font-weight:700;
+            font-size:11px;
+        }
+
+        /* QR image */
+        .qr-img{
+            width:36mm;
+            height:36mm;
+            border-radius:3px;
+            box-shadow:0 0 4px rgba(0,0,0,0.15);
+        }
+
+        .note-box{
+            border:1px dashed #d0d7e3;
+            padding:3px 4px;
+            font-size:8px;
+            margin-top:3px;
+            background:#fafbff;
+        }
+
+        .footer-small{
+            margin-top:4px;
+            font-size:8px;
+            text-align:right;
+            color:#666;
+        }
+
+        .table-scroll{width:100%;overflow-x:auto;}
+
+        /* ===== Chart.js layout (Page 2 graphs) ===== */
+        .chart-wrapper {
+            width: 100%;
+            height: 55mm;
+            position: relative;
+        }
+        .chart-wrapper-small {
+            width: 100%;
+            height: 45mm;
+            position: relative;
+        }
+        .chart-table td {
+            vertical-align: top;
+        }
+
+        /* --------- Mobile adjustments --------- */
+        @media (max-width:768px){
+            body{
+                padding:0;
+            }
+            .page{
+                padding:8px 4px;
+                border-radius:0;
+                box-shadow:none;
+                margin-bottom:8px;
+            }
+            .header-top{
+                flex-direction:column;
+                align-items:flex-start;
+            }
+            .company-title{
+                font-size:14px;
+            }
+            .company-subtitle{
+                font-size:11px;
+            }
+            th,td{font-size:8px;}
+        }
+
+        /* --------- Print behaviour & page breaking --------- */
+        @media print {
+
+            @page {
+                size: A4 portrait;
+                margin: 8mm;
+            }
+
+            body {
+                background: #fff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .page {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                page-break-after: always;
+                break-after: page;
+                padding: 4mm 6mm !important;
+                overflow: visible !important;
+            }
+
+            .page:last-child {
+                page-break-after: auto !important;
+                break-after: auto !important;
+            }
+
+            table {
+                page-break-inside: auto !important;
+                break-inside: auto !important;
+            }
+
+            tr, th, td {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .section-title {
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+            }
+
+            img {
+                max-width: 100% !important;
+            }
+
+            .table-scroll {
+                overflow: visible !important;
+            }
+
+            .chart-wrapper,
+            .chart-wrapper-small {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="container">
+    <!-- PAGE 1 -->
+    <div class="page">
+        <!-- HEADER -->
+        <div class="header-top">
+            <div class="header-left">
+                <div class="logo-circle">
+                    <img src="wzlogo.png" alt="" style="width: 40px; height: 40px;">
+                </div>
+                <div class="company-info">
+                    <div class="company-title">
+                        <strong>Madhya Pradesh Paschim Kshetra Vidyut Vitran Company Ltd.</strong>
+                    </div>
+                    <div class="company-subtitle">
+                        G.P.H. Compound, Pologround, Indore (M.P.)
+                    </div>
+                    <div class="tagline">
+                        (Wholly owned by Govt. of M.P.)
+                    </div>
+                    <div class="tagline">
+                        <a href="https://www.mpwz.co.in" target="_blank">Website: https://www.mpwz.co.in</a> |
+                        <a href="tel:1912">Call Centre No. 1912</a>
+                    </div>
+                    <div class="tagline">
+                        GST No: <strong>23AADCM7397N1ZU</strong> | CIN No: <strong>U40109MP2002SGC015121</strong>
+                    </div>
+                </div>
+                <div class="logo-circle">
+                    <img src="wzlogo.png" alt="" style="width: 40px; height: 40px;">
+                </div>
+            </div>
+        </div>
+
+        <!-- CONSUMER INFORMATION -->
+        <div class="section-title">CONSUMER INFORMATION</div>
+        <div class="table-scroll">
+            <table style="margin-top:6px;">
+                <tr>
+                    <th> Barcode</th>
+                    <th>Customer No</th>
+                    <th>Bill No.</th>
+                    <th>Group No.</th>
+                    <th>Due Date</th>
+                    <th>Bill Amount</th>
+                </tr>
+                <tr>
+                    <td style="padding: 1px;">
+                        <div style="height:14px;background:repeating-linear-gradient(90deg,#000 0,#000 2px,#fff 2px,#fff 3px);"></div>
+                    </td>
+                    <td>N3104003053</td>
+                    <td>X0X0X0FAFADSFF</td>
+                    <td>KNW47-12</td>
+                    <td>01-11-2025</td>
+                    <td>₹ 2,163.00</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Pincode</th>
+                    <th>Phone No.</th>
+                    <th>Email</th>
+                </tr>
+                <tr>
+                    <td>Mr. Prakash Kumar</td>
+                    <td>1st Floor, Plot No. 1, G.P.H. Compound, Pologround, Indore (M.P.)</td>
+                    <td>Indore</td>
+                    <td>M.P.</td>
+                    <td>452001</td>
+                    <td>9898989898</td>
+                    <td>0dM5S@example.com</td>
+                </tr>
+                <tr>
+                    <th>Connection Type</th>
+                    <th>Tariff Category</th>
+                    <th>Billing Status</th>
+                    <th>Feeder / DTR</th>
+                    <th>Zone / DC</th>
+                    <th>Bill Cycle</th>
+                    <th>Bill Month</th>
+                </tr>
+                <tr>
+                    <td>Domestic (LV1.2) – RURAL</td>
+                    <td>Domestic light and fan</td>
+                    <td>Regular</td>
+                    <td>4741380104 / ZRD000520</td>
+                    <td>ZARDA / Mahidpur (O&amp;M)</td>
+                    <td>Current Bill</td>
+                    <td>Oct-2025</td>
+                </tr>
+                <tr>
+                    <th>Sanctioned Load (kW)</th>
+                    <th>Phase</th>
+                    <th>Meter No.</th>
+                    <th>Meter Status</th>
+                    <th>Connection Date</th>
+                    <th>Meter Type</th>
+                    <th>Meter Location</th>
+                </tr>
+                <tr>
+                    <td>1.0</td>
+                    <td>Single Phase</td>
+                    <td>MIG6150143053</td>
+                    <td>Active</td>
+                    <td>23-06-2017</td>
+                    <td>Net Meter</td>
+                    <td>Consumer Premises</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- BILL SUMMARY -->
+        <div class="section-title">BILL SUMMARY</div>
+        <table>
+            <tr>
+                <th>Bill Month</th>
+                <th>Bill Date</th>
+                <th>Due Date</th>
+                <th>Current Bill Amount</th>
+                <th>Total Payable Till Due Date</th>
+                <th>Total Payable After Due Date</th>
+            </tr>
+            <tr>
+                <td>OCT-2025</td>
+                <td>22-10-2025</td>
+                <td>01-11-2025</td>
+                <td>₹ 808.98</td>
+                <td>₹ 2,163.00</td>
+                <td>₹ 2,190.00</td>
+            </tr>
+        </table>
+
+        <!-- QR + Billing Snapshot -->
+        <table style="margin-top:4px;">
+            <tr>
+                <th style="width:23%;">Quick Pay QR / Account</th>
+                <th style="width:47%;">Billing &amp; Payment Snapshot</th>
+            </tr>
+            <tr>
+                <td style="vertical-align:top;">
+                    <div class="center">
+                        <div class="qr-box">
+                            <img src="qr_codeimage.jpeg" alt="" style="width:120px; height:120px;">
+                        </div>
+                        <div class="small" style="margin-top:2px;">
+                            <strong>CA No.: 170019029540</strong><br>
+                            Scan using any UPI app to pay your bill.
+                        </div>
+                    </div>
+                </td>
+                <td style="vertical-align:top;">
+                    <table class="small">
+                        <tr>
+                            <th>Bill Month</th>
+                            <th>Units</th>
+                            <th>Current Bill</th>
+                            <th>Other Charges</th>
+                            <th>Previous Outstanding</th>
+                        </tr>
+                        <tr>
+                            <td>OCT-2025</td>
+                            <td class="right">130</td>
+                            <td class="right">₹ 808.98</td>
+                            <td class="right">₹ 0.00</td>
+                            <td class="right">₹ 1,354.02</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Online / Advance Payment Incentive</th>
+                            <td class="right">₹ 0.00</td>
+                            <th>Subsidy (MP Govt)</th>
+                            <td class="right">₹ 531.99 (-)</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Principal Arrear</th>
+                            <td class="right">₹ 1,618.00</td>
+                            <th>Cumulative Surcharge</th>
+                            <td class="right">₹ 268.02</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Total Payable</th>
+                            <td class="right">₹ 2,163.00</td>
+                            <th>Delayed Payment Charges</th>
+                            <td class="right">₹ 0.00</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Security Deposit</th>
+                            <td class="right">₹ 0.00</td>
+                            <th>Security Deposit Pending</th>
+                            <td class="right">₹ 0.00</td>
+                        </tr>
+                    </table>
+                    <div class="note-box">
+                        <b>Round off note:</b> Bill amount is rounded off for convenience; difference will be carried forward in next bill.
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- CURRENT READING -->
+        <div class="section-title">CURRENT READING DETAILS</div>
+        <div class="table-scroll">
+            <table>
+                <tr>
+                    <th>Particulars</th>
+                    <th>Reading Date</th>
+                    <th class="right">Meter Reading</th>
+                    <th class="right">M.F.</th>
+                    <th class="right">Metered Units</th>
+                    <th class="right">Assessed Units</th>
+                    <th class="right">Total Units</th>
+                    <th class="right">Average Unit / Day</th>
+                </tr>
+                <tr>
+                    <td>Current</td>
+                    <td>21-10-2025</td>
+                    <td class="right">200.00</td>
+                    <td class="right">1</td>
+                    <td class="right">130.00</td>
+                    <td class="right">0.00</td>
+                    <td class="right">130.00</td>
+                    <td class="right">4.48</td>
+                </tr>
+                <tr>
+                    <td>Previous</td>
+                    <td>22-09-2025</td>
+                    <td class="right">70.00</td>
+                    <td class="right">1</td>
+                    <td class="right">–</td>
+                    <td class="right">–</td>
+                    <td class="right">–</td>
+                    <td class="right">–</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- LAST 6 MONTHS + METER DETAILS -->
+        <table style="margin-top:4px;">
+            <tr>
+                <th colspan="2">Last Six Months Consumption</th>
+            </tr>
+            <tr>
+                <td style="width:50%;vertical-align:top;">
+                    <table>
+                        <tr>
+                            <th>Bill Month</th>
+                            <th>Bill Date</th>
+                            <th class="right">Reading</th>
+                            <th class="right">Units</th>
+                        </tr>
+                        <tr><td>OCT-2024</td><td>25-10-2024</td><td class="right">102</td><td class="right">149</td></tr>
+                        <tr><td>MAY-2025</td><td>21-05-2025</td><td class="right">202</td><td class="right">140</td></tr>
+                        <tr><td>JUN-2025</td><td>20-06-2025</td><td class="right">205</td><td class="right">127</td></tr>
+                        <tr><td>JUL-2025</td><td>21-07-2025</td><td class="right">200</td><td class="right">127</td></tr>
+                        <tr><td>AUG-2025</td><td>20-08-2025</td><td class="right">205</td><td class="right">135</td></tr>
+                        <tr><td>SEP-2025</td><td>22-09-2025</td><td class="right">200</td><td class="right">130</td></tr>
+                    </table>
+                    <div class="small">*Consumption trend is indicative and useful for comparison of monthly usage.</div>
+                </td>
+                <td style="vertical-align:top;">
+                    <table>
+                        <tr>
+                            <th colspan="6" class="center">Meter Details</th>
+                        </tr>
+                        <tr>
+                            <th>Meter No.</th>
+                            <th>Make</th>
+                            <th>Phase</th>
+                            <th>Voltage</th>
+                            <th>Current Rating</th>
+                            <th>Accuracy Class</th>
+                        </tr>
+                        <tr>
+                            <td>MIG6150143053</td>
+                            <td>Secure</td>
+                            <td>1-Phase</td>
+                            <td>240 V</td>
+                            <td>5–30 A</td>
+                            <td>1.0</td>
+                        </tr>
+                        <tr>
+                            <th>Meter Location</th>
+                            <th>Seal Status</th>
+                            <th colspan="2">Meter Installation Date</th>
+                            <th colspan="2">Last Meter Change Date</th>
+                        </tr>
+                        <tr>
+                            <td>Consumer Premises</td>
+                            <td>Intact</td>
+                            <td colspan="2">23-06-2017</td>
+                            <td colspan="2">—</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div class="footer-small">Page 1 of 3</div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+        <!-- BARCODE BAND -->
+        <table style="margin-top:6px;">
+            <tr>
+                <th> Barcode</th>
+                <th>Customer No</th>
+                <th>Bill No.</th>
+                <th>Group No.</th>
+                <th>Due Date</th>
+                <th>Bill Amount</th>
+            </tr>
+            <tr>
+                <td style="padding: 1px;">
+                    <div style="height:14px;background:repeating-linear-gradient(90deg,#000 0,#000 2px,#fff 2px,#fff 3px);"></div>
+                </td>
+                <td>N3104003053</td>
+                <td>X0X0X0FAFADSFF</td>
+                <td>KNW47-12</td>
+                <td>01-11-2025</td>
+                <td>₹ 2,163.00</td>
+            </tr>
+        </table>
+
+        <!-- DETAILED BILL -->
+        <div class="section-title">DETAILED BILL BREAKUP</div>
+        <div class="table-scroll">
+            <table>
+                <tr><th colspan="2">Energy &amp; Fixed</th></tr>
+                <tr><td>Energy charges</td><td class="right">₹ 658.18</td></tr>
+                <tr><td>FPPCA (Fuel &amp; Power Purchase Cost Adjustment)</td><td class="right">₹ -17.19</td></tr>
+                <tr><td>Fixed charges</td><td class="right">₹ 106.00</td></tr>
+                <tr><td>Total energy charges without Govt duty</td><td class="right">₹ 747.00</td></tr>
+                <tr><th colspan="2">Duties &amp; Subsidy</th></tr>
+                <tr><td>Govt duty @ 10.00%</td><td class="right">₹ 62.00</td></tr>
+                <tr><td>Subsidy (M.P. Govt.)</td><td class="right">₹ -531.99</td></tr>
+                <tr><th colspan="2">Arrears &amp; Adjustments</th></tr>
+                <tr><td>Previous dues (Principal arrear)</td><td class="right">₹ 1,618.00</td></tr>
+                <tr><td>Cumulative surcharge</td><td class="right">₹ 268.02</td></tr>
+                <tr><td>Online / Advance payment incentive</td><td class="right">₹ 0.00</td></tr>
+                <tr><td>Other debit / credit</td><td class="right">₹ 0.00</td></tr>
+                <tr><td>Delayed payment charges</td><td class="right">₹ 0.00</td></tr>
+                <tr>
+                    <th>Total Amount Due</th>
+                    <th class="right">₹ 2,163.00</th>
+                </tr>
+            </table>
+        </div>
+
+        <!-- LAST PAYMENT + HISTORY -->
+        <div class="section-title">LAST PAYMENT &amp; HISTORY</div>
+        <table>
+            <tr>
+                <th>Last Payment Month</th>
+                <th class="right">Amount Paid (₹)</th>
+                <th>Payment Ref. No.</th>
+                <th>Payment Date</th>
+                <th>Mode</th>
+            </tr>
+            <tr>
+                <td>AUG-2025</td>
+                <td class="right">2,100.00</td>
+                <td>DTD020920527242</td>
+                <td>02-09-2025</td>
+                <td>Online UPI</td>
+            </tr>
+        </table>
+        <table style="margin-top:3px;">
+            <tr><th colspan="5" class="center">Payment History (Last 3 Bills – Dummy)</th></tr>
+            <tr>
+                <th>Bill Month</th><th>Bill Amount (₹)</th><th>Paid Amount (₹)</th><th>Paid Date</th><th>Mode</th>
+            </tr>
+            <tr><td>JUL-2025</td><td class="right">1,950.00</td><td class="right">1,950.00</td><td>05-08-2025</td><td>Net Banking</td></tr>
+            <tr><td>JUN-2025</td><td class="right">1,780.00</td><td class="right">1,780.00</td><td>06-07-2025</td><td>Cash Counter</td></tr>
+            <tr><td>MAY-2025</td><td class="right">1,620.00</td><td class="right">1,620.00</td><td>04-06-2025</td><td>UPI</td></tr>
+        </table>
+
+        <!-- TARIFF & DUTY -->
+        <table style="margin-top:6px;">
+            <tr>
+                <th style="width:55%;">Tariff Structure (Key Slabs)</th>
+                <th>Government Duty Rates</th>
+            </tr>
+            <tr>
+                <td style="vertical-align:top;">
+                    <table>
+                        <tr>
+                            <th>Tariff</th>
+                            <th>Units / Month</th>
+                            <th>Rate / Unit (₹)</th>
+                            <th>Monthly Fixed (₹)</th>
+                        </tr>
+                        <tr><td>LV1 – Domestic 0–50</td><td>0–50</td><td>4.00</td><td>30</td></tr>
+                        <tr><td>LV1 – Domestic 51–150</td><td>51–150</td><td>5.50</td><td>50</td></tr>
+                        <tr><td>LV1 – Domestic 151–300</td><td>151–300</td><td>6.00</td><td>70</td></tr>
+                        <tr><td>LV1 – Domestic &gt;300</td><td>&gt;300</td><td>6.75</td><td>90</td></tr>
+                        <tr><td>Non-RGP (Commercial)</td><td>0–300</td><td>7.25</td><td>120</td></tr>
+                        <tr><td>BPL</td><td>0–30</td><td>1.00</td><td>10</td></tr>
+                    </table>
+                </td>
+                <td style="vertical-align:top;">
+                    <table>
+                        <tr><th>Category</th><th>Duty Rate (%)</th></tr>
+                        <tr><td>Residential &amp; approved educational</td><td class="right">10%</td></tr>
+                        <tr><td>Commercial</td><td class="right">15%</td></tr>
+                        <tr><td>Industrial</td><td class="right">9%</td></tr>
+                        <tr><td>Religious place</td><td class="right">8%</td></tr>
+                        <tr><td>Hostel</td><td class="right">10%</td></tr>
+                    </table>
+                    <div class="note-box">
+                        Duty is calculated on energy charges only and is credited to State Government as per prevailing rules.
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- CONTACT & GRIEVANCE -->
+        <div class="section-title">CONTACT &amp; GRIEVANCE REDRESSAL</div>
+        <table>
+            <tr>
+                <th style="width:45%;">24x7 Helpline</th>
+                <th>Consumer Grievance Redressal Forum</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="small">
+                        Call Centre (Toll Free): <b>1912</b><br>
+                        Alternate: 1800-233-1912<br>
+                        WhatsApp (Dummy): +91-9876543210<br>
+                        Email: <b>support@mpwz.co.in</b><br>
+                        Website: <b>https://www.mpwz.co.in</b>
+                    </div>
+                </td>
+                <td>
+                    <div class="small">
+                        The Chairman, CGRF<br>
+                        Madhya Pradesh Paschim Kshetra Vidyut Vitaran Co. Ltd.<br>
+                        Power House, Pologround, Indore – 452001<br>
+                        Email: <b>cgrf@mpwz.co.in</b><br>
+                        Timings: 10 AM to 5 PM on all working days.
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- ===== ANALYTICS & GRAPHS (Chart.js) ===== -->
+        <div class="section-title">CONSUMPTION &amp; BILL ANALYTICS</div>
+
+        <!-- Consumption trend + Major components -->
+        <table class="chart-table">
+            <tr>
+                <th style="width:60%;">Consumption Trend (In Units)</th>
+                <th>Major Bill Components (Rounded)</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="chart-wrapper">
+                        <canvas id="consumptionTrendChart"></canvas>
+                    </div>
+                </td>
+                <td>
+                    <div class="chart-wrapper">
+                        <canvas id="majorComponentsChart"></canvas>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- TOD MD + TOD consumption -->
+        <table class="chart-table" style="margin-top:4px;">
+            <tr>
+                <th style="width:50%;">TOD Recorded MD</th>
+                <th>TOD Consumption Breakup (Units)</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="chart-wrapper-small">
+                        <canvas id="todRecordedMdChart"></canvas>
+                    </div>
+                </td>
+                <td>
+                    <div class="chart-wrapper-small">
+                        <canvas id="todConsumptionChart"></canvas>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Power factor trend -->
+        <div class="section-title">POWER FACTOR TREND</div>
+        <div class="chart-wrapper" style="margin-bottom:4px;">
+            <canvas id="pfTrendChart"></canvas>
+        </div>
+
+        <div class="footer-small">Page 2 of 3</div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page">
+        <table style="margin-top:6px;">
+            <tr>
+                <th> Barcode</th>
+                <th>Customer No</th>
+                <th>Bill No.</th>
+                <th>Group No.</th>
+                <th>Due Date</th>
+                <th>Bill Amount</th>
+            </tr>
+            <tr>
+                <td style="padding: 1px;">
+                    <div style="height:14px;background:repeating-linear-gradient(90deg,#000 0,#000 2px,#fff 2px,#fff 3px);"></div>
+                </td>
+                <td>N3104003053</td>
+                <td>X0X0X0FAFADSFF</td>
+                <td>KNW47-12</td>
+                <td>01-11-2025</td>
+                <td>₹ 2,163.00</td>
+            </tr>
+        </table>
+
+        <!-- CURRENT CONSUMPTION EXTENDED -->
+        <div class="section-title">CURRENT CONSUMPTION DETAILS (KWH / KVAH / MD)</div>
+        <div class="table-scroll">
+            <table>
+                <tr>
+                    <th>Reading Details</th>
+                    <th>KWH</th>
+                    <th>KVAH</th>
+                    <th>RKVAH (LAG)</th>
+                    <th>RKVAH (LEAD)</th>
+                    <th>KW (MD)</th>
+                    <th>KVA (MD)</th>
+                </tr>
+                <tr>
+                    <td>Current 31/12/2024</td>
+                    <td>12,850</td>
+                    <td>13,290</td>
+                    <td>450</td>
+                    <td>120</td>
+                    <td>155</td>
+                    <td>160</td>
+                </tr>
+                <tr>
+                    <td>Previous 30/11/2024</td>
+                    <td>11,200</td>
+                    <td>11,600</td>
+                    <td>400</td>
+                    <td>100</td>
+                    <td>150</td>
+                    <td>155</td>
+                </tr>
+                <tr>
+                    <td>Difference</td>
+                    <td>1,650</td>
+                    <td>1,690</td>
+                    <td>50</td>
+                    <td>20</td>
+                    <td>5</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>Multiplying Factor</td>
+                    <td>1.0</td><td>1.0</td><td>1.0</td><td>1.0</td><td>1.0</td><td>1.0</td>
+                </tr>
+                <tr>
+                    <td>Consumption</td>
+                    <td>1,650</td><td>1,690</td><td>50</td><td>20</td><td>5</td><td>5</td>
+                </tr>
+                <tr>
+                    <td>L.T. Metering</td>
+                    <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr>
+                    <td>Adjustment</td>
+                    <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr>
+                    <td>Assessed Consumption</td>
+                    <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                </tr>
+                <tr>
+                    <th>Total Consumption</th>
+                    <th>1,650</th>
+                    <th>1,690</th>
+                    <th>50</th>
+                    <th>20</th>
+                    <th>155</th>
+                    <th>160</th>
+                </tr>
+            </table>
+        </div>
+
+        <!-- TOD MD & Charges -->
+        <div class="section-title">TOD RECORDED MD &amp; TOD CHARGES</div>
+        <table>
+            <tr>
+                <th style="width:40%;">TOD Recorded MD (Visual + Table)</th>
+                <th>TOD Consumption &amp; Charges</th>
+            </tr>
+            <tr>
+                <td>
+                    <!-- left empty now because Chart.js version is on page 2 -->
+                    <table class="small" style="margin-top:2px;">
+                        <tr><th colspan="2">Billing Demand</th></tr>
+                        <tr><td>Recorded MD (except A Zone)</td><td class="right">155 kW</td></tr>
+                        <tr><td>75% of Highest Demand preceding 11 months</td><td class="right">142 kW</td></tr>
+                        <tr><td>75% of Contract Demand (CD)</td><td class="right">135 kW</td></tr>
+                        <tr><th>Billed Demand (KVA) – Max of above</th><th class="right">160 kVA</th></tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <th>ZONE</th>
+                            <th>TIMING</th>
+                            <th>Units</th>
+                            <th>Rate (₹/kWh)</th>
+                            <th>Charges (₹)</th>
+                        </tr>
+                        <tr>
+                            <td>A</td>
+                            <td>00:00–06:00 &amp; 22:00–24:00</td>
+                            <td>437.25</td>
+                            <td>6.50</td>
+                            <td>2,842.13</td>
+                        </tr>
+                        <tr>
+                            <td>B</td>
+                            <td>06:00–09:00 &amp; 12:00–18:00</td>
+                            <td>469.50</td>
+                            <td>8.20</td>
+                            <td>3,849.90</td>
+                        </tr>
+                        <tr>
+                            <td>C</td>
+                            <td>09:00–12:00</td>
+                            <td>120.12</td>
+                            <td>10.50</td>
+                            <td>1,261.26</td>
+                        </tr>
+                        <tr>
+                            <td>D</td>
+                            <td>18:00–22:00</td>
+                            <td>456.75</td>
+                            <td>9.80</td>
+                            <td>4,476.15</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Total Energy Charges</th>
+                            <th>1,650.00</th>
+                            <th></th>
+                            <th>12,429.44</th>
+                        </tr>
+                    </table>
+                    <div class="small">
+                        By shifting peak hour consumption (zones C + D) to off-peak zones (A),
+                        you may avail higher TOD rebates and lower demand charges.
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- POWER FACTOR TREND & SUMMARY -->
+        <div class="section-title">POWER FACTOR TREND &amp; SUMMARY</div>
+        <table>
+            <tr>
+                <th>PF Summary</th>
+            </tr>
+            <tr>
+                <td style="vertical-align:top;">
+                    <table>
+                        <tr><th>Parameter</th><th class="right">Value</th></tr>
+                        <tr><td>Billed PF</td><td class="right">0.966</td></tr>
+                        <tr><td>Yearly Average PF</td><td class="right">0.973</td></tr>
+                        <tr><td>Potential unit saving if PF → 1.0</td><td class="right">≈ 2.75%</td></tr>
+                    </table>
+                    <div class="note-box">
+                        Suggestions:<br>
+                        • Install/maintain capacitor banks as per connected load.<br>
+                        • Avoid running lightly loaded motors for long durations.<br>
+                        • Periodically check meter display / load survey to correct low PF.
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- OTHER DETAILS -->
+        <div class="section-title">OTHER ACCOUNT DETAILS</div>
+        <table>
+            <tr>
+                <th style="width:50%;">Vigilance / O&amp;M Panchanama Detail</th>
+                <th style="width:50%;">CCB Adjustment Detail (Last 4)</th>
+            </tr>
+            <tr>
+                <td>
+                    <table class="small">
+                        <tr><th>Description</th><th class="right">Amount (₹)</th></tr>
+                        <tr><td>No vigilance / O&amp;M Panchanama amount during this period</td><td class="right">0.00</td></tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="small">
+                        <tr><th>Description</th><th class="right">Amount (₹)</th></tr>
+                        <tr><td>No CCB adjustment during this period</td><td class="right">0.00</td></tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <th style="width:99%;" colspan="2">Meter Replacement and Read Detail</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table class="small">
+                        <tr>
+                            <th>Meter Detail</th>
+                            <th class="right">Prev / Start Read</th>
+                            <th class="right">Final / Current Read</th>
+                            <th class="right">Consumption</th>
+                            <th class="right">Prorated Current Bill</th>
+                        </tr>
+                        <tr>
+                            <td>Main Meter</td>
+                            <td class="right">70.00</td>
+                            <td class="right">200.00</td>
+                            <td class="right">130.00</td>
+                            <td class="right">2,163.00</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div class="footer-small">Page 3 of 3</div>
+    </div>
+
+</div>
+
+<!-- ===== Chart.js initialisation ===== -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Global defaults
+    Chart.defaults.font.family = '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif';
+    Chart.defaults.font.size = 8;
+    Chart.defaults.plugins.legend.position = 'bottom';
+
+    /* -------- Consumption Trend (bar) -------- */
+    const consCtx = document.getElementById('consumptionTrendChart');
+    if (consCtx) {
+        new Chart(consCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Apr', 'Jun', 'Aug', 'Oct', 'Dec', 'Feb'],
+                datasets: [
+                    {
+                        label: '2022',
+                        data: [31, 35, 34, 38, 30, 26],
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '2023',
+                        data: [46, 35, 43, 58, 33, 32],
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 10 }
+                    }
+                }
+            }
+        });
+    }
+
+    /* -------- Major Bill Components (doughnut) -------- */
+    const majorCtx = document.getElementById('majorComponentsChart');
+    if (majorCtx) {
+        new Chart(majorCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'Energy charges',
+                    'Fixed charges',
+                    'Government duty',
+                    'FPPCA & others'
+                ],
+                datasets: [{
+                    data: [1600, 200, 200, 163],
+                    backgroundColor: [
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 205, 86, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right' }
+                },
+                cutout: '60%'
+            }
+        });
+    }
+
+    /* -------- TOD Recorded MD (bar) -------- */
+    const todMdCtx = document.getElementById('todRecordedMdChart');
+    if (todMdCtx) {
+        new Chart(todMdCtx, {
+            type: 'bar',
+            data: {
+                labels: ['A', 'B', 'C', 'D'],
+                datasets: [{
+                    label: 'Recorded MD (kW)',
+                    data: [128, 202, 177, 224],
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { grid: { display: false } },
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+
+    /* -------- TOD Consumption Breakup (pie) -------- */
+    const todConsCtx = document.getElementById('todConsumptionChart');
+    if (todConsCtx) {
+        new Chart(todConsCtx, {
+            type: 'pie',
+            data: {
+                labels: ['A', 'B', 'C', 'D'],
+                datasets: [{
+                    data: [3719, 2901, 741, 2820],
+                    backgroundColor: [
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(201, 203, 207, 0.8)',
+                        'rgba(255, 205, 86, 0.8)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+
+    /* -------- Power Factor Trend (bar) -------- */
+    const pfCtx = document.getElementById('pfTrendChart');
+    if (pfCtx) {
+        new Chart(pfCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'JAN-24','FEB-24','MAR-24','APR-24',
+                    'MAY-24','JUN-24','JUL-24','AUG-24',
+                    'SEP-24','OCT-24','NOV-24','DEC-24'
+                ],
+                datasets: [{
+                    label: 'Power Factor',
+                    data: [0.974, 0.978, 0.978, 0.980,
+                           0.977, 0.975, 0.963, 0.972,
+                           0.972, 0.974, 0.977, 0.966],
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        min: 0.9,
+                        max: 1.0,
+                        ticks: { stepSize: 0.02 }
+                    },
+                    x: { grid: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: {
+                        display: true,
+                        text: 'Billed PF : 0.966  |  Yearly Average PF : 0.973'
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+</body>
+</html>
