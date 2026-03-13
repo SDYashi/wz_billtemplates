@@ -2,16 +2,15 @@
 """
 Send an HTML file to a remote API that returns a PDF, then save the PDF locally.
 
-python html_to_pdf_client_apitesting_program.py --html-file templates/bill5_v7.html --output-dir pdf_output --num-requests 100 --concurrency 20 --save-pdf --max-save 50
+python api_testing.py --html-file templates/bill5_v9.html --output-dir pdf_output1 --num-requests 2 --concurrency 2 --save-pdf --max-save 2
 
-
-python html_to_pdf_client_apitesting_program.py `
---html-file templates/bill5_v7.html `
+python api_testing.py `
+--html-file templates/bill5_v8_hindi.html `
 --output-dir pdf_output `
---num-requests 100000 `
+--num-requests 100 `
 --concurrency 200 `
 --save-pdf `
---max-save 100000
+--max-save 10
 
 """
 
@@ -25,26 +24,12 @@ from datetime import datetime
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# ======== CONFIGURE THIS SECTION IF NEEDED ========
-
-# Base server URL (no trailing slash)
 BASE_URL = "http://10.98.7.221:8000"
-
-# Endpoint path for PDF generation (adjust to your actual API route)
-PDF_ENDPOINT = "/generate-resposepdf"
-
-# Full URL
+PDF_ENDPOINT = "/generate-sync"
 API_URL = f"{BASE_URL}{PDF_ENDPOINT}"
-
-# If your API expects JSON instead of raw HTML, change PAYLOAD_MODE below.
-# Options:
-#   "raw_html"  -> send HTML as request body with Content-Type: text/html
-#   "json_html" -> send JSON: {"html": "<html>...</html>"}
 PAYLOAD_MODE = "raw_html"
 
 # ==================================================
-
-
 def send_html_and_get_pdf(
     html_path: Path,
     output_dir: Path,
@@ -97,7 +82,6 @@ def send_html_and_get_pdf(
     # Save PDF
     output_path.write_bytes(response.content)
     return output_path
-
 
 def make_request_once(
     html_content: str,
@@ -159,7 +143,6 @@ def make_request_once(
             debug_path.write_text(str(e), encoding="utf-8")
 
         return False, latency, str(e)
-
 
 def run_load_test(
     html_path: Path,
@@ -256,7 +239,6 @@ def run_load_test(
     if save_pdf:
         print(f"PDF/debug files dir : {run_dir}")
 
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Send HTML to remote API and save returned PDF, with optional load testing."
@@ -306,7 +288,6 @@ def parse_args() -> argparse.Namespace:
 
     return parser.parse_args()
 
-
 def main() -> None:
     args = parse_args()
     html_path = Path(args.html_file).resolve()
@@ -334,7 +315,6 @@ def main() -> None:
             print(f"[ERROR] {e}", file=sys.stderr)
             sys.exit(1)
         print(f"[OK] PDF saved to: {pdf_path}")
-
 
 if __name__ == "__main__":
     main()
