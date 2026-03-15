@@ -1,3 +1,5 @@
+from typing import Any
+
 from flask import Flask, abort, render_template, jsonify
 import json
 from pathlib import Path
@@ -12,7 +14,7 @@ app = Flask(__name__)
 BASE_DIR = Path(__file__).resolve().parent
 JSON_FILE_EN = BASE_DIR / "bill_data_english.json"
 JSON_FILE_HI = BASE_DIR / "bill_data_hindi.json"
-
+JSON_FILE_EN_PROD = BASE_DIR / "bill_data_english_prod.json"
 
 def load_bill_data_en():
     with open(JSON_FILE_EN, "r", encoding="utf-8") as f:
@@ -21,10 +23,15 @@ def load_bill_data_en():
 def load_bill_data_hi():
     with open(JSON_FILE_HI, "r", encoding="utf-8") as f:
         return json.load(f)
+    
+def load_bill_data_en_prod():
+    with open(JSON_FILE_EN_PROD, "r", encoding="utf-8") as f:
+        return json.load(f)  
 
 @app.route("/")
 def home():
     return render_template("index.html")
+
 
 @app.route("/pdf/<folder>/<filename>")
 def serve_pdf(folder, filename):
@@ -153,6 +160,38 @@ def bill_view_en():
         "--max-save", "2"
     ])
     return {"message": "bIll generated successfully in english check pdf_output1 folder"}
+
+
+
+@app.route("/WZ_BILL_ENGLISH_PROD_PREVIEW")
+def bill_view_en_prod_preview():
+    data = load_bill_data_en_prod()
+    return render_template("bill_prod_preview.html", **data)
+
+
+@app.route("/WZ_BILL_ENGLISH_PROD_JSON")
+def bill_view_en_prod_json():
+    data = load_bill_data_en_prod()
+
+    rendered_html = render_template("bill_prod_preview.html", **data)
+
+    output_html = BASE_DIR / "generated_bill_en_prod.html"
+    with open(output_html, "w", encoding="utf-8") as f:
+        f.write(rendered_html)
+
+    subprocess.Popen([
+        "python",
+        str(BASE_DIR / "api_testing.py"),
+        "--html-file", str(output_html),
+        "--output-dir", "pdf_output1",
+        "--num-requests", "2",
+        "--concurrency", "2",
+        "--save-pdf",
+        "--max-save", "2"
+    ], cwd=str(BASE_DIR))
+
+    return {"message": "English production PDF generation started"}
+
 
 if __name__ == "__main__":
     app.run(debug=True , host="0.0.0.0", port=5000, use_reloader=False)

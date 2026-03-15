@@ -1,0 +1,405 @@
+{
+  "companyInfo": {
+    "logoBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5n0AAAAASUVORK5CYII=",
+    "alternateLogoBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5n0AAAAASUVORK5CYII=",
+    "fullName": "Madhya Pradesh Paschim Kshetra Vidyut Vitaran Company Ltd.",
+    "address": "GPH Compound, Pologround, Indore, Madhya Pradesh",
+    "website": "https://www.mpwz.co.in",
+    "customerCareNumber": "1912",
+    "gstNo": "23ABCDE1234F1Z5",
+    "ciNo": "U40109MP2002SGC015121",
+    "whatsappQuickResponseBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5n0AAAAASUVORK5CYII="
+  },
+  "billSummary": {
+    "billNo": "WZ202603150001",
+    "billMonth": "MAR-2026",
+    "dueDate": "25-03-2026",
+    "consumption": "356",
+    "currentBill": "2450.00",
+    "arrear": "310.00",
+    "payableTillDueDate": "2760.00",
+    "payableAfterDueDate": "2810.00",
+    "paymentQuickResponseBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5n0AAAAASUVORK5CYII=",
+    "billDate": "15-03-2026",
+    "billType": "REGULAR",
+    "meterReaderName": "Rakesh Sharma",
+    "billBasis": "ACTUAL",
+    "dailyAverageBill": "81.67",
+    "dailyAverageConsumption": "11.87",
+    "sdHeld": "1500.00",
+    "sdPending": "0.00",
+    "pdcDate": "10-02-2026",
+    "consumptionTrendBarChartBase64": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5n0AAAAASUVORK5CYII="
+  },
+  "consumerInfo": {
+    "consumerNo": "1234567890",
+    "mobileNo": "9876543210",
+    "emailId": "consumer@example.com",
+    "employeeNo": "EMP1023",
+    "consumerName": "Deepak Marskole",
+    "address": "Huzurganj, Madhya Pradesh",
+    "status": "ACTIVE"
+  },
+  "connectionInfo": {
+    "divisionName": "Indore City Division",
+    "locationCode": "LOC101",
+    "zoneName": "Zone A",
+    "groupNo": "12",
+    "readingDiaryNo": "45",
+    "connectionType": "LT",
+    "feederCode": "FD12345",
+    "dtrCode": "DTR8899",
+    "poleNo": "P-102",
+    "purpose": "Domestic",
+    "areaType": "Urban",
+    "tariffCategory": "Domestic",
+    "tariffCode": "LV1.1",
+    "connectionDate": "10-05-2021",
+    "phase": "Single Phase",
+    "sanctionedLoad": "2",
+    "sanctionedLoadUnit": "KW",
+    "contractDemand": "2",
+    "contractDemandUnit": "KW",
+    "isNetMeter": false,
+    "isPrepaid": false,
+    "prepaidDate": "",
+    "isNetMeterChild": false,
+    "isNetMeterParent": false
+  },
+  "billInfo": {
+    "pf": "0.98",
+    "md": "1.85",
+    "energyCharge": "1800.00",
+    "fppas": "120.00",
+    "fixedCharge": "150.00",
+    "subTotalOne": "2070.00",
+    "electricityDuty": "250.00",
+    "ccbAdjustment": "20.00",
+    "subTotalTwo": "2340.00",
+    "penalCharge": "0.00",
+    "pfSurchargeOrIncentive": "-10.00",
+    "asdInstallment": "0.00",
+    "todRebateOrSurcharge": "0.00",
+    "sdInterest": "-15.00",
+    "locdFactorIncentive": "0.00",
+    "lockCredit": "0.00",
+    "employeeRebate": "0.00",
+    "prepaidPaymentRebate": "0.00",
+    "onlinePaymentRebate": "-5.00",
+    "promptPaymentIncentive": "-10.00",
+    "advancePaymentIncentive": "0.00",
+    "demandSideIncentive": "0.00",
+    "wheelingCharge": "0.00",
+    "subTotalThree": "-40.00",
+    "subsidy": "150.00",
+    "subTotalFour": "2450.00",
+    "principalArrear": "250.00",
+    "cumulativeSurcharge": "40.00",
+    "asdArrear": "20.00",
+    "netBill": "2760.00",
+    "paymentForBillAndVigilance": "0.00",
+    "paymentForSmartMeterRCDC": "0.00",
+    "vigilanceDueAmount": "0.00",
+    "vigilanceDueInterestAmount": "0.00",
+    "totalPayableAmount": "2760.00"
+  },
+  "readInfo": {
+    "meterSrNo": "MTR202600987",
+    "date": "14-03-2026",
+    "type": "NORMAL",
+    "source": "MRI",
+    "solarPlantCapacity": "",
+    "residualUnit": "0",
+    "residualUnitAdjusted": "0",
+    "netMeteredUnit": "0",
+    "netBilledUnit": "0",
+    "readDetailList": [
+      {
+        "currentRead": "12560",
+        "previousRead": "12204",
+        "mf": "1",
+        "meteredUnit": "356",
+        "assessment": "0",
+        "billedUnit": "356"
+      }
+    ]
+  },
+  "todInfo": {
+    "todNetMeterDetailList": [],
+    "todDetailList": [
+      {
+        "type": "NORMAL",
+        "demandHour": "06:00-18:00",
+        "unit": "220",
+        "amount": "1540.00"
+      },
+      {
+        "type": "PEAK",
+        "demandHour": "18:00-22:00",
+        "unit": "86",
+        "amount": "640.00"
+      },
+      {
+        "type": "OFF PEAK",
+        "demandHour": "22:00-06:00",
+        "unit": "50",
+        "amount": "270.00"
+      }
+    ],
+    "todPieChartBase64Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5n0AAAAASUVORK5CYII="
+  },
+  "meterReplacementInfo": {
+    "netMeterReplacementDetailList": [],
+    "meterReplacementDetailList": [
+      {
+        "meterDetail": "Old Meter MTR202500111 / New Meter MTR202600987",
+        "replacementDate": "05-03-2026",
+        "previousRead": "12000",
+        "currentRead": "12204",
+        "consumption": "204",
+        "proratedCurrentBill": "1400.00"
+      },
+      {
+        "meterDetail": "Old Meter MTR202400222 / New Meter MTR202500111",
+        "replacementDate": "05-09-2025",
+        "previousRead": "11500",
+        "currentRead": "12000",
+        "consumption": "500",
+        "proratedCurrentBill": "3500.00"
+      },
+      {
+        "meterDetail": "Old Meter MTR202300333 / New Meter MTR202400222",
+        "replacementDate": "05-03-2025",
+        "previousRead": "11000",
+        "currentRead": "11500",
+        "consumption": "500",
+        "proratedCurrentBill": "3500.00"
+      },
+      {
+        "meterDetail": "Old Meter MTR202200444 / New Meter MTR202300333",
+        "replacementDate": "05-09-2024",
+        "previousRead": "10500",
+        "currentRead": "11000",
+        "consumption": "500",
+        "proratedCurrentBill": "3500.00"
+      },
+      {
+        "meterDetail": "Old Meter MTR202100555 / New Meter MTR202200444",
+        "replacementDate": "05-03-2024",
+        "previousRead": "10000",
+        "currentRead": "10500",
+        "consumption": "500",
+        "proratedCurrentBill": "3500.00"
+      }
+    ]
+  },
+  "adInfo": {
+    "pageOneZeroBase64Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5n0AAAAASUVORK5CYII=",
+    "pageTwoOneBase64Image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5n0AAAAASUVORK5CYII=",
+    "lastPageBase64Image": [
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5n0AAAAASUVORK5CYII=",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5n0AAAAASUVORK5CYII="
+    ]
+  },
+  "contactInformationList": [
+    {
+      "designation": "AE",
+      "officeName": "City Office Indore",
+      "name": "A. K. Verma",
+      "contactNo": "9000000001"
+    },
+    {
+      "designation": "JE",
+      "officeName": "Complaint Centre",
+      "name": "S. Patel",
+      "contactNo": "9000000002"
+    }
+  ],
+  "messages": [
+    "Please pay your bill before due date to avoid surcharge.",
+    "Use online payment options for quick and secure payment.",
+    "For complaints call 1912."
+  ],
+  "paymentHistoryInformationList": [
+    {
+      "payMonth": "FEB-2026",
+      "amount": "2310.00",
+      "cacNo": "TXN100001",
+      "payDate": "26-02-2026",
+      "payMode": "ONLINE"
+    },
+    {
+      "payMonth": "JAN-2026",
+      "amount": "2195.00",
+      "cacNo": "TXN099821",
+      "payDate": "24-01-2026",
+      "payMode": "UPI"
+    }
+  ],
+  "readHistoryInformationList": [
+    {
+      "billMonth": "FEB-2026",
+      "readDate": "14-02-2026",
+      "reading": "12204",
+      "unit": "318"
+    },
+    {
+      "billMonth": "JAN-2026",
+      "readDate": "14-01-2026",
+      "reading": "11886",
+      "unit": "301"
+    },
+    {
+      "billMonth": "DEC-2025",
+      "readDate": "14-12-2025",
+      "reading": "11585",
+      "unit": "284"
+    },
+    {
+      "billMonth": "NOV-2025",
+      "readDate": "14-11-2025",
+      "reading": "11301",
+      "unit": "290"
+    },
+    {
+      "billMonth": "OCT-2025",
+      "readDate": "14-10-2025",
+      "reading": "11011",
+      "unit": "276"
+    },
+    {
+      "billMonth": "SEP-2025",
+      "readDate": "14-09-2025",
+      "reading": "10735",
+      "unit": "265"
+    }
+  ],
+  "netMeterChildInformationList": [],
+  "billCalculationInformationList": [
+    {
+      "head": "Energy Charge",
+      "slab": "0-100",
+      "rate": "5.20",
+      "unit": "100",
+      "amount": "520.00"
+    },
+    {
+      "head": "Energy Charge",
+      "slab": "101-200",
+      "rate": "6.10",
+      "unit": "100",
+      "amount": "610.00"
+    },
+    {
+      "head": "Energy Charge",
+      "slab": "201-356",
+      "rate": "7.00",
+      "unit": "156",
+      "amount": "1092.00"
+    }
+  ],
+  "vigilanceInformationList": [
+    {
+      "description": "Previous vigilance adjustment",
+      "amount": "0.00"
+    },
+    {
+      "description": "Inspection recovery",
+      "amount": "0.00"
+    },
+    {
+      "description": "Other vigilance charges",
+      "amount": "0.00"
+    },
+    {
+      "description": "Total vigilance charges",
+      "amount": "0.00"
+    },
+    {
+      "description": "Vigilance payments",
+      "amount": "0.00"
+    },
+    {
+      "description": "Net vigilance amount",
+      "amount": "0.00"
+    }
+  ],
+  "adjustmentInformationList": [
+    {
+      "description": "CCB Carry Forward",
+      "amount": "20.00"
+    },
+    {
+      "description": "Rounding Adjustment",
+      "amount": "0.00"
+    },
+    {
+      "description": "Other Adjustments",
+      "amount": "0.00"
+    },
+    {
+      "description": "Total Adjustments",
+      "amount": "20.00"
+    },
+    {
+      "description": "Net Payable After Adjustments",
+      "amount": "2470.00"
+    },
+    {
+      "description": "Net Payable After Subsidy",
+      "amount": "2450.00"
+    },
+    {
+      "description": "Net Payable After Arrear and Surcharge",
+      "amount": "2760.00"
+    },
+    {
+      "description": "Total Payable Amount",
+      "amount": "2760.00"
+    }
+  ],
+  "ecgrfInformationList": [
+    {
+      "memberType": "Chairman",
+      "name": "R. S. Chauhan",
+      "contactNo": "9000000101",
+      "caseHandling": "Billing Complaints"
+    },
+    {
+      "memberType": "Member",
+      "name": "P. Tiwari",
+      "contactNo": "9000000102",
+      "caseHandling": "Supply Complaints"
+    },
+    {
+      "memberType": "Member",
+      "name": "S. K. Gupta",
+      "contactNo": "9000000103",
+      "caseHandling": "General Complaints"
+    },
+    {
+      "memberType": "Member",
+      "name": "A. Verma",
+      "contactNo": "9000000104",
+      "caseHandling": "Technical Complaints"
+    },
+    {
+      "memberType": "Member",
+      "name": "R. Kumar",
+      "contactNo": "9000000105",
+      "caseHandling": "Customer Service Complaints"
+    },
+    {
+      "memberType": "Member",
+      "name": "S. Sharma",
+      "contactNo": "9000000106",
+      "caseHandling": "Metering Complaints"
+    },
+    {
+      "memberType": "Member",
+      "name": "M. Singh",
+      "contactNo": "9000000107",
+      "caseHandling": "Other Complaints"
+    }
+  ]
+}

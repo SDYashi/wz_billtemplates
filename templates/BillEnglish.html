@@ -306,7 +306,7 @@
     <div class="header-top">
         <div class="header-left">
             <div class="header-cell left">
-                <img src="${companyInfo.getLogoBase64()}" alt="" style="width:60px; height:60px;"/>
+                <img src="${companyInfo.getLogoBase64()}" alt="" style="width:80px; height:80px;"/>
             </div>
             <div class="header-cell">
                 <div class="company-info">
@@ -324,7 +324,7 @@
                 </div>
             </div>
             <div class="header-cell right">
-                <img src="${companyInfo.getAlternateLogoBase64()}" alt="" style="width:60px; height:60px;"/>
+                <img src="${companyInfo.getAlternateLogoBase64()}" alt="" style="width:80px; height:80px;"/>
             </div>
         </div>
     </div>
@@ -528,8 +528,8 @@
                 <table class="info-strip">
                     @for(var contact : billTemplate.getContactInformationList())
                         <tr>
-                            <td><b>${contact.getDesignation()}:</b><br><b>${contact.getOfficeName()}</b></td>
-                            <td><b>${contact.getName()}<br>${contact.getContactNo()}</b></td>
+                            <td><b>${contact.getDesignation()}: ${contact.getOfficeName()}</b></td>
+                            <td><b>${contact.getName()}: ${contact.getContactNo()}</b></td>
                         </tr>
                     @endfor
                 </table>
@@ -632,7 +632,7 @@
 
     <div class="box">
         @if(connectionInfo.isNetMeter())
-            <table class="reading-table">
+            <table class="tight">
                 <thead>
                 <tr>
                     <th>Particulars</th>
@@ -782,7 +782,7 @@
     @if(connectionInfo.isNetMeter() && !GlobalUtil.isEmpty(todInfo.getTodNetMeterDetailList()))
         <div class="band-title">TOD DETAILS</div>
         <div class="table-scroll" style="margin-top:6px;">
-            <table class="reading-table">
+            <table class="tight">
                 <thead>
                 <tr>
                     <th>TOD</th>
@@ -885,8 +885,8 @@
             </tr>
             @for(var read : billTemplate.getReadHistoryInformationList())
                 <tr>
-                    <td>${read.getBillMonth()}</td>
-                    <td>${JteUtil.get(read.getReadDate())}</td>
+                    <td class="center">${read.getBillMonth()}</td>
+                    <td class="center">${JteUtil.get(read.getReadDate())}</td>
                     <td class="right">${JteUtil.get(read.getReading())}</td>
                     <td class="right">${JteUtil.get(read.getUnit())}</td>
                 </tr>
@@ -899,7 +899,7 @@
         @if(meterReplacementInfo != null && !GlobalUtil.isEmpty(meterReplacementInfo.getNetMeterReplacementDetailList()))
             <div class="band-title mt-8">METER REPLACEMENT AND READ DETAIL</div>
             <div class="table-scroll" style="margin-top:6px;">
-                <table class="reading-table">
+                <table class="tight">
                     <thead>
                     <tr>
                         <th rowspan="2">Meter Detail</th>
@@ -939,7 +939,7 @@
         @if(meterReplacementInfo != null && !GlobalUtil.isEmpty(meterReplacementInfo.getMeterReplacementDetailList()))
             <div class="band-title mt-8">METER REPLACEMENT AND READ DETAIL</div>
             <div class="table-scroll">
-                <table class="reading-table">
+                <table class="tight">
                     <thead>
                     <tr>
                         <th>Meter Detail</th>
@@ -979,7 +979,7 @@
     @if(connectionInfo.isNetMeterParent() && !GlobalUtil.isEmpty(billTemplate.getNetMeterChildInformationList()))
         <div class="band-title" style="margin-top:3px;">VIRTUAL / GROUP NET METER CHILD CONNECTION EXPORT DETAIL</div>
         <div class="table-scroll">
-            <table class="reading-table">
+            <table class="tight">
                 <thead>
                 <tr>
                     <th>Consumer No</th>
@@ -1013,7 +1013,7 @@
     @if(!GlobalUtil.isEmpty(billTemplate.getBillCalculationInformationList()))
         <div class="band-title mt-8">HEAD WISE BILL CALCULATION DETAIL</div>
         <div class="table-scroll">
-            <table class="reading-table" style="min-width:0;">
+            <table class="tight" style="min-width:0;">
                 <thead>
                 <tr>
                     <th>Head</th>
@@ -1026,8 +1026,8 @@
                 <tbody>
                 @for(var calculation : billTemplate.getBillCalculationInformationList())
                     <tr>
-                        <td>${calculation.getHead()}</td>
-                        <td>${calculation.getSlab()}</td>
+                        <td class="center">${calculation.getHead()}</td>
+                        <td class="center">${calculation.getSlab()}</td>
                         <td class="right">${calculation.getRate()}</td>
                         <td class="right">${calculation.getUnit()}</td>
                         <td class="right">${calculation.getAmount()}</td>
@@ -1048,7 +1048,7 @@
                 </tr>
                 <tr>
                     <td style="padding:0!important;">
-                        <table class="reading-table">
+                        <table class="tight">
                             <thead>
                             <tr>
                                 <th>Description</th>
@@ -1068,7 +1068,7 @@
                     </td>
                     <td style="padding:0!important;">
                         @if(mid < billTemplate.getVigilanceInformationList().size())
-                            <table class="reading-table">
+                            <table class="tight">
                                 <thead>
                                 <tr>
                                     <th>Description</th>
@@ -1099,7 +1099,7 @@
                 </tr>
                 <tr>
                     <td style="padding:0!important;">
-                        <table class="reading-table">
+                        <table class="tight">
                             <thead>
                             <tr>
                                 <th>Description</th>
@@ -1119,7 +1119,7 @@
                     </td>
                     <td style="padding:0!important;">
                         @if(mid < billTemplate.getAdjustmentInformationList().size())
-                            <table class="reading-table">
+                            <table class="tight">
                                 <thead>
                                 <tr>
                                     <th>Description</th>
@@ -1146,7 +1146,7 @@
     @if(!GlobalUtil.isEmpty(billTemplate.getEcgrfInformationList()))
         <div class="band-title mt-8">CIRCLE LEVEL ELECTRICITY CONSUMERS GRIEVANCE REDRESSAL FORUM (ECGRF)</div>
         <div class="table-scroll">
-            <table class="reading-table">
+            <table class="tight">
                 <thead>
                 <tr>
                     <th>Member Type</th>
