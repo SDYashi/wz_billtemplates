@@ -1,190 +1,339 @@
 {
-  "header": {
-    "bill_no": "OCT253104003053",
-    "bill_month": "OCT-2025",
-    "website": "https://www.mpwz.co.in",
-    "call_centre": "1912",
-    "gst_no": "23AADCM7397N1ZU",
-    "cin_no": "U40109MP2002SGC015121"
-  },
-  "consumer": {
+  "bill": {
+    "title": "बिजली बिल",
     "consumer_no": "N3104003053",
-    "mobile": "9898989898",
-    "email": "dM5S@example.com",
-    "employee_no": "1234567890",
-    "name": "श्री प्रकाश कुमार (पुत्र: श्री राकेश कुमार दत्ता)",
-    "address": "प्लॉट नं. 18, गार्डन के पास, जी.पी.एच. परिसर, पोलोग्राउंड, इंदौर, मध्य प्रदेश - 452001"
-  },
-  "connection": {
-    "division": "इंदौर पूर्व डिवीजन",
-    "zone_dc": "कलानी नगर जोन",
-    "group_no": "KNW47",
-    "rd_no": "12",
-    "feeder_code": "3465201125414",
-    "dtr_code": "3465201125414",
-    "pole_no": "125441514",
-    "usage": "घरेलू",
-    "premise_type": "शहरी",
-    "tariff_category": "LV1 (LV1.2)",
-    "connection_date": "23-06-2017",
-    "phase": "सिंगल",
-    "sanctioned_load_kw": "1.0",
-    "contract_demand": "1.0 kW",
-    "net_meter": "हाँ",
-    "prepaid": "हाँ"
-  },
-  "summary": {
-    "due_date": "10-08-2025",
-    "consumption": "808.98",
-    "current_bill": "1200.00",
-    "after_due_payment": "2190.00",
-    "previous_arrear": "1618.00",
-    "net_bill": "2163.00",
-    "bill_date": "01-11-2025",
-    "bill_type": "वास्तविक बिल",
-    "meter_reader": "श्याम कुमार",
-    "bill_basis": "संशोधित बिल",
-    "daily_avg_amount": "808.98",
-    "daily_avg_unit": "12",
-    "security_deposit": "500.00",
-    "sd_pending": "0.00"
-  },
-  "officials": [
-    {
-      "designation": "सहायक / कनिष्ठ अभियंता",
-      "office": "सगम नगर जोन",
-      "name": "श्री राहुल सिंह",
-      "phone": "1800-233-1912"
+    "bill_month": "OCT-2025",
+    "company": {
+      "name": "मध्य प्रदेश पश्चिम क्षेत्र विद्युत वितरण कंपनी लिमिटेड",
+      "address_line_1": "जी.पी.एच. परिसर, पोलोग्राउंड, इंदौर (म.प्र.)",
+      "address_line_2": "(मध्य प्रदेश शासन पूर्ण स्वामित्व का उपक्रम)",
+      "website_url": "https://www.mpwz.co.in",
+      "website_label": "https://www.mpwz.co.in",
+      "call_center_number": "1912",
+      "gst_no": "23AADCM7397N1ZU",
+      "cin_no": "U40109MP2002SGC015121",
+      "left_logo": "",
+      "right_logo": ""
     },
-    {
-      "designation": "कार्यपालन अभियंता",
-      "office": "इंदौर ईस्ट डिवीजन",
-      "name": "श्री श्याम सिंह राठौर",
-      "phone": "1800-233-1912"
+    "page1": {
+      "bill_no": "OCT253104003053",
+      "bill_month": "OCT-2025",
+      "consumer": {
+        "consumer_no": "N3104003053",
+        "mobile": "9898989898",
+        "email": "dM5S@example.com",
+        "employee_no": "1234567890",
+        "name": "श्री प्रकाश कुमार (पुत्र: श्री राकेश कुमार दत्ता)",
+        "address": "प्लॉट नं. 18, गार्डन के पास, जी.पी.एच. परिसर, पोलोग्राउंड, इंदौर, मध्य प्रदेश - 452001"
+      },
+      "connection_info_rows": [
+        [
+          { "label": "डिवीजन", "value": "इंदौर पूर्व डिवीजन" },
+          { "label": "जोन / डीसी", "value": "कलानी नगर जोन" },
+          { "label": "ग्रुप नंबर", "value": "KNW47" },
+          { "label": "आरडी नंबर", "value": "12" }
+        ],
+        [
+          { "label": "फीडर कोड", "value": "3465201125414" },
+          { "label": "डीटीआर कोड", "value": "3465201125414" },
+          { "label": "पोल नंबर", "value": "125441514" },
+          { "label": "उपयोग", "value": "घरेलू" }
+        ],
+        [
+          { "label": "परिसर प्रकार", "value": "शहरी" },
+          { "label": "टैरिफ श्रेणी", "value": "LV1 (LV1.2)" },
+          { "label": "कनेक्शन तिथि", "value": "23-06-2017" },
+          { "label": "फेज", "value": "सिंगल" }
+        ],
+        [
+          { "label": "स्वीकृत लोड (kW)", "value": "1.0" },
+          { "label": "कॉन्ट्रैक्ट डिमांड", "value": "1.0 kW" },
+          { "label": "नेट मीटर", "value": "हाँ" },
+          { "label": "प्रीपेड", "value": "हाँ" }
+        ]
+      ],
+      "summary_header": [
+        "अंतिम तिथि",
+        "खपत",
+        "चालू माह बिल",
+        "अंतिम तिथि बाद भुगतान",
+        "पिछला बकाया"
+      ],
+      "summary_values": [
+        "10-08-2025",
+        "808.98",
+        "₹ 1200.00",
+        "₹ 2190.00",
+        "₹ 1618.00"
+      ],
+      "payment_box": {
+        "title": "Scan to Pay",
+        "amount": "₹ 2163.00",
+        "qr_image": "qr_codeimage.png"
+      },
+      "bill_meta_rows": [
+        [
+          { "label": "बिल दिनांक", "value": "01-11-2025" },
+          { "label": "बिल प्रकार", "value": "वास्तविक बिल" },
+          { "label": "मीटर रीडर", "value": "श्याम कुमार" },
+          { "label": "बिल आधार", "value": "संशोधित बिल" }
+        ],
+        [
+          { "label": "दैनिक औसत (राशि)", "value": "808.98" },
+          { "label": "दैनिक औसत यूनिट", "value": "12" },
+          { "label": "सुरक्षा जमा (S.D.)", "value": "500.00" },
+          { "label": "S.D. लंबित", "value": "0.00" }
+        ]
+      ],
+      "officers": [
+        {
+          "designation": "सहायक / कनिष्ठ अभियंता - सगम नगर जोन",
+          "name": "श्री राहुल सिंह",
+          "contact": "1800-233-1912"
+        },
+        {
+          "designation": "कार्यपालन अभियंता - इंदौर ईस्ट डिवीजन",
+          "name": "श्री श्याम सिंह राठौर",
+          "contact": "1800-233-1912"
+        }
+      ],
+      "chatbot": {
+        "title": "WhatsApp ChatBot / Call Centre: 1912",
+        "image": ""
+      },
+      "consumption_trend": {
+        "title": "खपत प्रवृत्ति (यूनिट में)",
+        "image": ""
+      },
+      "advertisement": {
+        "title": "विज्ञापन / जागरूकता हेतु स्थान",
+        "image": "advertisement_img.jpg"
+      },
+      "messages": [
+        "आपका कनेक्शन 22-10-2025 को OTS 2025 समाधान योजना हेतु पंजीकृत किया गया है।",
+        "₹ 500.00 की 6 किस्तें बिल माह NOV-2025 से APR-2026 तक निर्धारित हैं।",
+        "योजना लाभ हेतु कृपया चालू बिल के साथ किस्त का भुगतान करें।"
+      ]
+    },
+    "page2": {
+      "current_reading_meta_rows": [
+        [
+          { "label": "मीटर क्रमांक", "value": "MIG6150143053" },
+          { "label": "रीड दिनांक", "value": "21-10-2025" },
+          { "label": "रीड प्रकार", "value": "सामान्य" },
+          { "label": "रीड स्रोत", "value": "नेट मीटर" },
+          { "label": "पी.एफ.", "value": "0.99" },
+          { "label": "एम.डी.", "value": "0.09" }
+        ],
+        [
+          { "label": "सोलर प्लांट क्षमता", "value": "8 KW" },
+          { "label": "पिछले माह अवशिष्ट यूनिट", "value": "399" },
+          { "label": "अवशिष्ट यूनिट", "value": "0" },
+          { "label": "VNM / GNM", "value": "चाइल्ड" },
+          { "label": "", "value": "" },
+          { "label": "", "value": "" }
+        ]
+      ],
+      "simple_reading_table": {
+        "header": [
+          "वर्तमान रीडिंग",
+          "पिछली रीडिंग",
+          "एम.एफ.",
+          "मीटर यूनिट",
+          "आकलित यूनिट",
+          "कुल यूनिट"
+        ],
+        "values": [
+          "200.00",
+          "200.00",
+          "1",
+          "130.00",
+          "0.00",
+          "130.00"
+        ]
+      },
+      "detailed_reading_table": {
+        "header": [
+          "विवरण",
+          { "label": "वर्तमान रीडिंग", "align": "right" },
+          { "label": "पिछली रीडिंग", "align": "right" },
+          { "label": "एम.एफ.", "align": "right" },
+          { "label": "मीटर यूनिट", "align": "right" },
+          { "label": "आकलित यूनिट", "align": "right" },
+          { "label": "अंतिम खपत", "align": "right" }
+        ],
+        "rows": [
+          {
+            "cells": [
+              { "value": "आयात (Import)" },
+              { "value": "200.00", "align": "right" },
+              { "value": "200.00", "align": "right" },
+              { "value": "1", "align": "right" },
+              { "value": "130.00", "align": "right" },
+              { "value": "0.00", "align": "right" },
+              { "value": "130.00", "align": "right" }
+            ]
+          },
+          {
+            "cells": [
+              { "value": "निर्यात (Export)" },
+              { "value": "520.00", "align": "right" },
+              { "value": "520.00", "align": "right" },
+              { "value": "1", "align": "right" },
+              { "value": "85.00", "align": "right" },
+              { "value": "0.00", "align": "right" },
+              { "value": "85.00", "align": "right" }
+            ]
+          }
+        ]
+      },
+      "breakup_left": [
+        { "label": "ऊर्जा शुल्क", "value": "658.18" },
+        { "label": "ईंधन एवं पावर परचेज एडजस्टमेंट सरचार्ज (FPPPA)", "value": "-17.19" },
+        { "label": "स्थिर शुल्क", "value": "106.00" }
+      ],
+      "breakup_right": [
+        { "label": "सब्सिडी (म.प्र. शासन)", "value": "-531.99" },
+        { "label": "चालू माह बिल", "value": "1200.00" },
+        { "label": "मूल बकाया", "value": "1618.00" },
+        { "label": "कुल सरचार्ज", "value": "268.02" },
+        { "label": "नेट बिल", "value": "2163.00" }
+      ],
+      "payable_chart": ""
+    },
+    "page3": {
+      "tod_chart": "",
+      "tod_summary": {
+        "header": [
+          { "label": "समय", "colspan": 2 },
+          { "label": "यूनिट", "align": "right" },
+          { "label": "राशि (₹)", "align": "right" }
+        ],
+        "rows": [
+          [
+            { "value": "TOD 1" },
+            { "value": "10 PM से 6 AM" },
+            { "value": "437.25", "align": "right" },
+            { "value": "2842.13", "align": "right" }
+          ],
+          [
+            { "value": "TOD 2" },
+            { "value": "6 AM से 9 AM" },
+            { "value": "469.50", "align": "right" },
+            { "value": "3849.90", "align": "right" }
+          ],
+          [
+            { "value": "TOD 3" },
+            { "value": "9 AM से 5 PM" },
+            { "value": "120.12", "align": "right" },
+            { "value": "1261.26", "align": "right" }
+          ],
+          [
+            { "value": "TOD 4" },
+            { "value": "5 PM से 10 PM" },
+            { "value": "456.75", "align": "right" },
+            { "value": "4476.15", "align": "right" }
+          ]
+        ]
+      },
+      "last_two_payments": {
+        "header": [
+          "भुगतान माह",
+          { "label": "भुगतान राशि (₹)", "align": "right" },
+          "भुगतान संदर्भ नं.",
+          "भुगतान दिनांक",
+          "माध्यम"
+        ],
+        "rows": [
+          [
+            { "value": "AUG-2025" },
+            { "value": "2100.00", "align": "right" },
+            { "value": "DTD020920527242" },
+            { "value": "02-09-2025" },
+            { "value": "ऑनलाइन UPI" }
+          ],
+          [
+            { "value": "DEC-2024" },
+            { "value": "1900.00", "align": "right" },
+            { "value": "DTD311220241111" },
+            { "value": "31-12-2024" },
+            { "value": "नकद" }
+          ]
+        ]
+      },
+      "last_six_months": {
+        "header": [
+          "बिल माह",
+          "बिल दिनांक",
+          { "label": "रीडिंग", "align": "right" },
+          { "label": "यूनिट्स", "align": "right" }
+        ],
+        "rows": [
+          [
+            { "value": "OCT-2024" },
+            { "value": "25-10-2024" },
+            { "value": "102", "align": "right" },
+            { "value": "149", "align": "right" }
+          ],
+          [
+            { "value": "MAY-2025" },
+            { "value": "21-05-2025" },
+            { "value": "202", "align": "right" },
+            { "value": "140", "align": "right" }
+          ],
+          [
+            { "value": "JUN-2025" },
+            { "value": "20-06-2025" },
+            { "value": "205", "align": "right" },
+            { "value": "127", "align": "right" }
+          ],
+          [
+            { "value": "JUL-2025" },
+            { "value": "21-07-2025" },
+            { "value": "200", "align": "right" },
+            { "value": "127", "align": "right" }
+          ],
+          [
+            { "value": "AUG-2025" },
+            { "value": "20-08-2025" },
+            { "value": "205", "align": "right" },
+            { "value": "135", "align": "right" }
+          ],
+          [
+            { "value": "SEP-2025" },
+            { "value": "22-09-2025" },
+            { "value": "200", "align": "right" },
+            { "value": "130", "align": "right" }
+          ]
+        ]
+      }
+    },
+    "page4": {
+      "ecgrf": {
+        "header": [
+          "क्रमांक",
+          "पदनाम",
+          "नाम",
+          { "label": "संपर्क नं.", "align": "right" },
+          "सदस्य प्रकार"
+        ],
+        "rows": [
+          [
+            { "value": "1" },
+            { "value": "अध्यक्ष" },
+            { "value": "एर. आर. के. शर्मा" },
+            { "value": "9876543210", "align": "right" },
+            { "value": "कार्यपालन अभियंता" }
+          ],
+          [
+            { "value": "2" },
+            { "value": "सदस्य" },
+            { "value": "श्री ए. पी. वर्मा" },
+            { "value": "9123456780", "align": "right" },
+            { "value": "कार्यपालन अभियंता" }
+          ]
+        ]
+      }
     }
-  ],
-  "notes": [
-    "आपका कनेक्शन 22-10-2025 को OTS 2025 समाधान योजना हेतु पंजीकृत किया गया है।",
-    "₹ 500.00 की 6 किस्तें बिल माह NOV-2025 से APR-2026 तक निर्धारित हैं।",
-    "योजना लाभ हेतु कृपया चालू बिल के साथ किस्त का भुगतान करें।"
-  ],
-  "reading": {
-    "meter_no": "MIG6150143053",
-    "read_date": "21-10-2025",
-    "read_type": "सामान्य",
-    "read_source": "नेट मीटर",
-    "pf": "0.99",
-    "md": "0.09",
-    "solar_capacity": "8 KW",
-    "previous_residual_unit": "399",
-    "residual_unit": "0",
-    "vnm_gnm": "चाइल्ड"
-  },
-  "reading_rows": [
-    {
-      "description": "आयात (Import)",
-      "current_reading": "200.00",
-      "previous_reading": "200.00",
-      "mf": "1",
-      "meter_unit": "130.00",
-      "assessed_unit": "0.00",
-      "final_consumption": "130.00"
-    },
-    {
-      "description": "निर्यात (Export)",
-      "current_reading": "520.00",
-      "previous_reading": "520.00",
-      "mf": "1",
-      "meter_unit": "85.00",
-      "assessed_unit": "0.00",
-      "final_consumption": "85.00"
-    }
-  ],
-  "bill_breakup_left": [
-    { "label": "ऊर्जा शुल्क", "amount": "658.18" },
-    { "label": "ईंधन एवं पावर परचेज एडजस्टमेंट सरचार्ज (FPPPA)", "amount": "-17.19" },
-    { "label": "स्थिर शुल्क", "amount": "106.00" }
-  ],
-  "bill_breakup_right": [
-    { "label": "सब्सिडी (म.प्र. शासन)", "amount": "-531.99" },
-    { "label": "चालू माह बिल", "amount": "1200.00" },
-    { "label": "मूल बकाया", "amount": "1618.00" },
-    { "label": "कुल सरचार्ज", "amount": "268.02" },
-    { "label": "नेट बिल", "amount": "2163.00" }
-  ],
-  "tod_summary": [
-    {
-      "tod": "TOD 1",
-      "time": "10 PM से 6 AM",
-      "unit": "437.25",
-      "amount": "2842.13"
-    },
-    {
-      "tod": "TOD 2",
-      "time": "6 AM से 9 AM",
-      "unit": "469.50",
-      "amount": "3849.90"
-    },
-    {
-      "tod": "TOD 3",
-      "time": "9 AM से 5 PM",
-      "unit": "120.12",
-      "amount": "1261.26"
-    },
-    {
-      "tod": "TOD 4",
-      "time": "5 PM से 10 PM",
-      "unit": "456.75",
-      "amount": "4476.15"
-    }
-  ],
-  "payments": [
-    {
-      "month": "AUG-2025",
-      "amount": "2100.00",
-      "reference": "DTD020920527242",
-      "date": "02-09-2025",
-      "mode": "ऑनलाइन UPI"
-    },
-    {
-      "month": "DEC-2024",
-      "amount": "1900.00",
-      "reference": "DTD311220241111",
-      "date": "31-12-2024",
-      "mode": "नकद"
-    }
-  ],
-  "last_six_months": [
-    { "bill_month": "OCT-2024", "bill_date": "25-10-2024", "reading": "102", "units": "149" },
-    { "bill_month": "MAY-2025", "bill_date": "21-05-2025", "reading": "202", "units": "140" },
-    { "bill_month": "JUN-2025", "bill_date": "20-06-2025", "reading": "205", "units": "127" },
-    { "bill_month": "JUL-2025", "bill_date": "21-07-2025", "reading": "200", "units": "127" },
-    { "bill_month": "AUG-2025", "bill_date": "20-08-2025", "reading": "205", "units": "135" },
-    { "bill_month": "SEP-2025", "bill_date": "22-09-2025", "reading": "200", "units": "130" }
-  ],
-  "ecgrf_members": [
-    {
-      "sr_no": "1",
-      "designation": "अध्यक्ष",
-      "name": "एर. आर. के. शर्मा",
-      "contact": "9876543210",
-      "member_type": "कार्यपालन अभियंता"
-    },
-    {
-      "sr_no": "2",
-      "designation": "सदस्य",
-      "name": "श्री ए. पी. वर्मा",
-      "contact": "9123456780",
-      "member_type": "कार्यपालन अभियंता"
-    }
-  ],
-  "images": {
-    "left_logo_base64": "",
-    "right_logo_base64": "",
-    "qr_code": "qr_codeimage.png",
-    "advertisement": "advertisement_img.jpg",
-    "consumption_chart": "",
-    "tod_chart": "",
-    "billing_chart": ""
   }
 }

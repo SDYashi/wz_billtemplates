@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Generated PDFs</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            margin:0;
+            padding:30px;
+        }
+        .container{
+            /* max-width:1100px; */
+            margin:auto;
+        }
+        h1{
+            margin-bottom:20px;
+        }
+        .folder-card{
+            background:#fff;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom:20px;
+            overflow:hidden;
+        }
+        .folder-header{
+            background:#a6aab1;
+            color:#fff;
+            padding:14px 18px;
+            font-size:18px;
+            font-weight:bold;
+        }
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+        th, td{
+            padding:12px 14px;
+            border-bottom:1px solid #e5e7eb;
+            text-align:left;
+        }
+        th{
+            background:#f8fafc;
+        }
+        a.btn{
+            display:inline-block;
+            padding:6px 12px;
+            text-decoration:none;
+            border-radius:6px;
+            color:#fff;
+            margin-right:6px;
+            font-size:14px;
+        }
+        .view-btn{
+            background:#198754;
+        }
+        .download-btn{
+            background:#dc3545;
+        }
+        .empty{
+            padding:16px;
+            color:#666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generated PDF List</h1>
+        <div id="pdfContainer">Loading...</div>
+    </div>
+
+    <script>
+        async function loadPdfs() {
+            const container = document.getElementById("pdfContainer");
+            container.innerHTML = "Loading...";
+
+            try {
+                const response = await fetch("/WZ_VIEW_PDFS");
+                const data = await response.json();
+
+                if (!data.length) {
+                    container.innerHTML = "<div class='empty'>No PDF folders found.</div>";
+                    return;
+                }
+
+                let html = "";
+
+                data.forEach((group, folderIndex) => {
+                    html += `
+                        <div class="folder-card">
+                            <div class="folder-header">Run Folder: ${group.folder}</div>
+                    `;
+
+                    if (!group.files.length) {
+                        html += `<div class="empty">No PDF files in this folder.</div>`;
+                    } else {
+                        html += `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>PDF Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
+
+                        group.files.forEach((file, index) => {
+                            const encodedFolder = encodeURIComponent(group.folder);
+                            const encodedFile = encodeURIComponent(file);
+
+                            html += `
+                                <tr>
+                                    <td>${index + 1}</td>
+                                    <td>${file}</td>
+                                    <td>
+                                        <a class="btn view-btn" href="/pdf/${encodedFolder}/${encodedFile}" target="_blank">View</a>
+                                        <a class="btn download-btn" href="/pdf/${encodedFolder}/${encodedFile}" download>Download</a>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+
+                        html += `
+                                </tbody>
+                            </table>
+                        `;
+                    }
+
+                    html += `</div>`;
+                });
+
+                container.innerHTML = html;
+
+            } catch (error) {
+                container.innerHTML = "<div class='empty'>Error loading PDF list.</div>";
+                console.error(error);
+            }
+        }
+
+        loadPdfs();
+    </script>
+</body>
+</html>
