@@ -28,16 +28,16 @@
       },
       "connection_info_rows": [
         [
-          { "label": "डिवीजन", "value": "इंदौर पूर्व डिवीजन" },
-          { "label": "जोन / डीसी", "value": "कलानी नगर जोन" },
-          { "label": "ग्रुप नंबर", "value": "KNW47" },
-          { "label": "आरडी नंबर", "value": "12" }
+          { "label": "डिवीजन नाम", "value": "इंदौर पूर्व डिवीजन" },
+          { "label": "जोन / डीसी नाम", "value": "कलानी नगर जोन" },
+          { "label": "ग्रुप नं", "value": "KNW47" },
+          { "label": "आरडी नं", "value": "12" }
         ],
         [
           { "label": "फीडर कोड", "value": "3465201125414" },
           { "label": "डीटीआर कोड", "value": "3465201125414" },
-          { "label": "पोल नंबर", "value": "125441514" },
-          { "label": "उपयोग", "value": "घरेलू" }
+          { "label": "पोल नं", "value": "125441514" },
+          { "label": "उद्देश्य", "value": "घरेलू" }
         ],
         [
           { "label": "परिसर प्रकार", "value": "शहरी" },
@@ -56,20 +56,20 @@
         "अंतिम तिथि",
         "खपत",
         "चालू माह बिल",
-        "अंतिम तिथि बाद भुगतान",
+        "अंतिम तिथि के बाद भुगतान",
         "पिछला बकाया"
       ],
       "summary_values": [
         "10-08-2025",
         "808.98",
-        "₹ 1200.00",
-        "₹ 2190.00",
-        "₹ 1618.00"
+        "₹ 1,200.00",
+        "₹ 2,190.00",
+        "₹ 1,618.00"
       ],
       "payment_box": {
-        "title": "Scan to Pay",
-        "amount": "₹ 2163.00",
-        "qr_image": "qr_codeimage.png"
+        "title": "स्कैन कर भुगतान करें",
+        "amount": "",
+        "qr_image": ""
       },
       "bill_meta_rows": [
         [
@@ -79,26 +79,26 @@
           { "label": "बिल आधार", "value": "संशोधित बिल" }
         ],
         [
-          { "label": "दैनिक औसत (राशि)", "value": "808.98" },
+          { "label": "दैनिक औसत बिल", "value": "808.98" },
           { "label": "दैनिक औसत यूनिट", "value": "12" },
-          { "label": "सुरक्षा जमा (S.D.)", "value": "500.00" },
-          { "label": "S.D. लंबित", "value": "0.00" }
+          { "label": "एस.डी. जमा", "value": "500.00" },
+          { "label": "एस.डी. लंबित", "value": "0.00" }
         ]
       ],
       "officers": [
         {
-          "designation": "सहायक / कनिष्ठ अभियंता - सगम नगर जोन",
+          "designation": "सहायक / कनिष्ठ अभियंता : संगम नगर जोन",
           "name": "श्री राहुल सिंह",
           "contact": "1800-233-1912"
         },
         {
-          "designation": "कार्यपालन अभियंता - इंदौर ईस्ट डिवीजन",
+          "designation": "कार्यपालन अभियंता : इंदौर ईस्ट डिवीजन",
           "name": "श्री श्याम सिंह राठौर",
           "contact": "1800-233-1912"
         }
       ],
       "chatbot": {
-        "title": "WhatsApp ChatBot / Call Centre: 1912",
+        "title": "WhatsApp ChatBot / कॉल सेंटर: 1912",
         "image": ""
       },
       "consumption_trend": {
@@ -106,27 +106,26 @@
         "image": ""
       },
       "advertisement": {
-        "title": "विज्ञापन / जागरूकता हेतु स्थान",
-        "image": "advertisement_img.jpg"
+        "title": "विज्ञापन / जन-जागरूकता हेतु स्थान",
+        "image": ""
       },
       "messages": [
-        "आपका कनेक्शन 22-10-2025 को OTS 2025 समाधान योजना हेतु पंजीकृत किया गया है।",
-        "₹ 500.00 की 6 किस्तें बिल माह NOV-2025 से APR-2026 तक निर्धारित हैं।",
-        "योजना लाभ हेतु कृपया चालू बिल के साथ किस्त का भुगतान करें।"
-      ]
+        "आपका कनेक्शन <b>22-10-2025</b> को <b>OTS 2025 समाधान योजना</b> हेतु पंजीकृत किया गया है। <b>₹ 500.00</b> की <b>6 किस्तें</b> बिल माह <b>NOV-2025</b> से <b>APR-2026</b> तक निर्धारित हैं। योजना का लाभ प्राप्त करने हेतु कृपया चालू बिल के साथ किस्त का भुगतान करें।",
+        "आपका कनेक्शन <b>22-10-2025</b> को <b>OTS 2025 समाधान योजना</b> हेतु पंजीकृत किया गया है। <b>₹ 500.00</b> की <b>6 किस्तें</b> बिल माह <b>NOV-2025</b> से <b>APR-2026</b> तक निर्धारित हैं। योजना का लाभ प्राप्त करने हेतु कृपया चालू बिल के साथ किस्त का भुगतान करें।"
+        ]
     },
     "page2": {
       "current_reading_meta_rows": [
         [
-          { "label": "मीटर क्रमांक", "value": "MIG6150143053" },
+          { "label": "मीटर क्र.सं.", "value": "MIG6150143053" },
           { "label": "रीड दिनांक", "value": "21-10-2025" },
           { "label": "रीड प्रकार", "value": "सामान्य" },
           { "label": "रीड स्रोत", "value": "नेट मीटर" },
           { "label": "पी.एफ.", "value": "0.99" },
-          { "label": "एम.डी.", "value": "0.09" }
+          { "label": "एमडी", "value": "0.09" }
         ],
         [
-          { "label": "सोलर प्लांट क्षमता", "value": "8 KW" },
+          { "label": "सौर संयंत्र क्षमता", "value": "8 KW" },
           { "label": "पिछले माह अवशिष्ट यूनिट", "value": "399" },
           { "label": "अवशिष्ट यूनिट", "value": "0" },
           { "label": "VNM / GNM", "value": "चाइल्ड" },
@@ -135,37 +134,23 @@
         ]
       ],
       "simple_reading_table": {
-        "header": [
-          "वर्तमान रीडिंग",
-          "पिछली रीडिंग",
-          "एम.एफ.",
-          "मीटर यूनिट",
-          "आकलित यूनिट",
-          "कुल यूनिट"
-        ],
-        "values": [
-          "200.00",
-          "200.00",
-          "1",
-          "130.00",
-          "0.00",
-          "130.00"
-        ]
+        "header": ["वर्तमान रीडिंग", "पिछली रीडिंग", "M.F.", "मीटरित यूनिट", "आकलित यूनिट", "कुल यूनिट"],
+        "values": ["200.00", "200.00", "1", "130.00", "0.00", "130.00"]
       },
       "detailed_reading_table": {
         "header": [
           "विवरण",
           { "label": "वर्तमान रीडिंग", "align": "right" },
           { "label": "पिछली रीडिंग", "align": "right" },
-          { "label": "एम.एफ.", "align": "right" },
-          { "label": "मीटर यूनिट", "align": "right" },
+          { "label": "M.F.", "align": "right" },
+          { "label": "मीटरित यूनिट", "align": "right" },
           { "label": "आकलित यूनिट", "align": "right" },
           { "label": "अंतिम खपत", "align": "right" }
         ],
         "rows": [
           {
             "cells": [
-              { "value": "आयात (Import)" },
+              { "value": "आयात" },
               { "value": "200.00", "align": "right" },
               { "value": "200.00", "align": "right" },
               { "value": "1", "align": "right" },
@@ -176,7 +161,7 @@
           },
           {
             "cells": [
-              { "value": "निर्यात (Export)" },
+              { "value": "निर्यात" },
               { "value": "520.00", "align": "right" },
               { "value": "520.00", "align": "right" },
               { "value": "1", "align": "right" },
@@ -188,16 +173,48 @@
         ]
       },
       "breakup_left": [
+        { "type": "heading", "title": "ऊर्जा" },
         { "label": "ऊर्जा शुल्क", "value": "658.18" },
-        { "label": "ईंधन एवं पावर परचेज एडजस्टमेंट सरचार्ज (FPPPA)", "value": "-17.19" },
-        { "label": "स्थिर शुल्क", "value": "106.00" }
+        { "label": "ईंधन एवं पावर परचेज एडजस्टमेंट सरचार्ज", "value": "-17.19" },
+        { "label": "स्थिर शुल्क", "value": "106.00" },
+        { "label": "उप-योग (A)", "value": "747.00", "highlight": true },
+        { "label": "विद्युत शुल्क", "value": "62.00" },
+        { "label": "CCB समायोजन", "value": "0.00" },
+        { "label": "उप-योग (B)", "value": "809.00", "highlight": true },
+        { "type": "heading", "title": "रियायत / प्रभार" },
+        { "label": "दंड शुल्क", "value": "62.00" },
+        { "label": "PF सरचार्ज / प्रोत्साहन", "value": "62.00" },
+        { "label": "ASD किस्तें", "value": "62.00" },
+        { "label": "TOD रियायत / सरचार्ज", "value": "0.00" },
+        { "label": "सुरक्षा जमा पर ब्याज", "value": "0.00" },
+        { "label": "लोड फैक्टर प्रोत्साहन", "value": "0.00" },
+        { "label": "लॉक क्रेडिट", "value": "0.00" },
+        { "label": "कर्मचारी रियायत", "value": "0.00" },
+        { "label": "प्रीपेड भुगतान रियायत", "value": "0.00" },
+        { "label": "ऑनलाइन भुगतान रियायत", "value": "0.00" },
+        { "label": "समय पर भुगतान प्रोत्साहन", "value": "0.00" },
+        { "label": "अग्रिम भुगतान प्रोत्साहन", "value": "0.00" },
+        { "label": "डिमांड साइड प्रोत्साहन", "value": "0.00" },
+        { "label": "व्हीलिंग / ग्रीन एनर्जी चार्ज", "value": "0.00" },
+        { "label": "उप-योग (C)", "value": "186.00", "highlight": true }
       ],
       "breakup_right": [
+        { "type": "heading", "title": "सब्सिडी" },
         { "label": "सब्सिडी (म.प्र. शासन)", "value": "-531.99" },
-        { "label": "चालू माह बिल", "value": "1200.00" },
-        { "label": "मूल बकाया", "value": "1618.00" },
-        { "label": "कुल सरचार्ज", "value": "268.02" },
-        { "label": "नेट बिल", "value": "2163.00" }
+        { "label": "उप-योग (D)", "value": "-531.99" },
+        { "label": "चालू माह बिल (A + B + C + D)", "value": "1,200.00" },
+        { "type": "heading", "title": "बकाया" },
+        { "label": "मूल बकाया", "value": "1,618.00" },
+        { "label": "संचयी सरचार्ज", "value": "268.02" },
+        { "label": "ASD बकाया", "value": "0.00" },
+        { "label": "नेट बिल", "value": "2,163.00" },
+        { "type": "heading", "title": "भुगतान" },
+        { "label": "बिल एवं विजिलेंस के विरुद्ध प्राप्त भुगतान", "value": "0.00" },
+        { "label": "स्मार्ट मीटर RC/DC के विरुद्ध प्राप्त भुगतान", "value": "0.00" },
+        { "type": "heading", "title": "देय राशि" },
+        { "label": "विजिलेंस / O&M देय राशि", "value": "1,618.00" },
+        { "label": "विजिलेंस / O&M देय पर ब्याज (बिलिंग अवधि तक)", "value": "268.02" },
+        { "label": "कुल देय राशि", "value": "2,163.00" }
       ],
       "payable_chart": ""
     },
@@ -211,29 +228,81 @@
         ],
         "rows": [
           [
-            { "value": "TOD 1" },
-            { "value": "10 PM से 6 AM" },
+            { "value": "TOD 1", "bold": true },
+            { "value": "10 PM – 6 AM", "align": "center" },
             { "value": "437.25", "align": "right" },
-            { "value": "2842.13", "align": "right" }
+            { "value": "2,842.13", "align": "right" }
           ],
           [
-            { "value": "TOD 2" },
-            { "value": "6 AM से 9 AM" },
+            { "value": "TOD 2", "bold": true },
+            { "value": "6 AM – 9 AM", "align": "center" },
             { "value": "469.50", "align": "right" },
-            { "value": "3849.90", "align": "right" }
+            { "value": "3,849.90", "align": "right" }
           ],
           [
-            { "value": "TOD 3" },
-            { "value": "9 AM से 5 PM" },
+            { "value": "TOD 3", "bold": true },
+            { "value": "9 AM – 5 PM", "align": "center" },
             { "value": "120.12", "align": "right" },
-            { "value": "1261.26", "align": "right" }
+            { "value": "1,261.26", "align": "right" }
           ],
           [
-            { "value": "TOD 4" },
-            { "value": "5 PM से 10 PM" },
+            { "value": "TOD 4", "bold": true },
+            { "value": "5 PM – 10 PM", "align": "center" },
             { "value": "456.75", "align": "right" },
-            { "value": "4476.15", "align": "right" }
+            { "value": "4,476.15", "align": "right" }
+          ],
+          [
+            { "value": "कुल", "colspan": 2, "bold": true },
+            { "value": "1,483.62", "align": "right", "bold": true },
+            { "value": "12,429.44", "align": "right", "bold": true }
           ]
+        ]
+      },
+      "tod_bill_detail": {
+        "header": [
+          "TOD",
+          "विवरण",
+          { "label": "वर्तमान रीड", "align": "right" },
+          { "label": "पिछली रीड", "align": "right" },
+          { "label": "मीटर खपत", "align": "right" },
+          { "label": "आकलित यूनिट", "align": "right" },
+          { "label": "अंतिम खपत", "align": "right" },
+          { "label": "नेट", "align": "right" },
+          { "label": "राशि", "align": "right" }
+        ],
+        "groups": [
+          {
+            "title": "TOD 1",
+            "time": "10 PM से 6 AM",
+            "rows": [
+              [{ "value": "आयात", "align": "center" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "0.00", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }],
+              [{ "value": "निर्यात", "align": "center" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "0.00", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }]
+            ]
+          },
+          {
+            "title": "TOD 2",
+            "time": "6 AM से 9 AM",
+            "rows": [
+              [{ "value": "आयात", "align": "center" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "0.00", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }],
+              [{ "value": "निर्यात", "align": "center" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "0.00", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }]
+            ]
+          },
+          {
+            "title": "TOD 3",
+            "time": "9 AM से 5 PM",
+            "rows": [
+              [{ "value": "आयात", "align": "center" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "0.00", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }],
+              [{ "value": "निर्यात", "align": "center" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "0.00", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }]
+            ]
+          },
+          {
+            "title": "TOD 4",
+            "time": "5 PM से 10 PM",
+            "rows": [
+              [{ "value": "आयात", "align": "center" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "0.00", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }],
+              [{ "value": "निर्यात", "align": "center" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "0.00", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }, { "value": "10.20", "align": "right" }]
+            ]
+          }
         ]
       },
       "last_two_payments": {
@@ -246,18 +315,18 @@
         ],
         "rows": [
           [
-            { "value": "AUG-2025" },
-            { "value": "2100.00", "align": "right" },
-            { "value": "DTD020920527242" },
-            { "value": "02-09-2025" },
-            { "value": "ऑनलाइन UPI" }
+            { "value": "AUG-2025", "align": "center" },
+            { "value": "2,100.00", "align": "right" },
+            { "value": "DTD020920527242", "align": "center" },
+            { "value": "02-09-2025", "align": "center" },
+            { "value": "ऑनलाइन UPI", "align": "center" }
           ],
           [
-            { "value": "DEC-2024" },
-            { "value": "1900.00", "align": "right" },
-            { "value": "DTD311220241111" },
-            { "value": "31-12-2024" },
-            { "value": "नकद" }
+            { "value": "DEC-2024", "align": "center" },
+            { "value": "1,900.00", "align": "right" },
+            { "value": "DTD311220241111", "align": "center" },
+            { "value": "31-12-2024", "align": "center" },
+            { "value": "नकद", "align": "center" }
           ]
         ]
       },
@@ -266,72 +335,122 @@
           "बिल माह",
           "बिल दिनांक",
           { "label": "रीडिंग", "align": "right" },
-          { "label": "यूनिट्स", "align": "right" }
+          { "label": "यूनिट", "align": "right" }
         ],
         "rows": [
-          [
-            { "value": "OCT-2024" },
-            { "value": "25-10-2024" },
-            { "value": "102", "align": "right" },
-            { "value": "149", "align": "right" }
-          ],
-          [
-            { "value": "MAY-2025" },
-            { "value": "21-05-2025" },
-            { "value": "202", "align": "right" },
-            { "value": "140", "align": "right" }
-          ],
-          [
-            { "value": "JUN-2025" },
-            { "value": "20-06-2025" },
-            { "value": "205", "align": "right" },
-            { "value": "127", "align": "right" }
-          ],
-          [
-            { "value": "JUL-2025" },
-            { "value": "21-07-2025" },
-            { "value": "200", "align": "right" },
-            { "value": "127", "align": "right" }
-          ],
-          [
-            { "value": "AUG-2025" },
-            { "value": "20-08-2025" },
-            { "value": "205", "align": "right" },
-            { "value": "135", "align": "right" }
-          ],
-          [
-            { "value": "SEP-2025" },
-            { "value": "22-09-2025" },
-            { "value": "200", "align": "right" },
-            { "value": "130", "align": "right" }
-          ]
+          [{ "value": "OCT-2024", "align": "center" }, { "value": "25-10-2024", "align": "center" }, { "value": "102", "align": "right" }, { "value": "149", "align": "right" }],
+          [{ "value": "MAY-2025", "align": "center" }, { "value": "21-05-2025", "align": "center" }, { "value": "202", "align": "right" }, { "value": "140", "align": "right" }],
+          [{ "value": "JUN-2025", "align": "center" }, { "value": "20-06-2025", "align": "center" }, { "value": "205", "align": "right" }, { "value": "127", "align": "right" }],
+          [{ "value": "JUL-2025", "align": "center" }, { "value": "21-07-2025", "align": "center" }, { "value": "200", "align": "right" }, { "value": "127", "align": "right" }],
+          [{ "value": "AUG-2025", "align": "center" }, { "value": "20-08-2025", "align": "center" }, { "value": "205", "align": "right" }, { "value": "135", "align": "right" }],
+          [{ "value": "SEP-2025", "align": "center" }, { "value": "22-09-2025", "align": "center" }, { "value": "200", "align": "right" }, { "value": "130", "align": "right" }]
+        ]
+      },
+      "meter_replacement_simple": {
+        "header": [
+          "मीटर विवरण",
+          "प्रतिस्थापन तिथि",
+          { "label": "पिछली / प्रारंभ रीड", "align": "right" },
+          { "label": "अंतिम / वर्तमान रीड", "align": "right" },
+          { "label": "खपत", "align": "right" },
+          { "label": "प्रोरेटेड चालू बिल", "align": "right" }
+        ],
+        "rows": [
+          [{ "value": "MIG6150143053" }, { "value": "21-10-2025", "align": "center" }, { "value": "200.00", "align": "right" }, { "value": "200.00", "align": "right" }, { "value": "130.00", "align": "right" }, { "value": "1,200.00", "align": "right" }]
+        ]
+      },
+      "meter_replacement_detail": {
+        "top_header": [
+          { "label": "मीटर विवरण", "rowspan": 2 },
+          { "label": "प्रतिस्थापन तिथि", "rowspan": 2 },
+          { "label": "आयात", "colspan": 3 },
+          { "label": "निर्यात", "colspan": 3 },
+          { "label": "नेट खपत", "rowspan": 2 }
+        ],
+        "sub_header": [
+          "पिछली / प्रारंभ रीड",
+          "अंतिम / वर्तमान रीड",
+          "खपत",
+          "पिछली / प्रारंभ रीड",
+          "अंतिम / वर्तमान रीड",
+          "खपत"
+        ],
+        "rows": [
+          [{ "value": "MIG6150143053" }, { "value": "21-10-2025", "align": "center" }, { "value": "200.00", "align": "right" }, { "value": "200.00", "align": "right" }, { "value": "130.00", "align": "right" }, { "value": "520.00", "align": "right" }, { "value": "520.00", "align": "right" }, { "value": "85.00", "align": "right" }, { "value": "45.00", "align": "right" }]
         ]
       }
     },
     "page4": {
-      "ecgrf": {
-        "header": [
-          "क्रमांक",
-          "पदनाम",
-          "नाम",
-          { "label": "संपर्क नं.", "align": "right" },
-          "सदस्य प्रकार"
-        ],
+      "child_export_detail": {
+        "header": ["उपभोक्ता नं", { "label": "अनुपात", "align": "right" }, { "label": "वर्तमान रीड", "align": "right" }, { "label": "पिछली रीड", "align": "right" }, { "label": "M.F.", "align": "right" }, { "label": "मीटर खपत", "align": "right" }, { "label": "आकलन", "align": "right" }, { "label": "अंतिम खपत", "align": "right" }],
         "rows": [
-          [
-            { "value": "1" },
-            { "value": "अध्यक्ष" },
-            { "value": "एर. आर. के. शर्मा" },
-            { "value": "9876543210", "align": "right" },
-            { "value": "कार्यपालन अभियंता" }
-          ],
-          [
-            { "value": "2" },
-            { "value": "सदस्य" },
-            { "value": "श्री ए. पी. वर्मा" },
-            { "value": "9123456780", "align": "right" },
-            { "value": "कार्यपालन अभियंता" }
+          [{ "value": "N3104003053", "align": "center" }, { "value": "1.00", "align": "right" }, { "value": "520.00", "align": "right" }, { "value": "520.00", "align": "right" }, { "value": "1", "align": "right" }, { "value": "85.00", "align": "right" }, { "value": "0.00", "align": "right" }, { "value": "85.00", "align": "right" }]
+        ]
+      },
+      "head_wise_calc": {
+        "header": ["हेड", "स्लैब", { "label": "दर (₹)", "align": "right" }, { "label": "यूनिट", "align": "right" }, { "label": "राशि (₹)", "align": "right" }],
+        "rows": [
+          { "cells": [{ "value": "ऊर्जा शुल्क" }, { "value": "0 – 100" }, { "value": "4.50", "align": "right" }, { "value": "85", "align": "right" }, { "value": "382.50", "align": "right" }] },
+          { "cells": [{ "value": "ऊर्जा शुल्क" }, { "value": "101 – 200" }, { "value": "6.20", "align": "right" }, { "value": "40", "align": "right" }, { "value": "248.00", "align": "right" }] },
+          { "cells": [{ "value": "विद्युत शुल्क" }, { "value": "—" }, { "value": "9 %", "align": "right" }, { "value": "-", "align": "right" }, { "value": "37.50", "align": "right" }] },
+          { "cells": [{ "value": "ईंधन एवं पावर परचेज सरचार्ज" }, { "value": "—" }, { "value": "0.15", "align": "right" }, { "value": "125", "align": "right" }, { "value": "18.75", "align": "right" }] },
+          { "bold": true, "cells": [{ "value": "कुल", "colspan": 4, "align": "right" }, { "value": "788.00", "align": "right" }] }
+        ]
+      },
+      "other_account_sections": [
+        {
+          "title": "विजिलेंस / O&M पंचनामा विवरण",
+          "tables": [
+            {
+              "header": ["विवरण", { "label": "राशि (₹)", "align": "right" }],
+              "rows": [
+                [{ "value": "विजिलेंस आकलन – 15-01-2024" }, { "value": "5,250.00", "align": "right" }],
+                [{ "value": "विजिलेंस सरचार्ज समायोजन – 05-05-2024" }, { "value": "1,100.00", "align": "right" }]
+              ]
+            },
+            {
+              "header": ["विवरण", { "label": "राशि (₹)", "align": "right" }],
+              "rows": [
+                [{ "value": "O&M देय समायोजन" }, { "value": "1,618.00", "align": "right" }],
+                [{ "value": "O&M ब्याज" }, { "value": "268.02", "align": "right" }]
+              ]
+            }
           ]
+        },
+        {
+          "title": "CCB समायोजन विवरण",
+          "tables": [
+            {
+              "header": ["विवरण", { "label": "राशि (₹)", "align": "right" }],
+              "rows": [
+                [{ "value": "CCB समायोजन – राउंडिंग अंतर" }, { "value": "-15.00", "align": "right" }],
+                [{ "value": "विलंबित भुगतान शुल्क माफी" }, { "value": "-85.25", "align": "right" }]
+              ]
+            },
+            {
+              "header": ["विवरण", { "label": "राशि (₹)", "align": "right" }],
+              "rows": [
+                [{ "value": "कर्मचारी रियायत समायोजन" }, { "value": "0.00", "align": "right" }],
+                [{ "value": "ऑनलाइन भुगतान रियायत" }, { "value": "0.00", "align": "right" }]
+              ]
+            }
+          ]
+        }
+      ],
+      "ecgrf": {
+        "header": ["क्रमांक", "पदनाम", "नाम", { "label": "संपर्क नं.", "align": "right" }, "सदस्य प्रकार"],
+        "rows": [
+          [{ "value": "1." }, { "value": "अध्यक्ष" }, { "value": "एर. आर. के. शर्मा" }, { "value": "9876543210", "align": "right" }, { "value": "कार्यपालन अभियंता" }],
+          [{ "value": "2." }, { "value": "सदस्य" }, { "value": "श्री ए. पी. वर्मा" }, { "value": "9123456780", "align": "right" }, { "value": "कार्यपालन अभियंता" }],
+          [{ "value": "3." }, { "value": "सदस्य" }, { "value": "श्री एस. के. गुप्ता" }, { "value": "9988776655", "align": "right" }, { "value": "सहायक अभियंता" }],
+          [{ "value": "4." }, { "value": "सदस्य सचिव" }, { "value": "श्री राहुल सिंह" }, { "value": "18002331912", "align": "right" }, { "value": "सहायक / कनिष्ठ अभियंता : संगम नगर जोन" }],
+          [{ "value": "5." }, { "value": "सदस्य सचिव" }, { "value": "श्री श्याम सिंह राठौर" }, { "value": "18002331912", "align": "right" }, { "value": "कार्यपालन अभियंता : इंदौर ईस्ट डिवीजन" }],
+          [{ "value": "6." }, { "value": "सदस्य सचिव" }, { "value": "श्री अमित वर्मा" }, { "value": "9876501234", "align": "right" }, { "value": "सहायक अभियंता" }],
+          [{ "value": "7." }, { "value": "सदस्य सचिव" }, { "value": "श्री राजेश कुमार" }, { "value": "9876504321", "align": "right" }, { "value": "सहायक अभियंता" }],
+          [{ "value": "8." }, { "value": "सदस्य सचिव" }, { "value": "श्री संजय मिश्रा" }, { "value": "9876505678", "align": "right" }, { "value": "सहायक अभियंता" }],
+          [{ "value": "9." }, { "value": "सदस्य सचिव" }, { "value": "श्री राजीव सिंह" }, { "value": "9876506789", "align": "right" }, { "value": "सहायक अभियंता" }],
+          [{ "value": "10." }, { "value": "सदस्य सचिव" }, { "value": "श्री अजय कुमार"}, { "value": "9876507890", "align": "right" }, { "value": "सहायक अभियंता" }]
+
         ]
       }
     }
