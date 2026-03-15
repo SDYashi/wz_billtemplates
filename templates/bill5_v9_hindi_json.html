@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <title>बिजली बिल - {{ bill.header.bill_no }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body{
+      font-family: "Noto Sans Devanagari", "Mangal", Arial, sans-serif;
+      margin:0;
+      padding:0;
+      color:#111827;
+      background:#fff;
+    }
+    .page{
+      width: 260mm;
+      min-height: 310mm;
+      margin: 5mm auto;
+      position: relative;
+      page-break-after: always;
+      padding: 0 0 12mm 0;
+    }
+    .page:last-child{ page-break-after: auto; }
+
+    :root{
+      --blue:#1f6fb2;
+      --blue2:#0f4f87;
+      --line:#b9c7d6;
+      --soft:#f3f7fb;
+      --soft2:#eef4fa;
+      --ink:#0f172a;
+      --muted:#334155;
+      --warn:#e74c3c;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+    th, td{
+      border:1px solid var(--line);
+      padding:6px;
+      font-size:10.5px;
+      vertical-align:top;
+    }
+    th{
+      background:var(--soft2);
+      color:#0f2f52;
+      font-weight:700;
+    }
+
+    .header-top{
+      text-align:center;
+      padding:6px 0;
+      border:2px solid var(--blue);
+      margin-bottom:8px;
+    }
+    .header-left{
+      display:table;
+      width:100%;
+    }
+    .header-cell{
+      display:table-cell;
+      vertical-align:middle;
+    }
+    .header-cell.left,.header-cell.right{
+      width:70px;
+      text-align:center;
+    }
+    .company-title{
+      font-size:16px;
+      font-weight:800;
+      color:#0b2b74;
+    }
+    .company-subtitle{
+      font-size:11px;
+      font-weight:600;
+      margin-top:2px;
+    }
+    .tagline{
+      font-size:10px;
+      margin-top:2px;
+      color:#475569;
+    }
+
+    .box{
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    .soft{
+      background:var(--soft);
+    }
+    .pad-5{ padding:5px; }
+    .pad-6{ padding:6px; }
+    .mt-1{ margin-top:1px; }
+    .mt-8{ margin-top:8px; }
+    .mt-10{ margin-top:10px; }
+    .center{ text-align:center; }
+    .right{ text-align:right; }
+
+    .band-title{
+      background:var(--blue);
+      color:#fff;
+      font-weight:800;
+      font-size:11px;
+      padding:4px 6px;
+      border:1px solid var(--blue2);
+      margin-top:4px;
+    }
+
+    .info-strip .lbl{
+      font-weight:700;
+      color:#0f2f52;
+      display:block;
+      font-size:10px;
+      margin-bottom:2px;
+    }
+    .info-strip .val{
+      font-weight:600;
+      font-size:10.5px;
+    }
+
+    .pay-grid{
+      display:table;
+      width:100%;
+      border-collapse:collapse;
+      margin-top:8px;
+    }
+    .pay-grid .c1,
+    .pay-grid .c2{
+      display:table-cell;
+      vertical-align:top;
+    }
+    .pay-grid .c1{ width:58mm; }
+
+    .poster{
+      border:1px solid var(--line);
+      background:#fff;
+      height:130px;
+      overflow:hidden;
+      text-align:center;
+    }
+    .poster img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .two-col{
+      display:table;
+      width:100%;
+      border-collapse:collapse;
+    }
+    .two-col .l, .two-col .r{
+      display:table-cell;
+      vertical-align:top;
+      width:50%;
+    }
+    .two-col .l{ padding-right:4px; }
+    .two-col .r{ padding-left:4px; }
+
+    .page-footer{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      height:10mm;
+      border-top:1px solid var(--line);
+      display:table;
+      width:100%;
+      font-size:9px;
+      font-weight:700;
+    }
+    .page-footer-left,
+    .page-footer-center,
+    .page-footer-right{
+      display:table-cell;
+      vertical-align:middle;
+      width:33.33%;
+    }
+    .page-footer-left{ text-align:left; }
+    .page-footer-center{ text-align:center; }
+    .page-footer-right{ text-align:right; }
+
+    .chart-img{
+      width:100%;
+      height:140px;
+      object-fit:contain;
+      display:block;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+
+    .small{ font-size:9px; color:#475569; }
+
+    @media print {
+      body { margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="header-cell left">
+        {% if bill.images.left_logo_base64 %}
+          <img src="data:image/png;base64,{{ bill.images.left_logo_base64 }}" style="width:60px;height:60px;" alt="logo">
+        {% endif %}
+      </div>
+
+      <div class="header-cell">
+        <div class="company-title">मध्य प्रदेश पश्चिम क्षेत्र विद्युत वितरण कंपनी लिमिटेड</div>
+        <div class="company-subtitle">जी.पी.एच. परिसर, पोलोग्राउंड, इंदौर (म.प्र.)</div>
+        <div class="company-subtitle">(मध्य प्रदेश शासन पूर्ण स्वामित्व का उपक्रम)</div>
+        <div class="tagline">
+          वेबसाइट: {{ bill.header.website }} |
+          कॉल सेंटर: {{ bill.header.call_centre }}
+        </div>
+        <div class="tagline">
+          जीएसटी नं: {{ bill.header.gst_no }} |
+          सीआईएन नं: {{ bill.header.cin_no }}
+        </div>
+      </div>
+
+      <div class="header-cell right">
+        {% if bill.images.right_logo_base64 %}
+          <img src="data:image/png;base64,{{ bill.images.right_logo_base64 }}" style="width:50px;height:50px;" alt="logo">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="box pad-5" style="margin-bottom:6px;">
+    <table>
+      <tr>
+        <td><b>बिजली बिल नं:</b> {{ bill.header.bill_no }}</td>
+        <td class="right"><b>बिल माह:</b> {{ bill.header.bill_month }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="box soft pad-6">
+    <table class="info-strip">
+      <tr>
+        <td><span class="lbl">उपभोक्ता नंबर</span><span class="val">{{ bill.consumer.consumer_no }}</span></td>
+        <td><span class="lbl">मोबाइल</span><span class="val">{{ bill.consumer.mobile }}</span></td>
+        <td><span class="lbl">ईमेल</span><span class="val">{{ bill.consumer.email }}</span></td>
+        <td><span class="lbl">कर्मचारी नंबर</span><span class="val">{{ bill.consumer.employee_no }}</span></td>
+      </tr>
+      <tr>
+        <td colspan="2"><span class="lbl">उपभोक्ता नाम</span><span class="val">{{ bill.consumer.name }}</span></td>
+        <td colspan="2"><span class="lbl">पता</span><span class="val">{{ bill.consumer.address }}</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="box soft mt-1">
+    <table class="info-strip">
+      <tr>
+        <td><span class="lbl">डिवीजन</span><span class="val">{{ bill.connection.division }}</span></td>
+        <td><span class="lbl">जोन / डीसी</span><span class="val">{{ bill.connection.zone_dc }}</span></td>
+        <td><span class="lbl">ग्रुप नंबर</span><span class="val">{{ bill.connection.group_no }}</span></td>
+        <td><span class="lbl">आरडी नंबर</span><span class="val">{{ bill.connection.rd_no }}</span></td>
+      </tr>
+      <tr>
+        <td><span class="lbl">फीडर कोड</span><span class="val">{{ bill.connection.feeder_code }}</span></td>
+        <td><span class="lbl">डीटीआर कोड</span><span class="val">{{ bill.connection.dtr_code }}</span></td>
+        <td><span class="lbl">पोल नंबर</span><span class="val">{{ bill.connection.pole_no }}</span></td>
+        <td><span class="lbl">उपयोग</span><span class="val">{{ bill.connection.usage }}</span></td>
+      </tr>
+      <tr>
+        <td><span class="lbl">परिसर प्रकार</span><span class="val">{{ bill.connection.premise_type }}</span></td>
+        <td><span class="lbl">टैरिफ श्रेणी</span><span class="val">{{ bill.connection.tariff_category }}</span></td>
+        <td><span class="lbl">कनेक्शन तिथि</span><span class="val">{{ bill.connection.connection_date }}</span></td>
+        <td><span class="lbl">फेज</span><span class="val">{{ bill.connection.phase }}</span></td>
+      </tr>
+      <tr>
+        <td><span class="lbl">स्वीकृत लोड (kW)</span><span class="val">{{ bill.connection.sanctioned_load_kw }}</span></td>
+        <td><span class="lbl">कॉन्ट्रैक्ट डिमांड</span><span class="val">{{ bill.connection.contract_demand }}</span></td>
+        <td><span class="lbl">नेट मीटर</span><span class="val">{{ bill.connection.net_meter }}</span></td>
+        <td><span class="lbl">प्रीपेड</span><span class="val">{{ bill.connection.prepaid }}</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <table style="margin-top:8px;">
+    <tr>
+      <th>अंतिम तिथि</th>
+      <th>खपत</th>
+      <th>चालू माह बिल</th>
+      <th>अंतिम तिथि बाद भुगतान</th>
+      <th>पिछला बकाया</th>
+    </tr>
+    <tr>
+      <td class="center"><b>{{ bill.summary.due_date }}</b></td>
+      <td class="center"><b>{{ bill.summary.consumption }}</b></td>
+      <td class="center"><b>₹ {{ bill.summary.current_bill }}</b></td>
+      <td class="center"><b>₹ {{ bill.summary.after_due_payment }}</b></td>
+      <td class="center"><b>₹ {{ bill.summary.previous_arrear }}</b></td>
+    </tr>
+  </table>
+
+  <div class="pay-grid">
+    <div class="c1 center">
+      <div class="box pad-6">
+        <strong>Scan to Pay ₹ {{ bill.summary.net_bill }}</strong>
+        <div style="margin-top:6px;">
+          <img src="{{ url_for('static', filename=bill.images.qr_code) }}" style="width:80px;height:80px;" alt="QR">
+        </div>
+      </div>
+    </div>
+
+    <div class="c2">
+      <div class="box">
+        <table class="info-strip">
+          <tr>
+            <td><span class="lbl">बिल दिनांक</span><span class="val">{{ bill.summary.bill_date }}</span></td>
+            <td><span class="lbl">बिल प्रकार</span><span class="val">{{ bill.summary.bill_type }}</span></td>
+            <td><span class="lbl">मीटर रीडर</span><span class="val">{{ bill.summary.meter_reader }}</span></td>
+            <td><span class="lbl">बिल आधार</span><span class="val">{{ bill.summary.bill_basis }}</span></td>
+          </tr>
+          <tr>
+            <td><span class="lbl">दैनिक औसत (राशि)</span><span class="val">{{ bill.summary.daily_avg_amount }}</span></td>
+            <td><span class="lbl">दैनिक औसत यूनिट</span><span class="val">{{ bill.summary.daily_avg_unit }}</span></td>
+            <td><span class="lbl">सुरक्षा जमा (S.D.)</span><span class="val">{{ bill.summary.security_deposit }}</span></td>
+            <td><span class="lbl">S.D. लंबित</span><span class="val">{{ bill.summary.sd_pending }}</span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <table style="margin-top:8px;">
+    <tr>
+      <td style="width:70%;">
+        <table>
+          {% for officer in bill.officials %}
+          <tr>
+            <td><b>{{ officer.designation }}</b><br><b>{{ officer.office }}</b></td>
+            <td><b>{{ officer.name }}<br>({{ officer.phone }})</b></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </td>
+      <td class="center" style="width:30%;">
+        <strong>WhatsApp ChatBot / Call Centre: {{ bill.header.call_centre }}</strong>
+      </td>
+    </tr>
+  </table>
+
+  <div class="band-title">खपत प्रवृत्ति (यूनिट में)</div>
+  {% if bill.images.consumption_chart %}
+    <img class="chart-img" src="data:image/png;base64,{{ bill.images.consumption_chart }}" alt="Consumption Trend">
+  {% else %}
+    <div class="box pad-6 center">यहाँ consumption chart प्रदर्शित होगा</div>
+  {% endif %}
+
+  <div class="band-title">विज्ञापन / जागरूकता हेतु स्थान</div>
+  <div class="poster">
+    <img src="{{ url_for('static', filename=bill.images.advertisement) }}" alt="advertisement">
+  </div>
+
+  <div class="band-title">संदेश / टीप</div>
+  {% for note in bill.notes %}
+    <div class="soft pad-5" style="font-size:9px; margin-top:2px;">{{ note }}</div>
+  {% endfor %}
+
+  <div class="page-footer">
+    <div class="page-footer-left">{{ bill.consumer.consumer_no }}</div>
+    <div class="page-footer-center">{{ bill.header.bill_month }}</div>
+    <div class="page-footer-right">पृष्ठ 1 / 4</div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="band-title">वर्तमान रीडिंग विवरण</div>
+  <div class="box soft pad-6">
+    <table class="info-strip">
+      <tr>
+        <td><span class="lbl">मीटर क्रमांक</span><span class="val">{{ bill.reading.meter_no }}</span></td>
+        <td><span class="lbl">रीड दिनांक</span><span class="val">{{ bill.reading.read_date }}</span></td>
+        <td><span class="lbl">रीड प्रकार</span><span class="val">{{ bill.reading.read_type }}</span></td>
+        <td><span class="lbl">रीड स्रोत</span><span class="val">{{ bill.reading.read_source }}</span></td>
+        <td><span class="lbl">पी.एफ.</span><span class="val">{{ bill.reading.pf }}</span></td>
+        <td><span class="lbl">एम.डी.</span><span class="val">{{ bill.reading.md }}</span></td>
+      </tr>
+      <tr>
+        <td><span class="lbl">सोलर प्लांट क्षमता</span><span class="val">{{ bill.reading.solar_capacity }}</span></td>
+        <td><span class="lbl">पिछले माह अवशिष्ट यूनिट</span><span class="val">{{ bill.reading.previous_residual_unit }}</span></td>
+        <td><span class="lbl">अवशिष्ट यूनिट</span><span class="val">{{ bill.reading.residual_unit }}</span></td>
+        <td><span class="lbl">VNM / GNM</span><span class="val">{{ bill.reading.vnm_gnm }}</span></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="box pad-6">
+    <table>
+      <thead>
+        <tr>
+          <th>विवरण</th>
+          <th class="right">वर्तमान रीडिंग</th>
+          <th class="right">पिछली रीडिंग</th>
+          <th class="right">एम.एफ.</th>
+          <th class="right">मीटर यूनिट</th>
+          <th class="right">आकलित यूनिट</th>
+          <th class="right">अंतिम खपत</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in bill.reading_rows %}
+        <tr>
+          <td>{{ row.description }}</td>
+          <td class="right">{{ row.current_reading }}</td>
+          <td class="right">{{ row.previous_reading }}</td>
+          <td class="right">{{ row.mf }}</td>
+          <td class="right">{{ row.meter_unit }}</td>
+          <td class="right">{{ row.assessed_unit }}</td>
+          <td class="right">{{ row.final_consumption }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="band-title mt-10">विस्तृत बिल विभाजन</div>
+  <div class="two-col">
+    <div class="l">
+      <table>
+        <tr><th colspan="2">बिलिंग शुल्क जानकारी</th></tr>
+        {% for item in bill.bill_breakup_left %}
+        <tr>
+          <td>{{ item.label }}</td>
+          <td class="right"><b>{{ item.amount }}</b></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div class="r">
+      <table>
+        <tr><th colspan="2">बिलिंग शुल्क जानकारी</th></tr>
+        {% for item in bill.bill_breakup_right %}
+        <tr>
+          <td>{{ item.label }}</td>
+          <td class="right"><b>{{ item.amount }}</b></td>
+        </tr>
+        {% endfor %}
+      </table>
+
+      {% if bill.images.billing_chart %}
+        <img class="chart-img" style="height:225px; margin-top:6px;" src="data:image/png;base64,{{ bill.images.billing_chart }}" alt="Billing Chart">
+      {% else %}
+        <div class="box pad-6 center" style="height:225px; margin-top:6px;">यहाँ billing chart प्रदर्शित होगा</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-left">{{ bill.consumer.consumer_no }}</div>
+    <div class="page-footer-center">{{ bill.header.bill_month }}</div>
+    <div class="page-footer-right">पृष्ठ 2 / 4</div>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+  <div class="band-title">टीओडी विवरण</div>
+
+  <div class="two-col">
+    <div class="l">
+      {% if bill.images.tod_chart %}
+        <img class="chart-img" style="height:180px;" src="data:image/png;base64,{{ bill.images.tod_chart }}" alt="TOD Chart">
+      {% else %}
+        <div class="box pad-6 center" style="height:180px;">यहाँ TOD chart प्रदर्शित होगा</div>
+      {% endif %}
+    </div>
+    <div class="r">
+      <table style="height:180px;">
+        <tr>
+          <th colspan="2">समय</th>
+          <th class="right">यूनिट</th>
+          <th class="right">राशि (₹)</th>
+        </tr>
+        {% for item in bill.tod_summary %}
+        <tr>
+          <td><b>{{ item.tod }}</b></td>
+          <td>{{ item.time }}</td>
+          <td class="right">{{ item.unit }}</td>
+          <td class="right">{{ item.amount }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="band-title mt-10">पिछले दो भुगतान</div>
+  <div class="box">
+    <table>
+      <tr>
+        <th>भुगतान माह</th>
+        <th class="right">भुगतान राशि (₹)</th>
+        <th>भुगतान संदर्भ नं.</th>
+        <th>भुगतान दिनांक</th>
+        <th>माध्यम</th>
+      </tr>
+      {% for item in bill.payments %}
+      <tr>
+        <td><b>{{ item.month }}</b></td>
+        <td class="right"><b>{{ item.amount }}</b></td>
+        <td>{{ item.reference }}</td>
+        <td>{{ item.date }}</td>
+        <td>{{ item.mode }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="band-title">पिछले छह महीनों की खपत</div>
+  <div class="box">
+    <table>
+      <tr>
+        <th>बिल माह</th>
+        <th>बिल दिनांक</th>
+        <th class="right">रीडिंग</th>
+        <th class="right">यूनिट्स</th>
+      </tr>
+      {% for item in bill.last_six_months %}
+      <tr>
+        <td>{{ item.bill_month }}</td>
+        <td>{{ item.bill_date }}</td>
+        <td class="right">{{ item.reading }}</td>
+        <td class="right">{{ item.units }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="page-footer">
+    <div class="page-footer-left">{{ bill.consumer.consumer_no }}</div>
+    <div class="page-footer-center">{{ bill.header.bill_month }}</div>
+    <div class="page-footer-right">पृष्ठ 3 / 4</div>
+  </div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page">
+  <div class="band-title">सर्किल स्तर विद्युत उपभोक्ता शिकायत निवारण फोरम (ECGRF)</div>
+  <table>
+    <tr>
+      <th>क्रमांक</th>
+      <th>पदनाम</th>
+      <th>नाम</th>
+      <th class="right">संपर्क नं.</th>
+      <th>सदस्य प्रकार</th>
+    </tr>
+    {% for member in bill.ecgrf_members %}
+    <tr>
+      <td>{{ member.sr_no }}</td>
+      <td>{{ member.designation }}</td>
+      <td>{{ member.name }}</td>
+      <td class="right">{{ member.contact }}</td>
+      <td>{{ member.member_type }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <div class="page-footer">
+    <div class="page-footer-left">{{ bill.consumer.consumer_no }}</div>
+    <div class="page-footer-center">{{ bill.header.bill_month }}</div>
+    <div class="page-footer-right">पृष्ठ 4 / 4</div>
+  </div>
+</div>
+
+</body>
+</html>

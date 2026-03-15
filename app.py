@@ -1,128 +1,108 @@
-
-import os
+from flask import Flask, render_template, jsonify
 import json
-from flask import Flask, render_template, send_file, request, abort, jsonify, make_response
-import pdfkit
-from io import BytesIO
+from pathlib import Path
+import subprocess
+import os
 
 app = Flask(__name__)
-
-# Configure wkhtmltopdf (set env var WKHTMLTOPDF_PATH on Windows if needed)
-WKHTMLTOPDF_PATH = os.environ.get("WKHTMLTOPDF_PATH")  # e.g. r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
-
-if WKHTMLTOPDF_PATH:
-    pdf_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_PATH)
-else:
-    pdf_config = None  # assume wkhtmltopdf is in PATH
-
-pdf_options = {
-    "page-size": "A4",
-    "margin-top": "8mm",
-    "margin-right": "8mm",
-    "margin-bottom": "8mm",
-    "margin-left": "8mm",
-    "encoding": "UTF-8",
-}
-
-VALID_CATEGORIES = {
-    "domestic": "bill_domestic.html",
-    "nondomestic": "bill_nondomestic.html",
-    "industrial": "bill_industrial.html",
-    "agriculture": "bill_agriculture.html",
-}
+BASE_DIR = Path(__file__).resolve().parent
+JSON_FILE_EN = BASE_DIR / "bill_data_english.json"
+JSON_FILE_HI = BASE_DIR / "bill_data_hindi.json"
 
 
-def load_sample_data(category: str) -> dict:
-    data_file = os.path.join(os.path.dirname(__file__), "sample_data", f"{category}.json")
-    if not os.path.exists(data_file):
-        raise FileNotFoundError(f"Sample data not found for {category}")
-    with open(data_file, "r", encoding="utf-8") as f:
+def load_bill_data_en():
+    with open(JSON_FILE_EN, "r", encoding="utf-8") as f:
         return json.load(f)
 
+def load_bill_data_hi():
+    with open(JSON_FILE_HI, "r", encoding="utf-8") as f:
+        return json.load(f)
+  
 
-def render_bill_html(category: str, data: dict) -> str:
-    template_name = VALID_CATEGORIES.get(category)
-    if not template_name:
-        abort(404, description="Unknown category")
-    return render_template(template_name, data=data, category=category)
+@app.route("/WZ_BILL_ENGLISH_JSON")
+def bill_view_en_json():
 
+    # Step 1: Load JSON data
+    data = load_bill_data_en()
+    
+    # Step 2: Render HTML with JSON data
+    rendered_html = render_template("bill5_v9_json.html", **data)
 
-def html_to_pdf_bytes(html: str) -> bytes:
-    pdf_bytes = pdfkit.from_string(html, False, options=pdf_options, configuration=pdf_config)
-    return pdf_bytes
+    # Step 3: Save rendered HTML to file
+    output_html = "generated_bill.html"
+    with open(output_html, "w", encoding="utf-8") as f:
+        f.write(rendered_html)
 
+    # Step 4: Call Python script
+    subprocess.Popen([
+        "python",
+        "api_testing.py",
+        "--html-file", output_html,
+        "--output-dir", "pdf_output1",
+        "--num-requests", "100000",
+        "--concurrency", "200",
+        "--save-pdf",
+        "--max-save", "100000"
+    ])
 
-@app.route("/")
-def index():
-    return jsonify({
-        "message": "Power Bill PDF API",
-        "categories": list(VALID_CATEGORIES.keys()),
-        "routes": {
-            "preview": "/bill/<category>/view",
-            "pdf": "/bill/<category>/pdf",
-            "api": "/api/generate-bill",
-        },
-        "example_api_body": {
-            "category": "domestic",
-            "data": "optional custom bill data; if omitted default sample is used"
-        }
-    })
+    return {"message": "Bill generated successfully. Check pdf_output1 folder"}
 
+@app.route("/WZ_BILL_HINDI_JSON")
+def bill_view_hi_json():
 
-@app.route("/bill/<category>/view")
-def view_bill(category):
-    category = category.lower()
-    if category not in VALID_CATEGORIES:
-        abort(404, "Unknown category")
-    data = load_sample_data(category)
-    html = render_bill_html(category, data)
-    return html
+    # Step 1: Load JSON data
+    data = load_bill_data_hi()
 
+    # Step 2: Render HTML with JSON data
+    rendered_html = render_template("bill5_v9_hindi_json.html", **data)
 
-@app.route("/bill/<category>/pdf")
-def bill_pdf(category):
-    category = category.lower()
-    if category not in VALID_CATEGORIES:
-        abort(404, "Unknown category")
-    data = load_sample_data(category)
-    html = render_bill_html(category, data)
-    pdf_bytes = html_to_pdf_bytes(html)
-    filename = f"{category}_bill_sample.pdf"
-    return send_file(
-        BytesIO(pdf_bytes),
-        mimetype="application/pdf",
-        as_attachment=True,
-        download_name=filename,
-    )
+    # Step 3: Save rendered HTML to file
+    output_html = "generated_bill.html"
+    with open(output_html, "w", encoding="utf-8") as f:
+        f.write(rendered_html)
 
+    # Step 4: Call Python script
+    subprocess.Popen([
+        "python",
+        "api_testing.py",
+        "--html-file", output_html,
+        "--output-dir", "pdf_output1",
+        "--num-requests", "2",
+        "--concurrency", "2",
+        "--save-pdf",
+        "--max-save", "2"
+    ])
 
-@app.post("/api/generate-bill")
-def api_generate_bill():
-    """
-    POST JSON:
-    {
-        "category": "domestic" | "nondomestic" | "industrial" | "agriculture",
-        "data": {...}   # optional custom bill JSON matching template keys
-    }
-    """
-    payload = request.get_json(silent=True) or {}
-    category = (payload.get("category") or "").lower()
-    if category not in VALID_CATEGORIES:
-        return jsonify({"error": "Invalid or missing 'category'"}), 400
+    return {"message": "Bill generated successfully. Check pdf_output1 folder"}
 
-    if isinstance(payload.get("data"), dict):
-        data = payload["data"]
-    else:
-        data = load_sample_data(category)
+@app.route("/WZ_BILL_HINDI")
+def bill_view_hi():
+    subprocess.Popen([
+        "python",
+        "api_testing.py",
+        "--html-file", "templates/bill5_v9_hindi.html",
+        "--output-dir", "pdf_output1",
+        "--num-requests", "2",
+        "--concurrency", "2",
+        "--save-pdf",
+        "--max-save", "2"
+    ])
+    return {"message": "bIll generated successfully in hindi check pdf_output1 folder"}
 
-    html = render_bill_html(category, data)
-    pdf_bytes = html_to_pdf_bytes(html)
-
-    response = make_response(pdf_bytes)
-    response.headers["Content-Type"] = "application/pdf"
-    response.headers["Content-Disposition"] = f'attachment; filename=\"{category}_bill.pdf\"'
-    return response
+@app.route("/WZ_BILL_ENGLISH")
+def bill_view_en():
+    subprocess.Popen([
+        "python",
+        "api_testing.py",
+        "--html-file", "templates/bill5_v9.html",
+        "--output-dir", "pdf_output1",
+        "--num-requests", "2",
+        "--concurrency", "2",
+        "--save-pdf",
+        "--max-save", "2"
+    ])
+    return {"message": "bIll generated successfully in english check pdf_output1 folder"}
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True , host="0.0.0.0", port=5000, use_reloader=False)

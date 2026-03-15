@@ -1,0 +1,190 @@
+{
+  "header": {
+    "bill_no": "OCT253104003053",
+    "bill_month": "OCT-2025",
+    "website": "https://www.mpwz.co.in",
+    "call_centre": "1912",
+    "gst_no": "23AADCM7397N1ZU",
+    "cin_no": "U40109MP2002SGC015121"
+  },
+  "consumer": {
+    "consumer_no": "N3104003053",
+    "mobile": "9898989898",
+    "email": "dM5S@example.com",
+    "employee_no": "1234567890",
+    "name": "श्री प्रकाश कुमार (पुत्र: श्री राकेश कुमार दत्ता)",
+    "address": "प्लॉट नं. 18, गार्डन के पास, जी.पी.एच. परिसर, पोलोग्राउंड, इंदौर, मध्य प्रदेश - 452001"
+  },
+  "connection": {
+    "division": "इंदौर पूर्व डिवीजन",
+    "zone_dc": "कलानी नगर जोन",
+    "group_no": "KNW47",
+    "rd_no": "12",
+    "feeder_code": "3465201125414",
+    "dtr_code": "3465201125414",
+    "pole_no": "125441514",
+    "usage": "घरेलू",
+    "premise_type": "शहरी",
+    "tariff_category": "LV1 (LV1.2)",
+    "connection_date": "23-06-2017",
+    "phase": "सिंगल",
+    "sanctioned_load_kw": "1.0",
+    "contract_demand": "1.0 kW",
+    "net_meter": "हाँ",
+    "prepaid": "हाँ"
+  },
+  "summary": {
+    "due_date": "10-08-2025",
+    "consumption": "808.98",
+    "current_bill": "1200.00",
+    "after_due_payment": "2190.00",
+    "previous_arrear": "1618.00",
+    "net_bill": "2163.00",
+    "bill_date": "01-11-2025",
+    "bill_type": "वास्तविक बिल",
+    "meter_reader": "श्याम कुमार",
+    "bill_basis": "संशोधित बिल",
+    "daily_avg_amount": "808.98",
+    "daily_avg_unit": "12",
+    "security_deposit": "500.00",
+    "sd_pending": "0.00"
+  },
+  "officials": [
+    {
+      "designation": "सहायक / कनिष्ठ अभियंता",
+      "office": "सगम नगर जोन",
+      "name": "श्री राहुल सिंह",
+      "phone": "1800-233-1912"
+    },
+    {
+      "designation": "कार्यपालन अभियंता",
+      "office": "इंदौर ईस्ट डिवीजन",
+      "name": "श्री श्याम सिंह राठौर",
+      "phone": "1800-233-1912"
+    }
+  ],
+  "notes": [
+    "आपका कनेक्शन 22-10-2025 को OTS 2025 समाधान योजना हेतु पंजीकृत किया गया है।",
+    "₹ 500.00 की 6 किस्तें बिल माह NOV-2025 से APR-2026 तक निर्धारित हैं।",
+    "योजना लाभ हेतु कृपया चालू बिल के साथ किस्त का भुगतान करें।"
+  ],
+  "reading": {
+    "meter_no": "MIG6150143053",
+    "read_date": "21-10-2025",
+    "read_type": "सामान्य",
+    "read_source": "नेट मीटर",
+    "pf": "0.99",
+    "md": "0.09",
+    "solar_capacity": "8 KW",
+    "previous_residual_unit": "399",
+    "residual_unit": "0",
+    "vnm_gnm": "चाइल्ड"
+  },
+  "reading_rows": [
+    {
+      "description": "आयात (Import)",
+      "current_reading": "200.00",
+      "previous_reading": "200.00",
+      "mf": "1",
+      "meter_unit": "130.00",
+      "assessed_unit": "0.00",
+      "final_consumption": "130.00"
+    },
+    {
+      "description": "निर्यात (Export)",
+      "current_reading": "520.00",
+      "previous_reading": "520.00",
+      "mf": "1",
+      "meter_unit": "85.00",
+      "assessed_unit": "0.00",
+      "final_consumption": "85.00"
+    }
+  ],
+  "bill_breakup_left": [
+    { "label": "ऊर्जा शुल्क", "amount": "658.18" },
+    { "label": "ईंधन एवं पावर परचेज एडजस्टमेंट सरचार्ज (FPPPA)", "amount": "-17.19" },
+    { "label": "स्थिर शुल्क", "amount": "106.00" }
+  ],
+  "bill_breakup_right": [
+    { "label": "सब्सिडी (म.प्र. शासन)", "amount": "-531.99" },
+    { "label": "चालू माह बिल", "amount": "1200.00" },
+    { "label": "मूल बकाया", "amount": "1618.00" },
+    { "label": "कुल सरचार्ज", "amount": "268.02" },
+    { "label": "नेट बिल", "amount": "2163.00" }
+  ],
+  "tod_summary": [
+    {
+      "tod": "TOD 1",
+      "time": "10 PM से 6 AM",
+      "unit": "437.25",
+      "amount": "2842.13"
+    },
+    {
+      "tod": "TOD 2",
+      "time": "6 AM से 9 AM",
+      "unit": "469.50",
+      "amount": "3849.90"
+    },
+    {
+      "tod": "TOD 3",
+      "time": "9 AM से 5 PM",
+      "unit": "120.12",
+      "amount": "1261.26"
+    },
+    {
+      "tod": "TOD 4",
+      "time": "5 PM से 10 PM",
+      "unit": "456.75",
+      "amount": "4476.15"
+    }
+  ],
+  "payments": [
+    {
+      "month": "AUG-2025",
+      "amount": "2100.00",
+      "reference": "DTD020920527242",
+      "date": "02-09-2025",
+      "mode": "ऑनलाइन UPI"
+    },
+    {
+      "month": "DEC-2024",
+      "amount": "1900.00",
+      "reference": "DTD311220241111",
+      "date": "31-12-2024",
+      "mode": "नकद"
+    }
+  ],
+  "last_six_months": [
+    { "bill_month": "OCT-2024", "bill_date": "25-10-2024", "reading": "102", "units": "149" },
+    { "bill_month": "MAY-2025", "bill_date": "21-05-2025", "reading": "202", "units": "140" },
+    { "bill_month": "JUN-2025", "bill_date": "20-06-2025", "reading": "205", "units": "127" },
+    { "bill_month": "JUL-2025", "bill_date": "21-07-2025", "reading": "200", "units": "127" },
+    { "bill_month": "AUG-2025", "bill_date": "20-08-2025", "reading": "205", "units": "135" },
+    { "bill_month": "SEP-2025", "bill_date": "22-09-2025", "reading": "200", "units": "130" }
+  ],
+  "ecgrf_members": [
+    {
+      "sr_no": "1",
+      "designation": "अध्यक्ष",
+      "name": "एर. आर. के. शर्मा",
+      "contact": "9876543210",
+      "member_type": "कार्यपालन अभियंता"
+    },
+    {
+      "sr_no": "2",
+      "designation": "सदस्य",
+      "name": "श्री ए. पी. वर्मा",
+      "contact": "9123456780",
+      "member_type": "कार्यपालन अभियंता"
+    }
+  ],
+  "images": {
+    "left_logo_base64": "",
+    "right_logo_base64": "",
+    "qr_code": "qr_codeimage.png",
+    "advertisement": "advertisement_img.jpg",
+    "consumption_chart": "",
+    "tod_chart": "",
+    "billing_chart": ""
+  }
+}

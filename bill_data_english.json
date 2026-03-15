@@ -1,0 +1,466 @@
+{
+  "bill": {
+    "title": "WZ Electricity Bill",
+    "consumer_no": "N3104003053",
+    "bill_month": "OCT-2025",
+    "company": {
+      "name": "Madhya Pradesh Paschim Kshetra Vidyut Vitran Company Limited.",
+      "address_line_1": "G.P.H. Compound, Pologround, Indore (M.P.)",
+      "address_line_2": "(Wholly owned by Govt. of M.P.)",
+      "website_url": "https://www.mpwz.co.in",
+      "website_label": "https://www.mpwz.co.in",
+      "call_center_number": "1912",
+      "gst_no": "23AADCM7397N1ZU",
+      "cin_no": "U40109MP2002SGC015121",
+      "left_logo": "data:image/png;base64,PUT_LEFT_LOGO_BASE64_HERE",
+      "right_logo": "data:image/png;base64,PUT_RIGHT_LOGO_BASE64_HERE"
+    },
+    "page1": {
+      "bill_no": "OCT253104003053",
+      "bill_month": "OCT-2025",
+      "consumer": {
+        "consumer_no": "N3104003053",
+        "mobile": "9898989898",
+        "email": "dM5S@example.com",
+        "employee_no": "1234567890",
+        "name": "Mr. Prakash Kumar S/o Mr. Rakash Kumar Dutta",
+        "address": "PlotNo. 18, Near Garden G.P.H. Compound, Pologround"
+      },
+      "connection_info_rows": [
+        [
+          {"label": "DIVISION NAME", "value": "Indore East Division"},
+          {"label": "ZONE / DC NAME", "value": "Kalani Nagar Zone"},
+          {"label": "GROUP NO", "value": "KNW47"},
+          {"label": "RD NO", "value": "12"}
+        ],
+        [
+          {"label": "Feeder Code", "value": "3465201125414"},
+          {"label": "DTR Code", "value": "3465201125414"},
+          {"label": "Pole No", "value": "125441514"},
+          {"label": "Purpose", "value": "Domestic"}
+        ],
+        [
+          {"label": "Premise Type", "value": "Urban"},
+          {"label": "TARIFF CATEGORY", "value": "LV1 (LV1.2)"},
+          {"label": "CONNECTION DATE", "value": "23-06-2017"},
+          {"label": "PHASE", "value": "Single"}
+        ],
+        [
+          {"label": "SANCTIONED LOAD (kW)", "value": "1.0"},
+          {"label": "Contract Demand", "value": "1.0 kW"},
+          {"label": "Net Meter", "value": "Yes"},
+          {"label": "Prepaid", "value": "Yes"}
+        ]
+      ],
+      "summary_header": [
+        "Due Date",
+        "Consumption",
+        "Current Month Bill",
+        "Pay After Due Date",
+        "Previous Outstanding"
+      ],
+      "summary_values": [
+        "10-08-2025",
+        "808.98",
+        "₹ 1,200.00",
+        "₹ 2,190.00",
+        "₹ 1,618.00"
+      ],
+      "payment_box": {
+        "title": "Scan to Pay",
+        "amount": "₹ 2,163.00",
+        "qr_image": "data:image/png;base64,PUT_PAYMENT_QR_BASE64_HERE"
+      },
+      "bill_meta_rows": [
+        [
+          {"label": "BILL DATE", "value": "01-11-2025"},
+          {"label": "BILL TYPE", "value": "Actual Bill"},
+          {"label": "METER READER", "value": "Shyam Kumar"},
+          {"label": "BILL BASIS", "value": "Revised Bill"}
+        ],
+        [
+          {"label": "DAILY AVG OF BILL", "value": "808.98"},
+          {"label": "DAILY AVG UNITS", "value": "12"},
+          {"label": "S.D. HELD", "value": "500.00"},
+          {"label": "S.D. PENDING", "value": "0.00"}
+        ]
+      ],
+      "officers": [
+        {
+          "designation": "Assistant / Junior Engineer: Samgam Nagar Zone",
+          "name": "Mr. Rahul Singh",
+          "contact": "1800-233-1912"
+        },
+        {
+          "designation": "Executive Engineer: Indore East Division",
+          "name": "Mr. Shyam Singh Rathore",
+          "contact": "1800-233-1912"
+        }
+      ],
+      "chatbot": {
+        "title": "WhatsApp ChatBot / Call Centre: 1912",
+        "image": "data:image/png;base64,PUT_CHATBOT_QR_BASE64_HERE"
+      },
+      "consumption_trend": {
+        "title": "CONSUMPTION TREND (IN UNITS)",
+        "image": "data:image/png;base64,PUT_CONSUMPTION_TREND_BASE64_HERE"
+      },
+      "advertisement": {
+        "title": "SPACE FOR ADVERTISEMENT / AWARENESS",
+        "image": "data:image/jpeg;base64,PUT_ADVERTISEMENT_BASE64_HERE"
+      },
+      "messages": [
+        "Your connection has been registered on <b>22-10-2025</b> for <b>OTS 2025 Samadhan Scheme</b>. <b>6 installment</b> of <b>Rs 500.00</b> from bill month <b>NOV-2025</b> to <b>APR-2026</b> has been scheduled. Kindly pay the installment with current bill to get the scheme benefit.",
+        "Your connection has been registered on <b>22-10-2025</b> for <b>OTS 2025 Samadhan Scheme</b>. <b>6 installment</b> of <b>Rs 500.00</b> from bill month <b>NOV-2025</b> to <b>APR-2026</b> has been scheduled. Kindly pay the installment with current bill to get the scheme benefit.",
+        "Your connection has been registered on <b>22-10-2025</b> for <b>OTS 2025 Samadhan Scheme</b>. <b>6 installment</b> of <b>Rs 500.00</b> from bill month <b>NOV-2025</b> to <b>APR-2026</b> has been scheduled. Kindly pay the installment with current bill to get the scheme benefit."
+      ]
+    },
+    "page2": {
+      "current_reading_meta_rows": [
+        [
+          {"label": "METER S.NO.", "value": "MIG6150143053"},
+          {"label": "READ DATE", "value": "21-10-2025"},
+          {"label": "READ TYPE", "value": "NORMAL"},
+          {"label": "READ SOURCE", "value": "Net Meter"},
+          {"label": "P.F", "value": "0.99"},
+          {"label": "MD", "value": "0.09"}
+        ],
+        [
+          {"label": "SOLAR PLANT CAPACITY", "value": "8 KW"},
+          {"label": "LAST MONTH RESIDUAL UNITS", "value": "399"},
+          {"label": "RESIDUAL UNITS", "value": "0"},
+          {"label": "VNM / GNM", "value": "Child"},
+          {"label": "", "value": ""},
+          {"label": "", "value": ""}
+        ]
+      ],
+      "simple_reading_table": {
+        "header": ["Current Reading", "Previous Reading", "M.F.", "Metered Units", "Assessed Units", "Total Units"],
+        "values": ["200.00", "200.00", "1", "130.00", "0.00", "130.00"]
+      },
+      "detailed_reading_table": {
+        "header": [
+          "Particulars",
+          {"label": "Current Reading", "align": "right"},
+          {"label": "Previous Reading", "align": "right"},
+          {"label": "M.F.", "align": "right"},
+          {"label": "Metered Units", "align": "right"},
+          {"label": "Assessed Units", "align": "right"},
+          {"label": "Final Consumption", "align": "right"}
+        ],
+        "rows": [
+          {"cells": [
+            {"value": "Import"},
+            {"value": "200.00", "align": "right"},
+            {"value": "200.00", "align": "right"},
+            {"value": "1", "align": "right"},
+            {"value": "130.00", "align": "right"},
+            {"value": "0.00", "align": "right"},
+            {"value": "130.00", "align": "right"}
+          ]},
+          {"cells": [
+            {"value": "Export"},
+            {"value": "520.00", "align": "right"},
+            {"value": "520.00", "align": "right"},
+            {"value": "1", "align": "right"},
+            {"value": "85.00", "align": "right"},
+            {"value": "0.00", "align": "right"},
+            {"value": "85.00", "align": "right"}
+          ]},
+          {
+            "class": "row-highlight",
+            "colspan_text": {"cols": 4, "text": "Residual Units Adjusted"},
+            "colspan_value": {"cols": 3, "value": "215"}
+          },
+          {"class": "row-total", "cells": [
+            {"value": "Net", "colspan": 4, "align": "center"},
+            {"value": "10", "align": "right"},
+            {"value": "", "align": "right"},
+            {"value": "12", "align": "right"}
+          ]},
+          {"cells": [
+            {"value": "Solar Generator Meter"},
+            {"value": "520.00", "align": "right"},
+            {"value": "520.00", "align": "right"},
+            {"value": "1", "align": "right"},
+            {"value": "85.00", "align": "right"},
+            {"value": "0.00", "align": "right"},
+            {"value": "85.00", "align": "right"}
+          ]}
+        ]
+      },
+      "breakup_left": [
+        {"type": "heading", "title": "Energy"},
+        {"label": "Energy charges", "value": "658.18"},
+        {"label": "Fuel & Power Purchase Adjustment Surcharge", "value": "-17.19"},
+        {"label": "Fixed charges", "value": "106.00"},
+        {"label": "Sub Total (A)", "value": "747.00", "highlight": true},
+        {"label": "Electricity Duty", "value": "62.00"},
+        {"label": "CCB Adjustment", "value": "0.00"},
+        {"label": "Sub Total (B)", "value": "809.00", "highlight": true},
+        {"type": "heading", "title": "Rebate / Charges"},
+        {"label": "Penal Charge", "value": "62.00"},
+        {"label": "PF Surcharge / Incentive", "value": "62.00"},
+        {"label": "ASD Installments", "value": "62.00"},
+        {"label": "TOD Rebate / Surcharge", "value": "0.00"},
+        {"label": "Interest on Security Deposit", "value": "0.00"},
+        {"label": "Load Factor Incentive", "value": "0.00"},
+        {"label": "Lock Credit", "value": "0.00"},
+        {"label": "Employee Rebate", "value": "0.00"},
+        {"label": "Prepaid Payment Rebate", "value": "0.00"},
+        {"label": "Online Payment Rebate", "value": "0.00"},
+        {"label": "Prompt Payment Incentive", "value": "0.00"},
+        {"label": "Advance Payment Incentive", "value": "0.00"},
+        {"label": "Demand Side Incentive", "value": "0.00"},
+        {"label": "Wheeling Charge / Green Energy Charge", "value": "0.00"},
+        {"label": "Sub Total (C)", "value": "186.00", "highlight": true}
+      ],
+      "breakup_right": [
+        {"type": "heading", "title": "Subsidy"},
+        {"label": "Subsidy (M.P. Govt.)", "value": "-531.99"},
+        {"label": "Sub Total (D)", "value": "-531.99"},
+        {"label": "Current Month Bill ( A + B + C+D)", "value": "1,200.00"},
+        {"type": "heading", "title": "Arrear"},
+        {"label": "Principal arrear", "value": "1,618.00"},
+        {"label": "Cumulative surcharge", "value": "268.02"},
+        {"label": "ASD Arrear", "value": "0.00"},
+        {"label": "Net Bill", "value": "2,163.00"},
+        {"type": "heading", "title": "Payments"},
+        {"label": "Payment Received Against Bill & Vigilance", "value": "0.00"},
+        {"label": "Payment Received Against Smart Meter RC/DC", "value": "0.00"},
+        {"type": "heading", "title": "Dues"},
+        {"label": "Vigilance / O&M Due Amount", "value": "1,618.00"},
+        {"label": "Interest on Vigilance / O&M Due (Till Billing Period)", "value": "268.02"},
+        {"label": "Total Amount Payable", "value": "2,163.00"}
+      ],
+      "payable_chart": "data:image/png;base64,PUT_PAYABLE_CHART_BASE64_HERE"
+    },
+    "page3": {
+      "tod_chart": "data:image/png;base64,PUT_TOD_CHART_BASE64_HERE",
+      "tod_summary": {
+        "header": [
+          {"label": "TIMING", "colspan": 2},
+          {"label": "Units", "align": "right"},
+          {"label": "Amount (₹)", "align": "right"}
+        ],
+        "rows": [
+          [
+            {"value": "Off Peak", "bold": true},
+            {"value": "10:00 PM–06:00 AM", "align": "center"},
+            {"value": "437.25", "align": "right"},
+            {"value": "2,842.13", "align": "right"}
+          ],
+          [
+            {"value": "Peak", "bold": true},
+            {"value": "06:00 AM–09:00 AM", "align": "center"},
+            {"value": "469.50", "align": "right"},
+            {"value": "3,849.90", "align": "right"}
+          ],
+          [
+            {"value": "Peak", "bold": true},
+            {"value": "09:00 AM–17:00 PM", "align": "center"},
+            {"value": "120.12", "align": "right"},
+            {"value": "1,261.26", "align": "right"}
+          ],
+          [
+            {"value": "Off Peak", "bold": true},
+            {"value": "17:00 PM–10:00 PM", "align": "center"},
+            {"value": "456.75", "align": "right"},
+            {"value": "4,476.15", "align": "right"}
+          ],
+          [
+            {"value": "Total", "colspan": 2, "bold": true},
+            {"value": "1,650.00", "align": "right", "bold": true},
+            {"value": "12,429.44", "align": "right", "bold": true}
+          ]
+        ]
+      },
+      "tod_bill_detail": {
+        "header": [
+          "TOD",
+          "Particulars",
+          {"label": "Current Read", "align": "right"},
+          {"label": "Previous Read", "align": "right"},
+          {"label": "Meter Consumption", "align": "right"},
+          {"label": "Assessed Units", "align": "right"},
+          {"label": "Final Consumption", "align": "right"},
+          {"label": "Net", "align": "right"},
+          {"label": "Amount", "align": "right"}
+        ],
+        "groups": [
+          {
+            "title": "TOD 1",
+            "time": "10 PM to 6 AM",
+            "rows": [
+              [{"value": "Import", "align": "center"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}],
+              [{"value": "Export", "align": "center"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}]
+            ]
+          },
+          {
+            "title": "TOD 2",
+            "time": "6 AM to 9 AM",
+            "rows": [
+              [{"value": "Import", "align": "center"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}],
+              [{"value": "Export", "align": "center"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}]
+            ]
+          },
+          {
+            "title": "TOD 3",
+            "time": "9 AM to 5 PM",
+            "rows": [
+              [{"value": "Import", "align": "center"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}],
+              [{"value": "Export", "align": "center"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}]
+            ]
+          },
+          {
+            "title": "TOD 4",
+            "time": "5 PM to 10 PM",
+            "rows": [
+              [{"value": "Import", "align": "center"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}],
+              [{"value": "Export", "align": "center"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}, {"value": "10.20", "align": "right"}]
+            ]
+          }
+        ]
+      },
+      "last_two_payments": {
+        "header": [
+          "Last Payment Month",
+          {"label": "Amount Paid (₹)", "align": "right"},
+          "Payment Ref. No.",
+          "Payment Date",
+          "Mode"
+        ],
+        "rows": [
+          [
+            {"value": "AUG-2025", "align": "center"},
+            {"value": "2,100.00", "align": "right"},
+            {"value": "DTD020920527242", "align": "center"},
+            {"value": "02-09-2025", "align": "center"},
+            {"value": "Online UPI", "align": "center"}
+          ],
+          [
+            {"value": "DEC-2024", "align": "center"},
+            {"value": "1,900.00", "align": "right"},
+            {"value": "DTD311220241111", "align": "center"},
+            {"value": "31-12-2024", "align": "center"},
+            {"value": "Cash", "align": "center"}
+          ]
+        ]
+      },
+      "last_six_months": {
+        "header": ["Bill Month", "Bill Date", {"label": "Reading", "align": "right"}, {"label": "Units", "align": "right"}, {"label": "MD", "align": "right"}, {"label": "PF", "align": "right"}],
+        "rows": [
+          [{"value": "OCT-2024", "align": "center"}, {"value": "25-10-2024", "align": "center"}, {"value": "102", "align": "right"}, {"value": "149", "align": "right"}, {"value": "0.00", "align": "right"}, {"value": "0.00", "align": "right"}],
+          [{"value": "NOV-2024", "align": "center"}, {"value": "30-11-2024", "align": "center"}, {"value": "102", "align": "right"}, {"value": "149", "align": "right"}, {"value": "0.00", "align": "right"}, {"value": "0.00", "align": "right"}],
+          [{"value": "DEC-2024", "align": "center"}, {"value": "31-12-2024", "align": "center"}, {"value": "102", "align": "right"}, {"value": "149", "align": "right"}, {"value": "0.00", "align": "right"}, {"value": "0.00", "align": "right"}],
+          [{"value": "JAN-2025", "align": "center"}, {"value": "31-01-2025", "align": "center"}, {"value": "102", "align": "right"}, {"value": "149", "align": "right"}, {"value": "0.00", "align": "right"}, {"value": "0.00", "align": "right"}],
+          [{"value": "FEB-2025", "align": "center"}, {"value": "28-02-2025", "align": "center"}, {"value": "102", "align": "right"}, {"value": "149", "align": "right"}, {"value": "0.00", "align": "right"}, {"value": "0.00", "align": "right"}],
+          [{"value": "MAR-2025", "align": "center"}, {"value": "31-03-2025", "align": "center"}, {"value": "102", "align": "right"}, {"value": "149", "align": "right"}, {"value": "0.00", "align": "right"}, {"value": "0.00", "align": "right"}]
+        ]
+      },
+      "meter_replacement_simple": {
+        "header": ["Meter Detail", "Replacement Date", {"label": "Prev / Start Read", "align": "right"}, {"label": "Final / Current Read", "align": "right"}, {"label": "Consumption", "align": "right"}, {"label": "Prorated Current Bill", "align": "right"}],
+        "rows": [
+          [{"value": "XZ12541454"}, {"value": "31-12-2024", "align": "center"}, {"value": "1,250.00", "align": "right"}, {"value": "1,450.00", "align": "right"}, {"value": "200.00", "align": "right"}, {"value": "2,950.00", "align": "right"}],
+          [{"value": "XZ125414896"}, {"value": "31-12-2024", "align": "center"}, {"value": "0.00", "align": "right"}, {"value": "130.00", "align": "right"}, {"value": "130.00", "align": "right"}, {"value": "2,163.00", "align": "right"}]
+        ]
+      },
+      "meter_replacement_detail": {
+        "top_header": [
+          {"label": "Meter Detail", "rowspan": 2},
+          {"label": "Replacement Date", "rowspan": 2},
+          {"label": "Import", "colspan": 3},
+          {"label": "Export", "colspan": 3},
+          {"label": "Net Consumption", "rowspan": 2}
+        ],
+        "sub_header": [
+          "Prev / Start Read",
+          "Final / Current Read",
+          "Consumption",
+          "Prev / Start Read",
+          "Final / Current Read",
+          "Consumption"
+        ],
+        "rows": [
+          [{"value": "XC12541454"}, {"value": "31-12-2024", "align": "center"}, {"value": "1,250.00", "align": "right"}, {"value": "1,450.00", "align": "right"}, {"value": "200.00", "align": "right"}, {"value": "1,250.00", "align": "right"}, {"value": "1,450.00", "align": "right"}, {"value": "200.00", "align": "right"}, {"value": "2,950.00", "align": "right"}],
+          [{"value": "XC12541454"}, {"value": "31-12-2024", "align": "center"}, {"value": "0.00", "align": "right"}, {"value": "130.00", "align": "right"}, {"value": "130.00", "align": "right"}, {"value": "0.00", "align": "right"}, {"value": "130.00", "align": "right"}, {"value": "130.00", "align": "right"}, {"value": "2,163.00", "align": "right"}]
+        ]
+      }
+    },
+    "page4": {
+      "child_export_detail": {
+        "header": ["Consumer No", {"label": "Ratio", "align": "right"}, {"label": "Current Read", "align": "right"}, {"label": "Previous Read", "align": "right"}, {"label": "M. F.", "align": "right"}, {"label": "Meter Consumption", "align": "right"}, {"label": "Assessment", "align": "right"}, {"label": "Final Consumption", "align": "right"}],
+        "rows": [
+          [{"value": "SS", "align": "center"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}],
+          [{"value": "SS", "align": "center"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}],
+          [{"value": "SS", "align": "center"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}],
+          [{"value": "SS", "align": "center"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}],
+          [{"value": "SS", "align": "center"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}, {"value": "2.22", "align": "right"}]
+        ]
+      },
+      "head_wise_calc": {
+        "header": ["Head", "Slab", {"label": "Rate (₹)", "align": "right"}, {"label": "Unit", "align": "right"}, {"label": "Amount (₹)", "align": "right"}],
+        "rows": [
+          {"cells": [{"value": "Energy Charges"}, {"value": "0 – 100"}, {"value": "4.50", "align": "right"}, {"value": "85", "align": "right"}, {"value": "382.50", "align": "right"}]},
+          {"cells": [{"value": "Energy Charges"}, {"value": "101 – 200"}, {"value": "6.20", "align": "right"}, {"value": "40", "align": "right"}, {"value": "248.00", "align": "right"}]},
+          {"cells": [{"value": "Electricity Duty"}, {"value": "—"}, {"value": "9 %", "align": "right"}, {"value": "-", "align": "right"}, {"value": "37.50", "align": "right"}]},
+          {"cells": [{"value": "Fuel & Power Purchase Adjustment Surcharge"}, {"value": "—"}, {"value": "0.15", "align": "right"}, {"value": "125", "align": "right"}, {"value": "18.75", "align": "right"}]},
+          {"bold": true, "cells": [{"value": "Total", "colspan": 4, "align": "right"}, {"value": "788.00", "align": "right"}]}
+        ]
+      },
+      "other_account_sections": [
+        {
+          "title": "Vigilance / O&M Panchanama Detail",
+          "tables": [
+            {
+              "header": ["Description", {"label": "Amount (₹)", "align": "right"}],
+              "rows": [
+                [{"value": "Vigilance assessment – 15-01-2024 (unauthorised load)"}, {"value": "5,250.00", "align": "right"}],
+                [{"value": "Vigilance surcharge adjustment – 05-05-2024"}, {"value": "1,100.00", "align": "right"}]
+              ]
+            },
+            {
+              "header": ["Description", {"label": "Amount (₹)", "align": "right"}],
+              "rows": [
+                [{"value": "Vigilance assessment – 15-01-2024 (unauthorised load)"}, {"value": "5,250.00", "align": "right"}],
+                [{"value": "Vigilance surcharge adjustment – 05-05-2024"}, {"value": "1,100.00", "align": "right"}]
+              ]
+            }
+          ]
+        },
+        {
+          "title": "CCB Adjustment Detail",
+          "tables": [
+            {
+              "header": ["Description", {"label": "Amount (₹)", "align": "right"}],
+              "rows": [
+                [{"value": "CCB adjustment – rounding difference (JAN-2025)"}, {"value": "-15.00", "align": "right"}],
+                [{"value": "CCB adjustment – delayed payment charge waiver"}, {"value": "-85.25", "align": "right"}]
+              ]
+            },
+            {
+              "header": ["Description", {"label": "Amount (₹)", "align": "right"}],
+              "rows": [
+                [{"value": "CCB adjustment – rounding difference (JAN-2025)"}, {"value": "-15.00", "align": "right"}],
+                [{"value": "CCB adjustment – delayed payment charge waiver"}, {"value": "-85.25", "align": "right"}]
+              ]
+            }
+          ]
+        }
+      ],
+      "ecgrf": {
+        "header": ["S.No", "Designation", "Name", {"label": "Contact No.", "align": "right"}, "Member Type"],
+        "rows": [
+          [{"value": "1."}, {"value": "Chairperson"}, {"value": "Er. R. K. Sharma"}, {"value": "9876543210", "align": "right"}, {"value": "Executive Engineer"}],
+          [{"value": "2."}, {"value": "Member"}, {"value": "Shri A. P. Verma"}, {"value": "9123456780", "align": "right"}, {"value": "Executive Engineer"}],
+          [{"value": "3."}, {"value": "OutSide Member"}, {"value": "Smt. N. Joshi"}, {"value": "9988776655", "align": "right"}, {"value": "Industrial Consumers"}],
+          [{"value": "4."}, {"value": "OutSide Member"}, {"value": "Shri P. K. Tiwari"}, {"value": "9876512340", "align": "right"}, {"value": "Agricultural Consumers"}],
+          [{"value": "5."}, {"value": "OutSide Member"}, {"value": "Er. S. K. Gupta"}, {"value": "9765432108", "align": "right"}, {"value": "Domestic Consumer"}],
+          [{"value": "6."}, {"value": "OutSide Member"}, {"value": "Shri M. L. Singh Khargone (R)"}, {"value": "9345678120", "align": "right"}, {"value": "Prosumer"}],
+          [{"value": "7."}, {"value": "OutSide Member"}, {"value": "Mr. Gourav Sharma"}, {"value": "9765432108", "align": "right"}, {"value": "Non Domestic Consumer"}],
+          [{"value": "8."}, {"value": "Penal of independent member Nominated"}, {"value": "Shri Vikash Kumar"}, {"value": "9345678120", "align": "right"}, {"value": "Member"}]
+        ]
+      }
+    }
+  }
+}
