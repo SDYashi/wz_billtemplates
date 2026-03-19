@@ -1,18 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8" />
-  <title>WZ Electricity Bill (English)</title>
+  <title>WZ बिजली बिल (हिंदी)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <style>
-    
-    body{
-          font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
-          color:#0f172a;
-          background:#ffffff;
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
-        }
     .page{
       width: 260mm;
       min-height: 360mm;
@@ -23,7 +15,6 @@
       padding-bottom: 12mm;
     }
     .page:last-child{ page-break-after: auto; }
-
     
     :root{
       --blue:#1f6fb2;
@@ -74,21 +65,21 @@
     }
     .company-info{ padding: 0 6px; }
     .company-title{
-      font-size: 16px;
+      font-size: 22px;
       font-weight: 900;
       text-transform: uppercase;
       color:#0b2b74;
       line-height: 1.2;
     }
     .company-subtitle{
-      font-size: 14px;
+      font-size: 18px;
       color:#1f2937;
       font-weight: 700;
       line-height: 1.2;
       margin-top: 1px;
     }
     .tagline{
-      font-size: 12px;
+      font-size: 14px;
       color:#475569;
       margin-top: 2px;
       line-height: 1.2;
@@ -137,7 +128,8 @@
       color:#0f2f52;
     }
     .no-border td, .no-border th{ border: none; }
-    .tight td, .tight th{ padding: 5px; }
+    .tight td, .tight th{ padding: 5px; font-size: 13px; }
+    .left{ text-align: left; }
 
     /* Page-1 top banner */
     .p1-top{
@@ -184,18 +176,18 @@
     /* Mid strip */
     .info-strip td{
       border: none;
-      /* padding: 6px 8px; */
-      font-size: 10.5px;
+      padding: 6px 8px;
+      font-size: 13px;
     }
     .info-strip .lbl{
       font-weight: 900;
       text-transform: uppercase;
       color:#0f2f52;
-      font-size: 10px;
+      font-size: 14px;
       display:block;
-      /* margin-bottom: 2px; */
+      margin-bottom: 2px;
     }
-    .info-strip .val{ font-weight: 600; }
+    .info-strip .val{ font-weight: 600;  font-size: 14px; }
 
     /* Payment area */
     .pay-grid{
@@ -332,13 +324,13 @@
         overflow: hidden;
     }
     .page-header-bill-no {
-        font-size: 12px;
+        font-size: 15px;
         font-weight: bolder;
         text-transform: uppercase;
         float: left;
     }
     .page-header-month {
-        font-size: 12px;
+      font-size: 15px;
         font-weight: 600;
         float: right;
     }
@@ -373,23 +365,20 @@
 </head>
 <body>
 <div class="page">
-  <!-- HEADER (same structure as bill5_v9) -->
+
   <div class="header-top">
     <div class="header-left">
       <div class="header-cell left">
                   <img src="data:image/png;base64,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" alt="" style="width:80px; height:80px;">
-     
-
-      </div>
-
+        </div>
       <div class="header-cell">
         <div class="company-info">
-          <div class="company-title"><strong>Madhya Pradesh Paschim Kshetra Vidyut Vitran Company Limited.</strong></div>
-          <div class="company-subtitle">G.P.H. Compound, Pologround, Indore (M.P.)</div>
-          <div class="company-subtitle">(Wholly owned by Govt. of M.P.)</div>
+          <div class="company-title"><strong>मध्य प्रदेश पश्चिम क्षेत्र विद्युत वितरण कंपनी लिमिटेड</strong></div>
+          <div class="company-subtitle">जी.पी.एच. कंपाउंड, पोलोग्राउंड, इंदौर (म.प्र.)</div>
+          <div class="company-subtitle">(मध्य प्रदेश शासन के पूर्ण स्वामित्व का उपक्रम)</div>
           <div class="tagline">
-            <a href="https://www.mpwz.co.in" target="_blank">Website: https://www.mpwz.co.in</a> |
-            <a href="tel:1912">Call Centre No. 1912</a>
+            <a href="https://www.mpwz.co.in" target="_blank">वेबसाइट: https://www.mpwz.co.in</a> |
+            <a href="tel:1912">कॉल सेंटर नं. 1912</a>
           </div>
           <div class="tagline">
             CIN No: <strong>U40109MP2002SGC015121</strong>
@@ -403,39 +392,38 @@
     </div>
   </div>
 
-  <div class="page-header box pad-5" style="margin-bottom: -1px;">
-    <div class="page-header-bill-no">Flat Rate Electricity Bill for Agriculture Consumer (LV5.4)</div>
-    <div class="page-header-month">Bill Duration: <b>OCT-2025 TO MAR-2026</b></div>
+  <div class="page-header box" style="padding:12px; margin-bottom: -8px;">
+    <div class="page-header-bill-no"> छह माही फ्लैट रेट विद्युत बिल कृषि उपभोक्ता के लिए (LV5.4)</div>
+    <div class="page-header-month">बिल अवधि: <b>OCT-2025 TO MAR-2026</b></div>
   </div>
 
-  <!-- PAGE-1 TOP BANNER -->
-    <div class="box pad-6">
+  <div class="box pad-6">
     <table class="no-border info-strip" aria-label="Bill key info">
       <tr>
-        <td >
-          <span class="lbl">Consumer No</span>
+        <td>
+          <span class="lbl">उपभोक्ता नंबर</span>
           <span class="val">3478047608</span>
         </td>
-        <td >
-          <span class="lbl">Consumer Name</span>
-          <span class="val">SUNER SINGH SO BALKISHAN</span>
-        </td>        
         <td>
-          <span class="lbl">MOBILE NO</span>
+          <span class="lbl">उपभोक्ता नाम</span>
+          <span class="val">सुनील सिंह पुत्र बालकिशन</span>
+        </td>
+        <td>
+          <span class="lbl">मोबाइल नंबर</span>
           <span class="val">84*****121</span>
         </td>
-        <td >
-          <span class="lbl">SANCTIONED LOAD</span>
+        <td>
+          <span class="lbl">स्वीकृत भार</span>
           <span class="val">5.0 HP</span>
         </td>
       </tr>
-      <tr>        
-        <td  colspan="3">
-          <span class="lbl">Address</span>
-          <span class="val">BADA BANGARDA INDORE INDORE</span>
+      <tr>
+        <td colspan="3">
+          <span class="lbl">पता</span>
+          <span class="val">बड़ा बांगरदा इंदौर</span>
         </td>
-        <td >
-          <span class="lbl">PHASE</span>
+        <td>
+          <span class="lbl">फेज</span>
           <span class="val">THREE</span>
         </td>
       </tr>
@@ -444,47 +432,47 @@
 
   <div class="box pad-6">
     <table class="no-border info-strip" aria-label="Bill key info">
-      <tr>        
-        <td >
-          <span class="lbl">Region</span>
-          <span class="val">INDORE</span>
+      <tr>
+        <td>
+          <span class="lbl">क्षेत्र</span>
+          <span class="val">इंदौर</span>
         </td>
         <td>
-          <span class="lbl">Division</span>
-          <span class="val">INDORE EAST DIVISION</span>
+          <span class="lbl">संभाग</span>
+          <span class="val">इंदौर पूर्व संभाग</span>
         </td>
         <td>
-          <span class="lbl">DC/Zone Name</span>
-          <span class="val"> Kalani Nagar Zone</span>
+          <span class="lbl">डीसी/ज़ोन नाम</span>
+          <span class="val"> कलानी नगर ज़ोन</span>
         </td>
-        <td >
-          <span class="lbl">GROUP - RD</span>
+        <td>
+          <span class="lbl">ग्रुप - आरडी</span>
           <span class="val">KKL46-12</span>
         </td>
       </tr>
       <tr>
         <td>
-          <span class="lbl">D.C. INCHARGE NAME</span>
-          <span class="val">Gaurav Dubey</span>
+          <span class="lbl">डी.सी. प्रभारी नाम</span>
+          <span class="val">गौरव दुबे</span>
         </td>
         <td>
-          <span class="lbl">DESIGNATION</span>
-          <span class="val">Assistant Engineer</span>
+          <span class="lbl">पदनाम</span>
+          <span class="val">असिस्टेंट इंजीनियर</span>
         </td>
         <td>
-          <span class="lbl">CONTACT NO</span>
+          <span class="lbl">संपर्क नंबर</span>
           <span class="val">7312929222</span>
         </td>
         <td>
-          <span class="lbl">CUSTOMER CARE</span>
+          <span class="lbl">कस्टमर केयर नंबर </span>
           <span class="val">1912</span>
         </td>
       </tr>
     </table>
   </div>
 
-<div class="mt-6">
-     <div class="band-title">PAYMENT / PAYABLE SUMMARY</div>
+  <div class="mt-6">
+    <div class="band-title">भुगतान / देय सारांश</div>
 <table style="width:100%; border-collapse: collapse;">
   <tr>
 
@@ -494,67 +482,57 @@
       <table  class="info-strip">
         <tr>
           <td style="text-align:center;">
-
             <strong>
-              <span style="font-size:11px;">
-                Scan to Pay
-              </span>
+              <span style="font-size:11px;">भुगतान हेतु स्कैन करें</span>
             </strong>
+          </td>
+        </tr>
 
-            <div style="margin-top:5px;">
+        <tr>
+          <td style="text-align:center;">
+            <div >
                <img src="data:image/png;base64,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" style="height: 85px; width: 85px;"  alt="Swachh Bharat">
                             
             </div>
-
           </td>
         </tr>
       </table>
 
     </td>
 
+    <!-- RIGHT COLUMN -->
+   <td style="padding: 0 !important; width:65%;">
 
-    <!-- RIGHT SIDE : BILL DETAILS -->
-    <td style="padding: 0 !important; width:65%;">
-
-      <table style="width:100%; border-collapse:collapse; border:1px solid #ccc;">
-        
-        <!-- Row 1 -->
+       <table  class="info-strip">
         <tr>
-          <td style="padding:8px;">
-            <span style="font-size:11px; color:#555;">BILL DATE</span><br>
-            <strong>01-11-2025</strong>
+          <td>
+            <span style="font-weight:bold;">बिल दिनांक</span><br>
+            01-11-2025
           </td>
-
-          <td style="padding:8px;">
-            <span style="font-size:11px; color:#555;">DUE DATE</span><br>
-            <strong>16-10-2025</strong>
+          <td>
+            <span style="font-weight:bold;">देय तिथि</span><br>
+            16-10-2025
           </td>
         </tr>
 
-        <!-- Row 2 -->
         <tr>
-          <td style="padding:8px;">
-            <span style="font-size:11px; color:#555;">SECURITY DEPOSIT</span><br>
-            <strong>1874.00</strong>
+          <td>
+            <span style="font-weight:bold;">सुरक्षानिधि जमा राशि</span><br>
+            1874.00
           </td>
-
-          <td style="padding:8px;">
-            <span style="font-size:11px; color:#555;">NET PAYABLE</span><br>
-            <strong>1874.00</strong>
+          <td>
+            <span style="font-weight:bold;">कुल देय राशि</span><br>
+            1874.00
           </td>
         </tr>
-
       </table>
 
-
-      <!-- Subsidy row -->
-      <table style="width:100%; border:1px solid #ccc;">
+      <table style="width:100%;">
         <tr>
-          <td style="padding:8px; font-size:14px; font-weight:600; padding: 10px;">
-            Subsidy Given by Government of MP
+          <td style="font-size:15px; font-weight:600;">
+            मध्य प्रदेश शासन द्वारा देय सब्सिडी
           </td>
-
-          <td style="padding:8px; font-size:14px; font-weight:600; text-align:right;padding: 10px;">
+          <td style="font-size:15px; font-weight:600;">
             33266.00
           </td>
         </tr>
@@ -564,76 +542,72 @@
 
   </tr>
 </table>
-</div>
-  
+  </div>
+
   <div class="mt-6">
-    <div class="band-title">(A) ENERGY CHARGES DESCRIPTION ACCORDING TO FLAT RATE</div>
-    <table aria-label="Energy Charges">
+    <div class="band-title">फ्लैट रेट के अनुसार ऊर्जा शुल्क का विवरण</div>
+    <table class="tight" aria-label="Energy Charges">
       <tr>
-        <th>Description</th>
-        <th class="right">Amount (Rs.)</th>
+        <th class="left">विवरण</th>
+        <th class="right">राशि (रु.)</th>
       </tr>
-      <tr><td>Amount Fixed by MPERC</td><td class="right">35067.26</td></tr>
-      <tr><td>Total Subsidy Provided By Government</td><td class="right">33192.26</td></tr>
-      <tr><td>Amount to be paid by Consumer (According to flat rate)</td><td class="right">1875.00</td></tr>
-      <tr><td>Arrear</td><td class="right">-0.61</td></tr>
-      <tr><td>Surcharge Demanded</td><td class="right">0.00</td></tr>
-      <tr><td>CCB Adjustment</td><td class="right">0.00</td></tr>
-      <tr style="background:#ffe9e7;"><td><strong>Net Bill (A)</strong></th><td class="right"><strong>1874.39</strong></td></tr>
-          <tr><td>B) OTS Scheme Surcharge Waiver</td><td class="right">0.00</td></tr>
-          <tr><td>C) OTS Scheme Installment Due</td><td class="right">0.00</td></tr>
-          <tr><td>D) OTS Scheme Installment Applied</td><td class="right">0.00</td></tr>
-          <tr><td>E) Amount Received</td><td class="right">1874.00</td></tr>
-          <tr><td style="background:#ffe9e7;">F) <strong>Net Payable (F = A − (B + C + E))</strong></td><td class="right" style="background:#ffe9e7;"><b>₹ 0.39</b></td></tr>
-      
+      <tr><td>एमपीईआरसी द्वारा निर्धारित राशि</td><td class="right">35067.26</td></tr>
+      <tr><td>सरकार द्वारा प्रदत्त कुल सब्सिडी</td><td class="right">33192.26</td></tr>
+      <tr><td>उपभोक्ता द्वारा देय राशि (फ्लैट रेट अनुसार)</td><td class="right">1875.00</td></tr>
+      <tr><td>बकाया</td><td class="right">-0.61</td></tr>
+      <tr><td>सरचार्ज मांग</td><td class="right">0.00</td></tr>
+      <tr><td>सीसीबी समायोजन</td><td class="right">0.00</td></tr>
+      <tr style="background:#ffe9e7;"><td><strong>नेट बिल (अ)</strong></td><td class="right"><strong>1874.39</strong></td></tr>
+      <tr><td>ब) समाधान योजना 2025-26 के अंतर्गत सरचार्ज माफी</td><td class="right">0.00</td></tr>
+      <tr><td>स) समाधान योजना 2025-26 के अंतर्गत किस्त देय</td><td class="right">0.00</td></tr>
+      <tr><td>द ) समाधान योजना 2025-26 के अंतर्गत किस्त लागू</td><td class="right">0.00</td></tr>
+      <tr><td>इ ) जमा राशि</td><td class="right">1874.00</td></tr>
+      <tr>
+        <td style="background:#ffe9e7;">F) <strong>नेट देय (फ = ए − (बी + सी + ई))</strong></td>
+        <td class="right" style="background:#ffe9e7;"><b>₹ 0.39</b></td>
+      </tr>
     </table>
   </div>
 
-  <div class="mt-6 box">  
-        <div class="band-title">Messages / Notes:</div> 
-          <div class="soft pad-5" style="font-size:11px;">
-          Your connection has been registered on <b>22-10-2025</b> for <b>OTS 2025 Samadhan Scheme</b>.
-          <b>6 installment</b> of <b>Rs 500.00</b> from bill month <b>NOV-2025</b> to <b>APR-2026</b> has been scheduled.
-          Kindly pay the installment with current bill to get the scheme benefit.
-        </div>
-          <div class="soft pad-5" style="font-size:11px;">
-          Your connection has been registered on <b>22-10-2025</b> for <b>OTS 2025 Samadhan Scheme</b>.
-          <b>6 installment</b> of <b>Rs 500.00</b> from bill month <b>NOV-2025</b> to <b>APR-2026</b> has been scheduled.
-          Kindly pay the installment with current bill to get the scheme benefit.
-        </div>
-          <div class="soft pad-5" style="font-size:11px;">
-          Your connection has been registered on <b>22-10-2025</b> for <b>OTS 2025 Samadhan Scheme</b>.
-          <b>6 installment</b> of <b>Rs 500.00</b> from bill month <b>NOV-2025</b> to <b>APR-2026</b> has been scheduled.
-          Kindly pay the installment with current bill to get the scheme benefit.
-        </div>
-      </div>
+  <div class="mt-6 box">
+    <div class="band-title">संदेश / नोट्स</div>
+    <div class="soft pad-5" style="font-size:11px;">
+      आपका कनेक्शन <b>22-10-2025</b> को <b>OTS 2025 समाधान योजना</b> में पंजीकृत किया गया है।
+      <b>NOV-2025</b> से <b>APR-2026</b> तक <b>6 किस्तें</b> (प्रत्येक <b>Rs 500.00</b>) निर्धारित की गई हैं।
+      योजना का लाभ पाने हेतु कृपया वर्तमान बिल के साथ किस्त का भुगतान करें।
+    </div>
+  <div class="soft pad-5" style="font-size:11px;">
+      आपका कनेक्शन <b>22-10-2025</b> को <b>OTS 2025 समाधान योजना</b> में पंजीकृत किया गया है।
+      <b>NOV-2025</b> से <b>APR-2026</b> तक <b>6 किस्तें</b> (प्रत्येक <b>Rs 500.00</b>) निर्धारित की गई हैं।
+      योजना का लाभ पाने हेतु कृपया वर्तमान बिल के साथ किस्त का भुगतान करें।
+    </div>
+  </div>
 
   <div class="mt-6 box">
     <div class="footer-line"></div>
-    <div class="band-title">PAYABLE AMOUNT RECEIPT (FOR OFFICE USE ONLY)</div>
-    <table class=" tight info-strip" aria-label="Receipt stub">
+    <div class="band-title">देय राशि रसीद (केवल कार्यालय उपयोग हेतु)</div>
+    <table class="tight info-strip" aria-label="Receipt stub">
       <tr>
-        <td>Bill Duration</td><td>OCT-2025 TO MAR-2026</td>
-        <td rowspan="4">Receipt No & Date__________ <br><br><br>Paid Amount __________         
-        </td>
-        </tr>
-        <tr>
-        <td>IVRS</td><td>3478047608</td>
-        </tr>
-        <tr>
-        <td >Service Number</td><td >ARZ31-31-3478047608</td>
-        </tr>
-        <tr>
-        <td >Customer's Name</td><td >SUNER SINGH SO BALKISHAN</td>
-        </tr>
-        <tr>
-        <td>Amount Payable</td><td><b>₹ 0.39</b></td>
-        <td class="center"><b>Sealed Payable Amount Reciepts</b></td>
+        <td>बिल अवधि</td><td>OCT-2025 TO MAR-2026</td>
+        <td rowspan="4">रसीद नं. व दिनांक__________ <br><br><br>जमा राशि __________</td>
       </tr>
-      <tr>      
+      <tr>
+        <td>कनेक्शन क्रमांक </td><td>3478047608</td>
       </tr>
-    </table>  
-    </div>
+      <tr>
+        <td>उपभोक्ता का नाम</td><td>सुनील सिंह पुत्र बालकिशन</td>
+      </tr>
+      <tr>
+        <td>पता</td><td>बड़ा बांगरदा इंदौर</td>
+      </tr>
+      <tr>
+        <td>कुल देय राशि</td><td><b>₹ 0.39</b></td>
+        <td class="center"><b>जमा राशि रसीद</b></td>
+      </tr>
+      <tr></tr>
+    </table>
+  </div>
+
 </div>
 </body>
 </html>

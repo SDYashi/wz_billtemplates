@@ -6,6 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
 
+    @page { size: A4; margin: 8mm; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body{
+      font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
+      color:#0f172a;
+      background:#ffffff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
     .page{
       width: 200mm;
       min-height: 287mm;
@@ -118,10 +128,6 @@
       border-collapse: collapse !important;
      border-spacing: 0 !important;
  }
-     table td,
-table th {
-  padding: 7px 9px;
-}
     th, td{
       border: 1px solid var(--line);
       padding: 4px 4px;
@@ -514,74 +520,56 @@ body, * {
 
   <div class="mt-6">
     <div class="band-title">भुगतान / देय सारांश</div>
-   <table style="width:100%; border-collapse:collapse;">
-  <tr>
-    <!-- LEFT COLUMN -->
-    <td style="width:30%; text-align:center; vertical-align:top;">
+    <div class="pay-grid">
+      <div class="c1" style="text-align: center;">
+        <div class="box">
+          <strong><span style="font-size:11px;">भुगतान हेतु स्कैन करें</span></strong>
+          <div>
+              <img  style="height: 75px; width: 75px;"  src="data:image/png;base64,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"  alt="Swachh Bharat">
+                </div>
+        </div>
+      </div>
 
-      <table style="width:100%; border:1px solid #000;">
-        <tr>
-          <td style="text-align:center; padding:5px;">
-            <strong>
-              <span style="font-size:11px;">भुगतान हेतु स्कैन करें</span>
-            </strong>
-          </td>
-        </tr>
+      <div class="c2">
+        <div class="box">
+          <table class="info-strip" style="width:100%;">
+            <tr>
+              <td>
+                <span class="lbl">बिल दिनांक</span>
+                <span class="val">01-11-2025</span>
+              </td>
+              <td>
+                <span class="lbl">देय तिथि</span>
+                <span class="val">16-10-2025</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="lbl">सुरक्षानिधि जमा राशि</span>
+                <span class="val">1874.00</span>
+              </td>
+              <td>
+                <span class="lbl">कुल देय राशि</span>
+                <span class="val">1874.00</span>
+              </td>
+            </tr>
+          </table>
 
-        <tr>
-          <td style="text-align:center; padding:5px;">
-            <img 
-              style="height:75px;width:75px;"
-              src="data:image/png;base64,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"
-              alt="QR Code">
-          </td>
-        </tr>
-      </table>
+          <table>
+            <tr>
+              <td class="lbl" style="font-size: 13px; font-weight: 600;">
+                मध्य प्रदेश शासन द्वारा देय सब्सिडी
+              </td>
+              <td class="val" style="font-size: 13px; font-weight: 600;">
+                33266.00
+              </td>
+            </tr>
+          </table>
 
-    </td>
+        </div>
+      </div>
 
-    <!-- RIGHT COLUMN -->
-    <td style="width:70%; vertical-align:top;">
-
-      <table style="width:100%; border-collapse:collapse;" border="1">
-        <tr>
-          <td>
-            <span style="font-weight:bold;">बिल दिनांक</span><br>
-            01-11-2025
-          </td>
-          <td>
-            <span style="font-weight:bold;">देय तिथि</span><br>
-            16-10-2025
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <span style="font-weight:bold;">सुरक्षानिधि जमा राशि</span><br>
-            1874.00
-          </td>
-          <td>
-            <span style="font-weight:bold;">कुल देय राशि</span><br>
-            1874.00
-          </td>
-        </tr>
-      </table>
-
-      <table style="width:100%; margin-top:10px;" border="1">
-        <tr>
-          <td style="font-size:13px; font-weight:600;">
-            मध्य प्रदेश शासन द्वारा देय सब्सिडी
-          </td>
-          <td style="font-size:13px; font-weight:600;">
-            33266.00
-          </td>
-        </tr>
-      </table>
-
-    </td>
-
-  </tr>
-</table>
+    </div>
   </div>
 
   <div class="mt-6">
