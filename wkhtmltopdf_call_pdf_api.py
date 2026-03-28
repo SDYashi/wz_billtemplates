@@ -4,9 +4,9 @@ Send an HTML file to a remote API that returns a PDF, then save the PDF locally.
 
 Examples:
 
-python api_testing.py --html-file templates/bill5_v9.html --output-dir pdf_output1 --num-requests 2 --concurrency 2 --save-pdf --max-save 2
+python wkhtmltopdf_call_pdf_api.py --html-file templates/bill5_v9.html --output-dir pdf_output1 --num-requests 2 --concurrency 2 --save-pdf --max-save 2
 
-python api_testing.py `
+python wkhtmltopdf_call_pdf_api.py `
 --html-file templates/bill5_v8_hindi.html `
 --output-dir pdf_output1`
 --num-requests 100 `
@@ -15,7 +15,7 @@ python api_testing.py `
 --max-save 10
 
 
-python api_testing.py `
+python wkhtmltopdf_call_pdf_api.py `
 --html-file templates/bill5_v9.html `
 --num-requests 10 `
 --concurrency 10 `
@@ -24,7 +24,7 @@ python api_testing.py `
 --local-save-path "D:\company_projects\test_pdfs"
 
 Linux / mounted remote drive example:
-python api_testing.py \
+python wkhtmltopdf_call_pdf_api.py \
   --html-file templates/bill5_v9.html \
   --num-requests 10 \
   --concurrency 10 \
@@ -46,12 +46,12 @@ import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # BASE_URL = "http://10.98.7.221:8000"
-BASE_URL = "https://pdfserv.mpwin.co.in"
-# BASE_URL = "http://testing.mpwin.co.in/pdfbills"
+# BASE_URL = "https://pdfserv.mpwin.co.in"
+BASE_URL = "http://testing.mpwin.co.in/pdfbills"
 # BASE_URL = "http://testing.mpwin.co.in/playwright"
 PDF_ENDPOINT = "/generate-sync"
-# PDF_ENDPOINT = "/genterae_pdf"
-# PDF_ENDPOINT = "/generate-sync-v2"
+# PDF_ENDPOINT = "/generate-sync-ebill"
+# PDF_ENDPOINT = "/generate-pdf"
 API_URL = f"{BASE_URL}{PDF_ENDPOINT}"
 PAYLOAD_MODE = "raw_html"
 
