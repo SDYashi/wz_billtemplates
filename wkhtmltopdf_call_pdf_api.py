@@ -46,10 +46,12 @@ import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # BASE_URL = "http://10.98.7.221:8000"
-# BASE_URL = "https://pdfserv.mpwin.co.in"
-BASE_URL = "http://testing.mpwin.co.in/pdfbills"
+# BASE_URL = "http://10.98.7.221:8085"
+BASE_URL = "https://pdfserv.mpwin.co.in"
+# BASE_URL = "http://testing.mpwin.co.in/pdfbills"
 # BASE_URL = "http://testing.mpwin.co.in/playwright"
 PDF_ENDPOINT = "/generate-sync"
+# PDF_ENDPOINT = "/generate-sync-v2"
 # PDF_ENDPOINT = "/generate-sync-ebill"
 # PDF_ENDPOINT = "/generate-pdf"
 API_URL = f"{BASE_URL}{PDF_ENDPOINT}"

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MPWZ Energy Bill</title>
+<style>
+  /* =========================================================
+   CLEAN WKHTMLTOPDF CSS - NO DUPLICATES, NO FIXED PAGE WIDTH
+   Page width is controlled by wkhtmltopdf options.
+   Use wkhtmltopdf with A4 + margins, not CSS fixed 210mm width.
+   ========================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-deep: #1e3a5f;
+  --primary-accent: #b87333;
+  --accent-light: #fef7e0;
+  --paper: #ffffff;
+  --soft-bg: #f8fafd;
+  --qr-bg: #fefaf2;
+  --text-dark: #0c1b2f;
+  --text-mid: #334155;
+  --border-main: #b9c9d8;
+  --border-soft: #dbe7f0;
+  --success-green: #2e7d32;
+  --warning-amber: #b45309;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+html,
+body {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: var(--text-dark);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.1;
+  overflow: visible;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  display: block;
+}
+
+.page {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 2mm;
+  background: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+  page-break-after: always;
+  break-after: page;
+}
+
+.page:last-child {
+  page-break-after: auto;
+  break-after: auto;
+}
+
+.page-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 2mm;
+  table-layout: fixed;
+  margin: 0;
+  padding: 0;
+}
+
+.bill-cell,
+.bill-row,
+.bill-block {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+  box-sizing: border-box;
+}
+
+.bill-block {
+  height: 71mm;
+  min-height: 71mm;
+  max-height: 71mm;
+  margin-bottom: 2mm;
+  overflow: hidden;
+  border: 1px solid var(--border-main);
+  border-radius: 2mm;
+  background: var(--paper);
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.bill-block:nth-child(4n) {
+  margin-bottom: 0;
+}
+
+.bill-table,
+.bill-block .bill-table {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.bill-header-table,
+.body-table,
+.details-table,
+.finance-table,
+.remark-table {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+  box-sizing: border-box;
+}
+
+.bill-header-table {
+  height: 13mm;
+  min-height: 13mm;
+  max-height: 13mm;
+  border-collapse: collapse;
+  background: #fffaf0;
+  border-bottom: 1px solid #e5cfaa;
+}
+
+.body-table {
+  height: 57.5mm;
+  min-height: 57.5mm;
+  max-height: 57.5mm;
+  border-collapse: collapse;
+}
+
+.logo-cell {
+  width: 16mm;
+  padding: 1.5mm 1.5mm 1.5mm 3mm;
+  vertical-align: middle;
+}
+
+.logo-cell img,
+.logo-circle {
+  width: 32px;
+  height: 32px;
+  max-width: 32px;
+  max-height: 32px;
+}
+
+.title-cell {
+  padding: 1mm 1.5mm;
+  vertical-align: middle;
+}
+
+.company-title {
+  font-size: 13px;
+  line-height: 1.12;
+  font-weight: 900;
+  color: var(--primary-deep);
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.company-subtitle {
+  font-size: 7.2px;
+  line-height: 1.15;
+  color: #475569;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.help-cell {
+  width: 43mm;
+  padding: 1mm 2mm 1mm 0;
+  text-align: right;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.help-badge {
+  display: inline-block;
+  font-size: 8px;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--primary-deep);
+  padding: 1.3mm 2.3mm;
+  border-radius: 10mm;
+  background: #eef4fa;
+  border: 1px solid var(--border-main);
+  white-space: nowrap;
+}
+
+.info-cell {
+  width: auto;
+  padding: 2mm 3mm 1.5mm 3mm;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.qr-cell {
+  width: 33mm;
+  min-width: 33mm;
+  max-width: 33mm;
+  padding: 2mm;
+  text-align: center;
+  vertical-align: middle;
+  background: var(--qr-bg);
+  border-left: 1px solid #f0dfc4;
+  overflow: hidden;
+}
+
+.details-table {
+  border-collapse: separate;
+  border-spacing: 2.2mm 1.1mm;
+  margin: -1.1mm 0 0 -2.2mm;
+  line-height: 1.18;
+}
+
+.details-table td {
+  width: 20%;
+  padding: 0 0 0.45mm 0;
+  border: 0;
+  border-bottom: 1px dashed #d7e2ec;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.data-label,
+.fin-label {
+  display: block;
+  font-size: 7.2px;
+  line-height: 1.12;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12px;
+  color: #52647d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.data-value,
+.fin-value {
+  display: block;
+  font-size: 9.2px;
+  line-height: 1.15;
+  margin-top: 0.3mm;
+  font-weight: 800;
+  color: #172033;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.strong-num {
+  font-size: 9.8px;
+  font-weight: 900;
+  color: #103b63;
+}
+
+.due-date {
+  color: var(--warning-amber);
+}
+
+.subsidy {
+  color: var(--success-green);
+}
+
+.finance-table {
+  margin-top: 1.2mm;
+  border-collapse: collapse;
+  border: 1px solid #dce7f0;
+  border-radius: 1.5mm;
+  background: var(--soft-bg);
+  overflow: hidden;
+}
+
+.finance-table td {
+  padding: 1.5mm 1mm;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.net-cell {
+  width: 38mm;
+}
+
+.net-badge {
+  display: inline-block;
+  font-size: 10.8px;
+  line-height: 1;
+  font-weight: 900;
+  padding: 1.3mm 3.4mm;
+  border-radius: 10mm;
+  background: var(--primary-deep);
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.remark-table {
+  margin-top: 1.1mm;
+  border-collapse: collapse;
+}
+
+.remark-cell {
+  padding: 0;
+  vertical-align: middle;
+}
+
+.remark-strip {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.9mm 1.8mm;
+  margin: 0;
+  border-radius: 1.5mm;
+  background: #fef6e8;
+  color: #805124;
+  font-size: 7.4px;
+  line-height: 1.18;
+  font-weight: 800;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: clip;
+  box-sizing: border-box;
+}
+
+.remark-strip a {
+  color: #b3490c;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.details-table tr:last-child td {
+  padding-top: 0.2mm;
+  padding-bottom: 0.2mm;
+  border-bottom: none;
+}
+
+.qr-box {
+  width: 24mm;
+  height: 24mm;
+  padding: 1.4mm;
+  margin: 0 auto 1mm auto;
+  border: 1px solid #e6d8bd;
+  border-radius: 1.8mm;
+  background: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.qr-box svg,
+.qr-box img {
+  width: 21mm;
+  height: 21mm;
+  max-width: 21mm;
+  max-height: 21mm;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.qr-label {
+  display: inline-block;
+  font-size: 7.5px;
+  line-height: 1;
+  font-weight: 900;
+  padding: 1mm 2.2mm;
+  margin-bottom: 0.7mm;
+  border-radius: 10mm;
+  background: var(--primary-accent);
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.qr-method {
+  display: inline-block;
+  font-size: 6.5px;
+  line-height: 1;
+  font-weight: 900;
+  padding: 0.8mm 1.4mm;
+  border-radius: 10mm;
+  color: #8b6946;
+  background: #fff1e0;
+  white-space: nowrap;
+}
+
+img,
+svg,
+table,
+tr,
+td {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+.bill-separator,
+.footer-note,
+.page-break-line,
+.page-break,
+.cut-dash {
+  display: none;
+}
+
+@media screen {
+  body {
+    background: #e9eff5;
+    padding: 12px 0;
+  }
+
+  .page {
+    width: 96%;
+    max-width: 1200px;
+    margin: 0 auto 16px auto;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
+  }
+}
+
+@media print {
+  html,
+  body {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    display: block;
+    overflow: visible;
+  }
+
+  body {
+    padding: 0;
+  }
+
+  .page {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 2mm;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  .bill-block {
+    width: 100%;
+    height: 71mm;
+    min-height: 71mm;
+    max-height: 71mm;
+    margin-bottom: 2mm;
+    overflow: hidden;
+  }
+
+  .bill-block:nth-child(4n) {
+    margin-bottom: 0;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+<div class="bill-block">
+<table class="bill-table">
+<tr>
+<td>
+<table class="bill-header-table">
+<tr>
+<td class="logo-cell"><img alt="" src="data:image/png;base64,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" style="width:25px; height:25px;"/></td>
+<td class="title-cell">
+<div class="company-title">Madhya Pradesh Paschim Kshetra Vidyut Vitran Company Ltd.</div>
+</td>
+</tr>
+</table>
+<table class="body-table">
+<tr>
+<td class="info-cell">
+<table class="details-table">
+<tr>
+<td><span class="data-label">Circle</span><span class="data-value">Indore (O&amp;M)</span></td>
+<td><span class="data-label">Division</span><span class="data-value">indore (o&amp;m)</span></td>
+<td><span class="data-label">Zone</span><span class="data-value">KAMPEL</span></td>
+<td><span class="data-label">Contact</span><span class="data-value">7312923388</span></td>
+<td><span class="data-label">Tariff Code</span><span class="data-value">LV1.1</span></td>
+<td rowspan="5" style="text-align:center; vertical-align:middle;">
+<div class="qr-box"><svg viewbox="0 0 100 100"><rect fill="#fff" height="100" width="100"></rect><path d="M8 8h26v26H8zM14 14v14h14V14zM66 8h26v26H66zM72 14v14h14V14zM8 66h26v26H8zM14 72v14h14V72z" fill="#111827"></path><path d="M43 10h7v7h-7zM54 10h6v13h-6zM42 24h18v6H42zM40 40h7v7h-7zM51 38h8v8h-8zM63 42h7v14h-7zM76 41h16v7H76zM41 55h13v7H41zM58 60h8v8h-8zM70 58h6v12h-6zM80 54h12v6H80zM42 72h7v20h-7zM53 74h13v7H53zM69 78h23v6H69zM58 87h7v5h-7zM78 90h14v2H78z" fill="#1e293b"></path></svg></div>
+<div class="qr-label">SCAN &amp; PAY</div>
+
+</td>
+</tr>
+<tr>
+<td><span class="data-label">Bill Month</span><span class="data-value strong-num">APR-2026</span></td>
+<td><span class="data-label">Location</span><span class="data-value">3424214 - KML94 - 26</span></td>
+<td><span class="data-label">Purpose</span><span class="data-value">Domestic light and fan &lt;100 watt</span></td>
+<td><span class="data-label">Bill Date</span><span class="data-value">06-Apr-2026</span></td>
+<td><span class="data-label">Sanc. Load</span><span class="data-value">0.1 KW</span></td>
+</tr>
+<tr>
+<td><span class="data-label">IVRS</span><span class="data-value strong-num">3241005303</span></td>
+<td colspan="2"><span class="data-label">Name</span><span class="data-value strong-num">KALU SHIVRATAN</span></td><td colspan="2"><span class="data-label">Address</span><span class="data-value">.. DHUDIYA . .</span></td>
+</tr>
+<tr>
+<td><span class="data-label">Due Date</span><span class="data-value strong-num due-date">21-Apr-2026</span></td>
+<td><span class="data-label">Phase</span><span class="data-value strong-num">SINGLE</span></td>
+<td><span class="data-label">Current Read</span><span class="data-value strong-num">2400.00</span></td>
+<td><span class="data-label">Read Date</span><span class="data-value">05-Apr-2026</span></td>
+<td><span class="data-label">Billed Unit</span><span class="data-value strong-num">150.00</span></td>
+</tr>
+<tr>
+<td><span class="fin-label">Current Bill</span><span class="fin-value">401.00</span></td>
+<td><span class="fin-label">Arrear</span><span class="fin-value">6815.00</span></td>
+<td><span class="fin-label">Assessment</span><span class="fin-value">0.00</span></td>
+<td><span class="fin-label">Subsidy</span><span class="fin-value subsidy">540.14</span></td>
+<td><span class="fin-label">Net Payable Amount</span><span class="net-badge">7301.00</span></td>
+</tr>
+<tr>
+<td colspan="6">
+<span class="remark-strip">Remark: For information only: Detailed bill may be downloaded from
+                          <a href="https://mpwzservices.mpwin.co.in/">https://mpwzservices.mpwin.co.in/</a>
+</span>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+<hr class="bill-separator"/>
+</div>
+<div class="bill-block">
+<table class="bill-table">
+<tr>
+<td>
+<table class="bill-header-table">
+<tr>
+<td class="logo-cell"><img alt="" src="data:image/png;base64,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" style="width:25px; height:25px;"/></td>
+<td class="title-cell">
+<div class="company-title">Madhya Pradesh Paschim Kshetra Vidyut Vitran Company Ltd.</div>
+</td>
+</tr>
+</table>
+<table class="body-table">
+<tr>
+<td class="info-cell">
+<table class="details-table">
+<tr>
+<td><span class="data-label">Circle</span><span class="data-value">Indore (O&amp;M)</span></td>
+<td><span class="data-label">Division</span><span class="data-value">indore (o&amp;m)</span></td>
+<td><span class="data-label">Zone</span><span class="data-value">KAMPEL</span></td>
+<td><span class="data-label">Contact</span><span class="data-value">7312923388</span></td>
+<td><span class="data-label">Tariff Code</span><span class="data-value">LV1.1</span></td>
+<td rowspan="5" style="text-align:center; vertical-align:middle;">
+<div class="qr-box"><svg viewbox="0 0 100 100"><rect fill="#fff" height="100" width="100"></rect><path d="M8 8h26v26H8zM14 14v14h14V14zM66 8h26v26H66zM72 14v14h14V14zM8 66h26v26H8zM14 72v14h14V72z" fill="#111827"></path><path d="M43 10h7v7h-7zM54 10h6v13h-6zM42 24h18v6H42zM40 40h7v7h-7zM51 38h8v8h-8zM63 42h7v14h-7zM76 41h16v7H76zM41 55h13v7H41zM58 60h8v8h-8zM70 58h6v12h-6zM80 54h12v6H80zM42 72h7v20h-7zM53 74h13v7H53zM69 78h23v6H69zM58 87h7v5h-7zM78 90h14v2H78z" fill="#1e293b"></path></svg></div>
+<div class="qr-label">SCAN &amp; PAY</div>
+
+</td>
+</tr>
+<tr>
+<td><span class="data-label">Bill Month</span><span class="data-value strong-num">APR-2026</span></td>
+<td><span class="data-label">Location</span><span class="data-value">3424214 - KML94 - 26</span></td>
+<td><span class="data-label">Purpose</span><span class="data-value">Domestic light and fan &lt;100 watt</span></td>
+<td><span class="data-label">Bill Date</span><span class="data-value">06-Apr-2026</span></td>
+<td><span class="data-label">Sanc. Load</span><span class="data-value">0.1 KW</span></td>
+</tr>
+<tr>
+<td><span class="data-label">IVRS</span><span class="data-value strong-num">3241005303</span></td>
+<td colspan="2"><span class="data-label">Name</span><span class="data-value strong-num">KALU SHIVRATAN</span></td><td colspan="2"><span class="data-label">Address</span><span class="data-value">.. DHUDIYA . .</span></td>
+</tr>
+<tr>
+<td><span class="data-label">Due Date</span><span class="data-value strong-num due-date">21-Apr-2026</span></td>
+<td><span class="data-label">Phase</span><span class="data-value strong-num">SINGLE</span></td>
+<td><span class="data-label">Current Read</span><span class="data-value strong-num">2400.00</span></td>
+<td><span class="data-label">Read Date</span><span class="data-value">05-Apr-2026</span></td>
+<td><span class="data-label">Billed Unit</span><span class="data-value strong-num">150.00</span></td>
+</tr>
+<tr>
+<td><span class="fin-label">Current Bill</span><span class="fin-value">401.00</span></td>
+<td><span class="fin-label">Arrear</span><span class="fin-value">6815.00</span></td>
+<td><span class="fin-label">Assessment</span><span class="fin-value">0.00</span></td>
+<td><span class="fin-label">Subsidy</span><span class="fin-value subsidy">540.14</span></td>
+<td><span class="fin-label">Net Payable Amount</span><span class="net-badge">7301.00</span></td>
+</tr>
+<tr>
+<td colspan="6">
+<span class="remark-strip">Remark: For information only: Detailed bill may be downloaded from
+                          <a href="https://mpwzservices.mpwin.co.in/">https://mpwzservices.mpwin.co.in/</a>
+</span>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+<hr class="bill-separator"/>
+</div>
+<div class="bill-block">
+<table class="bill-table">
+<tr>
+<td>
+<table class="bill-header-table">
+<tr>
+<td class="logo-cell"><img alt="" src="data:image/png;base64,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" style="width:25px; height:25px;"/></td>
+<td class="title-cell">
+<div class="company-title">Madhya Pradesh Paschim Kshetra Vidyut Vitran Company Ltd.</div>
+</td>
+</tr>
+</table>
+<table class="body-table">
+<tr>
+<td class="info-cell">
+<table class="details-table">
+<tr>
+<td><span class="data-label">Circle</span><span class="data-value">Indore (O&amp;M)</span></td>
+<td><span class="data-label">Division</span><span class="data-value">indore (o&amp;m)</span></td>
+<td><span class="data-label">Zone</span><span class="data-value">KAMPEL</span></td>
+<td><span class="data-label">Contact</span><span class="data-value">7312923388</span></td>
+<td><span class="data-label">Tariff Code</span><span class="data-value">LV1.1</span></td>
+<td rowspan="5" style="text-align:center; vertical-align:middle;">
+<div class="qr-box"><svg viewbox="0 0 100 100"><rect fill="#fff" height="100" width="100"></rect><path d="M8 8h26v26H8zM14 14v14h14V14zM66 8h26v26H66zM72 14v14h14V14zM8 66h26v26H8zM14 72v14h14V72z" fill="#111827"></path><path d="M43 10h7v7h-7zM54 10h6v13h-6zM42 24h18v6H42zM40 40h7v7h-7zM51 38h8v8h-8zM63 42h7v14h-7zM76 41h16v7H76zM41 55h13v7H41zM58 60h8v8h-8zM70 58h6v12h-6zM80 54h12v6H80zM42 72h7v20h-7zM53 74h13v7H53zM69 78h23v6H69zM58 87h7v5h-7zM78 90h14v2H78z" fill="#1e293b"></path></svg></div>
+<div class="qr-label">SCAN &amp; PAY</div>
+
+</td>
+</tr>
+<tr>
+<td><span class="data-label">Bill Month</span><span class="data-value strong-num">APR-2026</span></td>
+<td><span class="data-label">Location</span><span class="data-value">3424214 - KML94 - 26</span></td>
+<td><span class="data-label">Purpose</span><span class="data-value">Domestic light and fan &lt;100 watt</span></td>
+<td><span class="data-label">Bill Date</span><span class="data-value">06-Apr-2026</span></td>
+<td><span class="data-label">Sanc. Load</span><span class="data-value">0.1 KW</span></td>
+</tr>
+<tr>
+<td><span class="data-label">IVRS</span><span class="data-value strong-num">3241005303</span></td>
+<td colspan="2"><span class="data-label">Name</span><span class="data-value strong-num">KALU SHIVRATAN</span></td><td colspan="2"><span class="data-label">Address</span><span class="data-value">.. DHUDIYA . .</span></td>
+</tr>
+<tr>
+<td><span class="data-label">Due Date</span><span class="data-value strong-num due-date">21-Apr-2026</span></td>
+<td><span class="data-label">Phase</span><span class="data-value strong-num">SINGLE</span></td>
+<td><span class="data-label">Current Read</span><span class="data-value strong-num">2400.00</span></td>
+<td><span class="data-label">Read Date</span><span class="data-value">05-Apr-2026</span></td>
+<td><span class="data-label">Billed Unit</span><span class="data-value strong-num">150.00</span></td>
+</tr>
+<tr>
+<td><span class="fin-label">Current Bill</span><span class="fin-value">401.00</span></td>
+<td><span class="fin-label">Arrear</span><span class="fin-value">6815.00</span></td>
+<td><span class="fin-label">Assessment</span><span class="fin-value">0.00</span></td>
+<td><span class="fin-label">Subsidy</span><span class="fin-value subsidy">540.14</span></td>
+<td><span class="fin-label">Net Payable Amount</span><span class="net-badge">7301.00</span></td>
+</tr>
+<tr>
+<td colspan="6">
+<span class="remark-strip">Remark: For information only: Detailed bill may be downloaded from
+                          <a href="https://mpwzservices.mpwin.co.in/">https://mpwzservices.mpwin.co.in/</a>
+</span>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+<hr class="bill-separator"/>
+</div>
+<div class="bill-block">
+<table class="bill-table">
+<tr>
+<td>
+<table class="bill-header-table">
+<tr>
+<td class="logo-cell"><img alt="" src="data:image/png;base64,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" style="width:25px; height:25px;"/></td>
+<td class="title-cell">
+<div class="company-title">Madhya Pradesh Paschim Kshetra Vidyut Vitran Company Ltd.</div>
+</td>
+</tr>
+</table>
+<table class="body-table">
+<tr>
+<td class="info-cell">
+<table class="details-table">
+<tr>
+<td><span class="data-label">Circle</span><span class="data-value">Indore (O&amp;M)</span></td>
+<td><span class="data-label">Division</span><span class="data-value">indore (o&amp;m)</span></td>
+<td><span class="data-label">Zone</span><span class="data-value">KAMPEL</span></td>
+<td><span class="data-label">Contact</span><span class="data-value">7312923388</span></td>
+<td><span class="data-label">Tariff Code</span><span class="data-value">LV1.1</span></td>
+<td rowspan="5" style="text-align:center; vertical-align:middle;">
+<div class="qr-box"><svg viewbox="0 0 100 100"><rect fill="#fff" height="100" width="100"></rect><path d="M8 8h26v26H8zM14 14v14h14V14zM66 8h26v26H66zM72 14v14h14V14zM8 66h26v26H8zM14 72v14h14V72z" fill="#111827"></path><path d="M43 10h7v7h-7zM54 10h6v13h-6zM42 24h18v6H42zM40 40h7v7h-7zM51 38h8v8h-8zM63 42h7v14h-7zM76 41h16v7H76zM41 55h13v7H41zM58 60h8v8h-8zM70 58h6v12h-6zM80 54h12v6H80zM42 72h7v20h-7zM53 74h13v7H53zM69 78h23v6H69zM58 87h7v5h-7zM78 90h14v2H78z" fill="#1e293b"></path></svg></div>
+<div class="qr-label">SCAN &amp; PAY</div>
+
+</td>
+</tr>
+<tr>
+<td><span class="data-label">Bill Month</span><span class="data-value strong-num">APR-2026</span></td>
+<td><span class="data-label">Location</span><span class="data-value">3424214 - KML94 - 26</span></td>
+<td><span class="data-label">Purpose</span><span class="data-value">Domestic light and fan &lt;100 watt</span></td>
+<td><span class="data-label">Bill Date</span><span class="data-value">06-Apr-2026</span></td>
+<td><span class="data-label">Sanc. Load</span><span class="data-value">0.1 KW</span></td>
+</tr>
+<tr>
+<td><span class="data-label">IVRS</span><span class="data-value strong-num">3241005303</span></td>
+<td colspan="2"><span class="data-label">Name</span><span class="data-value strong-num">KALU SHIVRATAN</span></td><td colspan="2"><span class="data-label">Address</span><span class="data-value">.. DHUDIYA . .</span></td>
+</tr>
+<tr>
+<td><span class="data-label">Due Date</span><span class="data-value strong-num due-date">21-Apr-2026</span></td>
+<td><span class="data-label">Phase</span><span class="data-value strong-num">SINGLE</span></td>
+<td><span class="data-label">Current Read</span><span class="data-value strong-num">2400.00</span></td>
+<td><span class="data-label">Read Date</span><span class="data-value">05-Apr-2026</span></td>
+<td><span class="data-label">Billed Unit</span><span class="data-value strong-num">150.00</span></td>
+</tr>
+<tr>
+<td><span class="fin-label">Current Bill</span><span class="fin-value">401.00</span></td>
+<td><span class="fin-label">Arrear</span><span class="fin-value">6815.00</span></td>
+<td><span class="fin-label">Assessment</span><span class="fin-value">0.00</span></td>
+<td><span class="fin-label">Subsidy</span><span class="fin-value subsidy">540.14</span></td>
+<td><span class="fin-label">Net Payable Amount</span><span class="net-badge">7301.00</span></td>
+</tr>
+<tr>
+<td colspan="6">
+<span class="remark-strip">Remark: For information only: Detailed bill may be downloaded from
+                          <a href="https://mpwzservices.mpwin.co.in/">https://mpwzservices.mpwin.co.in/</a>
+</span>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+<hr class="bill-separator"/>
+</div>
+<div class="bill-block">
+<table class="bill-table">
+<tr>
+<td>
+<table class="bill-header-table">
+<tr>
+<td class="logo-cell"><img alt="" src="data:image/png;base64,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" style="width:25px; height:25px;"/></td>
+<td class="title-cell">
+<div class="company-title">Madhya Pradesh Paschim Kshetra Vidyut Vitran Company Ltd.</div>
+</td>
+</tr>
+</table>
+<table class="body-table">
+<tr>
+<td class="info-cell">
+<table class="details-table">
+<tr>
+<td><span class="data-label">Circle</span><span class="data-value">Indore (O&amp;M)</span></td>
+<td><span class="data-label">Division</span><span class="data-value">indore (o&amp;m)</span></td>
+<td><span class="data-label">Zone</span><span class="data-value">KAMPEL</span></td>
+<td><span class="data-label">Contact</span><span class="data-value">7312923388</span></td>
+<td><span class="data-label">Tariff Code</span><span class="data-value">LV1.1</span></td>
+<td rowspan="5" style="text-align:center; vertical-align:middle;">
+<div class="qr-box"><svg viewbox="0 0 100 100"><rect fill="#fff" height="100" width="100"></rect><path d="M8 8h26v26H8zM14 14v14h14V14zM66 8h26v26H66zM72 14v14h14V14zM8 66h26v26H8zM14 72v14h14V72z" fill="#111827"></path><path d="M43 10h7v7h-7zM54 10h6v13h-6zM42 24h18v6H42zM40 40h7v7h-7zM51 38h8v8h-8zM63 42h7v14h-7zM76 41h16v7H76zM41 55h13v7H41zM58 60h8v8h-8zM70 58h6v12h-6zM80 54h12v6H80zM42 72h7v20h-7zM53 74h13v7H53zM69 78h23v6H69zM58 87h7v5h-7zM78 90h14v2H78z" fill="#1e293b"></path></svg></div>
+<div class="qr-label">SCAN &amp; PAY</div>
+
+</td>
+</tr>
+<tr>
+<td><span class="data-label">Bill Month</span><span class="data-value strong-num">APR-2026</span></td>
+<td><span class="data-label">Location</span><span class="data-value">3424214 - KML94 - 26</span></td>
+<td><span class="data-label">Purpose</span><span class="data-value">Domestic light and fan &lt;100 watt</span></td>
+<td><span class="data-label">Bill Date</span><span class="data-value">06-Apr-2026</span></td>
+<td><span class="data-label">Sanc. Load</span><span class="data-value">0.1 KW</span></td>
+</tr>
+<tr>
+<td><span class="data-label">IVRS</span><span class="data-value strong-num">3241005303</span></td>
+<td colspan="2"><span class="data-label">Name</span><span class="data-value strong-num">KALU SHIVRATAN</span></td><td colspan="2"><span class="data-label">Address</span><span class="data-value">.. DHUDIYA . .</span></td>
+</tr>
+<tr>
+<td><span class="data-label">Due Date</span><span class="data-value strong-num due-date">21-Apr-2026</span></td>
+<td><span class="data-label">Phase</span><span class="data-value strong-num">SINGLE</span></td>
+<td><span class="data-label">Current Read</span><span class="data-value strong-num">2400.00</span></td>
+<td><span class="data-label">Read Date</span><span class="data-value">05-Apr-2026</span></td>
+<td><span class="data-label">Billed Unit</span><span class="data-value strong-num">150.00</span></td>
+</tr>
+<tr>
+<td><span class="fin-label">Current Bill</span><span class="fin-value">401.00</span></td>
+<td><span class="fin-label">Arrear</span><span class="fin-value">6815.00</span></td>
+<td><span class="fin-label">Assessment</span><span class="fin-value">0.00</span></td>
+<td><span class="fin-label">Subsidy</span><span class="fin-value subsidy">540.14</span></td>
+<td><span class="fin-label">Net Payable Amount</span><span class="net-badge">7301.00</span></td>
+</tr>
+<tr>
+<td colspan="6">
+<span class="remark-strip">Remark: For information only: Detailed bill may be downloaded from
+                          <a href="https://mpwzservices.mpwin.co.in/">https://mpwzservices.mpwin.co.in/</a>
+</span>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+<hr class="bill-separator"/>
+</div>
+</div>
+
+</body>
+</html>

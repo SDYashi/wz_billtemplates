@@ -1,11 +1,21 @@
-<!DOCTYPE html>
+import time
+import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+import threading
+
+URL = "https://pdfserv.mpwin.co.in/generate-sync"
+THREADS = 64
+TOTAL_REQUESTS = 10000
+
+PAYLOAD = """<!DOCTYPE html>
 <html lang="en">
 
 <meta charset="UTF-8" />
   <title>WZ Electricity Bill (English)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <style>
-    
+  <style>
     body{
           font-family: "DejaVu Sans", Arial, Helvetica, sans-serif;
           color:#0f172a;
@@ -516,7 +526,7 @@
     <!-- RIGHT SIDE : BILL DETAILS -->
     <td style="padding: 0 !important; width:65%;">
 
-     <table  class="info-strip">
+      <table style="width:100%; border-collapse:collapse; border:1px solid #ccc;">
         
         <!-- Row 1 -->
         <tr>
@@ -637,3 +647,228 @@
 </div>
 </body>
 </html>
+"""
+HEADERS = {
+    "Content-Type": "text/plain"
+}
+
+thread_local = threading.local()
+
+def get_session():
+    if not hasattr(thread_local, "session"):
+        session = requests.Session()
+
+        retries = Retry(
+            total=3,
+            backoff_factor=1,
+            status_forcelist=[500, 502, 503, 504],
+            allowed_methods=["POST"]
+        )
+
+        adapter = HTTPAdapter(
+            pool_connections=THREADS,
+            pool_maxsize=THREADS,
+            max_retries=retries
+        )
+
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+
+        thread_local.session = session
+
+    return thread_local.session
+
+
+def make_request(task_id):
+    start_time = time.perf_counter()
+
+    try:
+        session = get_session()
+
+        response = session.post(
+            URL,
+            headers=HEADERS,
+            data=PAYLOAD,
+            timeout=60
+        )
+
+        elapsed = time.perf_counter() - start_time
+
+        return {
+            "task_id": task_id,
+            "success": 200 <= response.status_code < 300,
+            "status_code": response.status_code,
+            "elapsed": elapsed,
+            "error": None,
+            "response_size": len(response.content or b"")
+        }
+
+    except Exception as e:
+        elapsed = time.perf_counter() - start_time
+
+        return {
+            "task_id": task_id,
+            "success": False,
+            "status_code": "ERROR",
+            "elapsed": elapsed,
+            "error": str(e),
+            "response_size": 0
+        }
+
+
+def percentile(values, percent):
+    if not values:
+        return 0
+
+    values = sorted(values)
+    index = int((len(values) - 1) * percent / 100)
+    return values[index]
+
+
+def print_summary(results, total_elapsed):
+    total = len(results)
+
+    success_results = [r for r in results if r["success"]]
+    failed_results = [r for r in results if not r["success"]]
+
+    success_count = len(success_results)
+    failure_count = len(failed_results)
+
+    success_rate = (success_count / total * 100) if total else 0
+    failure_rate = (failure_count / total * 100) if total else 0
+
+    requests_per_second = total / total_elapsed if total_elapsed > 0 else 0
+
+    all_latencies = [r["elapsed"] for r in results]
+    success_latencies = [r["elapsed"] for r in success_results]
+
+    status_counts = {}
+    error_counts = {}
+
+    total_response_bytes = 0
+
+    for r in results:
+        status_counts[r["status_code"]] = status_counts.get(r["status_code"], 0) + 1
+        total_response_bytes += r["response_size"]
+
+        if r["error"]:
+            error_counts[r["error"]] = error_counts.get(r["error"], 0) + 1
+
+    print("\n" + "=" * 80)
+    print("LOAD TEST FINAL SUMMARY")
+    print("=" * 80)
+
+    print(f"URL                    : {URL}")
+    print(f"Total Requests         : {total}")
+    print(f"Threads                : {THREADS}")
+    print(f"Total Time             : {total_elapsed:.2f} seconds")
+    print(f"Requests / Second      : {requests_per_second:.2f} req/sec")
+
+    print("\nREQUEST RESULT")
+    print("-" * 80)
+    print(f"Success Count          : {success_count}")
+    print(f"Failure Count          : {failure_count}")
+    print(f"Success Rate           : {success_rate:.2f}%")
+    print(f"Failure Rate           : {failure_rate:.2f}%")
+
+    print("\nHTTP STATUS COUNT")
+    print("-" * 80)
+    for status, count in sorted(status_counts.items(), key=lambda x: str(x[0])):
+        print(f"{status:<20}: {count}")
+
+    print("\nLATENCY - ALL REQUESTS")
+    print("-" * 80)
+    print(f"Minimum Latency        : {min(all_latencies):.4f} sec")
+    print(f"Maximum Latency        : {max(all_latencies):.4f} sec")
+    print(f"Average Latency        : {sum(all_latencies) / len(all_latencies):.4f} sec")
+    print(f"P50 Latency            : {percentile(all_latencies, 50):.4f} sec")
+    print(f"P95 Latency            : {percentile(all_latencies, 95):.4f} sec")
+    print(f"P99 Latency            : {percentile(all_latencies, 99):.4f} sec")
+
+    if success_latencies:
+        print("\nLATENCY - SUCCESS REQUESTS ONLY")
+        print("-" * 80)
+        print(f"Minimum Success Latency: {min(success_latencies):.4f} sec")
+        print(f"Maximum Success Latency: {max(success_latencies):.4f} sec")
+        print(f"Average Success Latency: {sum(success_latencies) / len(success_latencies):.4f} sec")
+        print(f"P50 Success Latency    : {percentile(success_latencies, 50):.4f} sec")
+        print(f"P95 Success Latency    : {percentile(success_latencies, 95):.4f} sec")
+        print(f"P99 Success Latency    : {percentile(success_latencies, 99):.4f} sec")
+
+    print("\nRESPONSE SIZE")
+    print("-" * 80)
+    print(f"Total Response Size    : {total_response_bytes / 1024 / 1024:.2f} MB")
+    print(f"Average Response Size  : {(total_response_bytes / total / 1024):.2f} KB")
+
+    if error_counts:
+        print("\nERROR SUMMARY")
+        print("-" * 80)
+        for error, count in sorted(error_counts.items(), key=lambda x: x[1], reverse=True):
+            print(f"{count:<8} {error}")
+
+    if failed_results:
+        print("\nFIRST 20 FAILED REQUESTS")
+        print("-" * 80)
+        for r in failed_results[:20]:
+            print(
+                f"Request #{r['task_id']} | "
+                f"Status: {r['status_code']} | "
+                f"Time: {r['elapsed']:.4f}s | "
+                f"Error: {r['error']}"
+            )
+
+    print("=" * 80)
+
+
+if __name__ == "__main__":
+    print("=" * 80)
+    print("STARTING LOAD TEST")
+    print("=" * 80)
+    print(f"URL             : {URL}")
+    print(f"Threads         : {THREADS}")
+    print(f"Total Requests  : {TOTAL_REQUESTS}")
+    print("=" * 80)
+
+    results = []
+
+    test_start_time = time.perf_counter()
+
+    with ThreadPoolExecutor(max_workers=THREADS) as executor:
+        futures = [
+            executor.submit(make_request, i)
+            for i in range(1, TOTAL_REQUESTS + 1)
+        ]
+
+        completed = 0
+
+        for future in as_completed(futures):
+            result = future.result()
+            results.append(result)
+            completed += 1
+
+            status = result["status_code"]
+            elapsed = result["elapsed"]
+
+            print(
+                f"[{completed}/{TOTAL_REQUESTS}] "
+                f"Request #{result['task_id']} | "
+                f"Status: {status} | "
+                f"Time: {elapsed:.4f}s"
+            )
+
+            if completed % 100 == 0:
+                running_elapsed = time.perf_counter() - test_start_time
+                running_rate = completed / running_elapsed if running_elapsed > 0 else 0
+                running_success = sum(1 for r in results if r["success"])
+                running_failed = completed - running_success
+
+                print(
+                    f"--- Progress: {completed}/{TOTAL_REQUESTS} | "
+                    f"Success: {running_success} | "
+                    f"Failed: {running_failed} | "
+                    f"Rate: {running_rate:.2f} req/sec ---"
+                )
+
+    total_elapsed = time.perf_counter() - test_start_time
+
+    print_summary(results, total_elapsed)
